@@ -2,25 +2,20 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotorra - Master German</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
+        tailwind.config = { darkMode: 'class' }
     </script>
-    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
         :root {
-            --primary: #dc2626; 
-            --primary-hover: #b91c1c; 
-            --success: #10b981; 
+            --primary: #dc2626;
+            --primary-hover: #b91c1c;
+            --success: #10b981;
             --danger: #ef4444;
             --surface: #ffffff;
             --background: #fcfcfc;
@@ -30,8 +25,8 @@
         }
 
         .dark {
-            --primary: #ef4444; 
-            --primary-hover: #dc2626; 
+            --primary: #ef4444;
+            --primary-hover: #dc2626;
             --success: #10b981;
             --danger: #f87171;
             --surface: #0f172a;
@@ -45,8 +40,8 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--background);
             color: var(--text-main);
-            overflow-x: hidden; 
-            min-height: 100dvh; 
+            overflow-x: hidden;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             -webkit-tap-highlight-color: transparent;
@@ -55,7 +50,7 @@
 
         .btn-premium { transition: all 0.2s ease; }
         .btn-premium:active:not(:disabled) { transform: scale(0.98); }
-        
+
         .btn-option {
             background-color: var(--surface);
             border: 1px solid var(--border);
@@ -64,14 +59,14 @@
             transition: all 0.2s ease;
             outline: none;
         }
-        
+
         @media (hover: hover) {
             .btn-option:hover:not(:disabled) {
                 border-color: var(--text-main);
                 background-color: transparent;
             }
         }
-        
+
         .btn-option.correct {
             border-color: var(--success);
             color: var(--success);
@@ -112,7 +107,7 @@
         #feedback-footer.show { transform: translateY(0); }
 
         .premium-logo { width: 60px; height: 60px; margin: 0 auto 1rem auto; }
-        
+
         input[type=range] { -webkit-appearance: none; background: transparent; width: 100%; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 2px; background: var(--border); border-radius: 2px; }
         input[type=range]::-webkit-slider-thumb {
@@ -131,7 +126,7 @@
 <body class="antialiased">
 
     <!-- Theme Toggle -->
-    <button onclick="app.toggleDarkMode()" class="absolute top-5 right-6 p-2 text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors z-50 focus:outline-none">
+    <button id="btn-theme" aria-label="Toggle dark mode" class="absolute top-5 right-6 p-2 text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors z-50 focus:outline-none">
         <i id="theme-icon" class="fas fa-sun text-lg"></i>
     </button>
 
@@ -183,7 +178,7 @@
                 </div>
             </div>
 
-            <button onclick="app.startQuickLesson()" class="w-full btn-premium bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 rounded-lg flex justify-center items-center group transition-colors hover:bg-slate-800 dark:hover:bg-slate-100 shadow-sm">
+            <button id="btn-start" class="w-full btn-premium bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 rounded-lg flex justify-center items-center group transition-colors hover:bg-slate-800 dark:hover:bg-slate-100 shadow-sm">
                 <span class="font-medium tracking-wide">Start Training</span>
             </button>
         </div>
@@ -192,14 +187,14 @@
     <!-- GAME SCREEN -->
     <div id="game-screen" class="hidden flex-grow flex flex-col p-6 max-w-lg mx-auto w-full fade-in">
         <div class="flex items-center justify-between mb-10 pt-2">
-            <button onclick="app.endSession()" class="text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors focus:outline-none">
+            <button id="btn-back" aria-label="End session" class="text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors focus:outline-none">
                 <i class="fas fa-arrow-left"></i>
             </button>
             <div class="progress-container flex-grow mx-6">
                 <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
             </div>
             <div id="heart-count" class="text-slate-400 dark:text-slate-500 text-sm flex items-center shrink-0 transition-colors">
-                <i class="fas fa-heart text-red-500/80 mr-2 text-xs"></i> 
+                <i class="fas fa-heart text-red-500/80 mr-2 text-xs"></i>
                 <span class="font-medium">5</span>
             </div>
         </div>
@@ -208,12 +203,12 @@
             <div class="text-center mb-16">
                 <h2 id="english-word" class="text-4xl md:text-5xl font-light tracking-tight text-slate-900 dark:text-white transition-colors break-words">Word</h2>
             </div>
-            <div id="options-container" class="grid grid-cols-1 gap-4"></div>
+            <div id="options-container" class="grid grid-cols-1 gap-4" role="group" aria-label="Answer options"></div>
         </div>
     </div>
 
     <!-- FEEDBACK FOOTER -->
-    <div id="feedback-footer" class="fixed bottom-0 left-0 w-full z-50">
+    <div id="feedback-footer" class="fixed bottom-0 left-0 w-full z-50" aria-live="polite">
         <div class="max-w-lg mx-auto px-6 py-6 flex items-center justify-between">
             <div class="flex items-center flex-grow">
                 <div id="feedback-icon" class="text-xl mr-4 shrink-0 transition-colors"></div>
@@ -221,7 +216,7 @@
                     <p id="feedback-message" class="text-sm font-medium transition-colors"></p>
                 </div>
             </div>
-            <button id="btn-continue" onclick="app.nextQuestion()" class="btn-premium py-2.5 px-8 rounded-md font-medium text-sm border bg-slate-900 text-white dark:bg-white dark:text-slate-900">
+            <button id="btn-continue" class="btn-premium py-2.5 px-8 rounded-md font-medium text-sm border bg-slate-900 text-white dark:bg-white dark:text-slate-900">
                 Continue
             </button>
         </div>
@@ -244,978 +239,27 @@
         </div>
 
         <div class="flex flex-col gap-3 w-full">
-            <button onclick="app.repeatLesson()" class="w-full btn-premium bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 rounded-lg font-medium transition-colors shadow-sm">
+            <button id="btn-repeat" class="w-full btn-premium bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 rounded-lg font-medium transition-colors shadow-sm">
                 ein bisschen weiter
             </button>
-            <button onclick="app.showHome()" class="w-full btn-premium border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white py-4 rounded-lg font-medium transition-colors">
+            <button id="btn-change-level" class="w-full btn-premium border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white py-4 rounded-lg font-medium transition-colors">
                 Change Level
             </button>
         </div>
     </div>
 
     <!-- QUIT MODAL -->
-    <div id="quit-modal" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[60] flex items-center justify-center p-4 transition-opacity">
+    <div id="quit-modal" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-8 max-w-xs w-full shadow-2xl">
             <h3 class="text-lg font-medium text-slate-900 dark:text-white mb-2">End Session? Really?</h3>
             <p class="text-sm text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">ayayay</p>
             <div class="flex flex-col gap-3">
-                <button onclick="app.confirmEndSession()" class="w-full py-2.5 rounded-md font-medium text-sm text-white bg-red-600 hover:bg-red-700 transition-colors">End Session</button>
-                <button onclick="document.getElementById('quit-modal').classList.add('hidden')" class="w-full py-2.5 rounded-md font-medium text-sm text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">Resume</button>
+                <button id="btn-confirm-end" class="w-full py-2.5 rounded-md font-medium text-sm text-white bg-red-600 hover:bg-red-700 transition-colors">End Session</button>
+                <button id="btn-cancel-end" class="w-full py-2.5 rounded-md font-medium text-sm text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">Resume</button>
             </div>
         </div>
     </div>
 
-    <script>
-        const CEFR_LEVELS = ["A1", "A2.1", "A2.2", "B1.1", "B1.2", "B2"];
-        
-        document.getElementById('level-slider').addEventListener('input', (e) => {
-            document.getElementById('level-display').innerText = CEFR_LEVELS[e.target.value];
-        });
-
-        // 100% NON-COGNATE VOCABULARY DB (Massive Density)
-        const vocabularyDB = {
-            "A1": [
-                {source:"apple",de:"der Apfel"},{source:"water",de:"das Wasser"},{source:"bread",de:"das Brot"},{source:"house",de:"das Haus"},{source:"car",de:"das Auto"},{source:"man",de:"der Mann"},{source:"woman",de:"die Frau"},{source:"child",de:"das Kind"},{source:"dog",de:"der Hund"},{source:"cat",de:"die Katze"},{source:"to eat",de:"essen"},{source:"to drink",de:"trinken"},{source:"beautiful",de:"schön"},{source:"small",de:"klein"},{source:"yes",de:"ja"},{source:"no",de:"nein"},{source:"please",de:"bitte"},{source:"thank you",de:"danke"},{source:"morning",de:"der Morgen"},{source:"day",de:"der Tag"},{source:"night",de:"die Nacht"},{source:"friend",de:"der Freund"},{source:"family",de:"die Familie"},{source:"mother",de:"die Mutter"},{source:"father",de:"der Vater"},{source:"book",de:"das Buch"},{source:"table",de:"der Tisch"},{source:"chair",de:"der Stuhl"},{source:"to sleep",de:"schlafen"},{source:"to go",de:"gehen"},{source:"to come",de:"kommen"},{source:"to say",de:"sagen"},{source:"to make",de:"machen"},{source:"new",de:"neu"},{source:"old",de:"alt"},{source:"today",de:"heute"},{source:"tomorrow",de:"morgen"},{source:"red",de:"rot"},{source:"blue",de:"blau"},{source:"green",de:"grün"},{source:"white",de:"weiß"},{source:"black",de:"schwarz"},{source:"warm",de:"warm"},{source:"cold",de:"kalt"},{source:"to speak",de:"sprechen"},{source:"to read",de:"lesen"},{source:"to hear",de:"hören"},{source:"one",de:"eins"},{source:"two",de:"zwei"},{source:"three",de:"drei"},{source:"ten",de:"zehn"},{source:"light",de:"das Licht"},{source:"time",de:"die Zeit"},{source:"name",de:"der Name"},{source:"street",de:"die Straße"},{source:"city",de:"die Stadt"},{source:"fruit",de:"das Obst"},{source:"vegetable",de:"das Gemüse"},{source:"room",de:"das Zimmer"},{source:"door",de:"die Tür"},{source:"window",de:"das Fenster"},{source:"sun",de:"die Sonne"},{source:"moon",de:"der Mond"},{source:"star",de:"der Stern"},{source:"earth",de:"die Erde"},{source:"sea",de:"das Meer"},{source:"river",de:"der Fluss"},{source:"bird",de:"der Vogel"},{source:"fish",de:"der Fisch"},{source:"tree",de:"der Baum"},{source:"flower",de:"die Blume"},{source:"grass",de:"das Gras"},{source:"mountain",de:"der Berg"},{source:"big",de:"groß"},{source:"fast",de:"schnell"},{source:"slow",de:"langsam"},{source:"hot",de:"heiß"},{source:"to see",de:"sehen"},{source:"to buy",de:"kaufen"},{source:"money",de:"das Geld"},{source:"price",de:"der Preis"},{source:"store",de:"der Laden"},{source:"school",de:"die Schule"},{source:"teacher",de:"der Lehrer"},{source:"student",de:"der Schüler"},{source:"paper",de:"das Papier"},{source:"pen",de:"der Stift"},{source:"key",de:"der Schlüssel"},{source:"bag",de:"die Tasche"},{source:"clothes",de:"die Kleidung"},{source:"shirt",de:"das Hemd"},{source:"shoes",de:"die Schuhe"},{source:"hair",de:"das Haar"},{source:"eye",de:"das Auge"},{source:"mouth",de:"der Mund"},{source:"hand",de:"die Hand"},{source:"foot",de:"der Fuß"},{source:"head",de:"der Kopf"},{source:"back",de:"der Rücken"},{source:"stomach",de:"der Bauch"},{source:"heart",de:"das Herz"},{source:"work",de:"die Arbeit"},{source:"to search",de:"suchen"},{source:"to find",de:"finden"},{source:"to live",de:"wohnen"},{source:"language",de:"die Sprache"},{source:"country",de:"das Land"},{source:"left",de:"links"},{source:"right",de:"rechts"},{source:"straight",de:"geradeaus"},{source:"here",de:"hier"},{source:"there",de:"dort"},{source:"up",de:"oben"},{source:"down",de:"unten"},{source:"early",de:"früh"},{source:"late",de:"spät"},{source:"always",de:"immer"},{source:"never",de:"nie"},{source:"often",de:"oft"},{source:"sometimes",de:"manchmal"},{source:"help",de:"die Hilfe"},{source:"to help",de:"helfen"},{source:"to understand",de:"verstehen"},{source:"to ask",de:"fragen"},{source:"answer",de:"die Antwort"},{source:"world",de:"die Welt"},{source:"sky",de:"der Himmel"},{source:"fire",de:"das Feuer"},{source:"wind",de:"der Wind"},{source:"cloud",de:"die Wolke"},{source:"rain",de:"der Regen"},{source:"snow",de:"der Schnee"},{source:"ice",de:"das Eis"},{source:"winter",de:"der Winter"},{source:"summer",de:"der Sommer"},{source:"happy",de:"glücklich"},{source:"sad",de:"traurig"},{source:"wall",de:"die Wand"},{source:"floor",de:"der Boden"},{source:"roof",de:"das Dach"},{source:"garden",de:"der Garten"},{source:"kitchen",de:"die Küche"},{source:"bath",de:"das Bad"},{source:"mirror",de:"der Spiegel"},{source:"bed",de:"das Bett"},{source:"clock",de:"die Uhr"},{source:"bicycle",de:"das Fahrrad"},{source:"airplane",de:"das Flugzeug"},{source:"boat",de:"das Boot"},{source:"train",de:"der Zug"},{source:"bridge",de:"die Brücke"},{source:"lake",de:"der See"},{source:"island",de:"die Insel"},{source:"beach",de:"der Strand"},{source:"sand",de:"der Sand"},{source:"stone",de:"der Stein"},{source:"hill",de:"der Hügel"},{source:"valley",de:"das Tal"},{source:"church",de:"die Kirche"},{source:"castle",de:"das Schloss"},{source:"tower",de:"der Turm"},{source:"post office",de:"die Post"},{source:"physician",de:"der Arzt"},{source:"pharmacy",de:"die Apotheke"},{source:"hospital",de:"das Krankenhaus"},{source:"bakery",de:"die Bäckerei"},{source:"market",de:"der Markt"},{source:"boss",de:"der Chef"},{source:"colleague",de:"der Kollege"},{source:"client",de:"der Kunde"},{source:"office",de:"das Büro"},{source:"meeting",de:"die Besprechung"},{source:"goal",de:"das Ziel"},{source:"way",de:"der Weg"},{source:"middle",de:"die Mitte"},{source:"part",de:"der Teil"},{source:"page",de:"die Seite"},{source:"line",de:"die Zeile"},{source:"word",de:"das Wort"},{source:"sentence",de:"der Satz"},{source:"letter",de:"der Brief"},{source:"message",de:"die Nachricht"},{source:"hat",de:"der Hut"},{source:"glasses",de:"die Brille"},{source:"umbrella",de:"der Regenschirm"},{source:"wallet",de:"die Geldbörse"},{source:"pocket",de:"die Tasche"},{source:"soap",de:"die Seife"},{source:"towel",de:"das Handtuch"},{source:"comb",de:"der Kamm"},{source:"brush",de:"die Bürste"},{source:"scissors",de:"die Schere"},{source:"thread",de:"der Faden"},{source:"button",de:"der Knopf"},{source:"zipper",de:"der Reißverschluss"},{source:"string",de:"die Schnur"},{source:"hammer",de:"der Hammer"},{source:"nail",de:"der Nagel"},{source:"screw",de:"die Schraube"},{source:"saw",de:"die Säge"},{source:"ladder",de:"die Leiter"},{source:"bucket",de:"der Eimer"},{source:"broom",de:"der Besen"},{source:"sponge",de:"der Schwamm"}
-            ],
-            "A2.1": [
-                {source:"experience",de:"die Erfahrung"},{source:"relative", de:"der Verwandte"}, {source:"grandson", de:"der Enkel"}, {source:"granddaughter", de:"die Enkelin"}, 
-{source:"nephew", de:"der Neffe"}, {source:"niece", de:"die Nichte"}, {source:"mother-in-law", de:"die Schwiegermutter"}, 
-{source:"father-in-law", de:"der Schwiegervater"}, {source:"relationship", de:"die Beziehung"}, {source:"upbringing", de:"die Erziehung"}, 
-{source:"separation", de:"die Trennung"}, {source:"wedding", de:"die Hochzeit"}, {source:"engagement", de:"die Verlobung"}, 
-{source:"to grow up", de:"aufwachsen"}, {source:"to look after", de:"betreuen"}, {source:"moving", de:"der Umzug"}, 
-{source:"tenancy agreement", de:"der Mietvertrag"}, {source:"landlord", de:"der Vermieter"}, {source:"tenant", de:"der Mieter"}, 
-{source:"deposit", de:"die Kaution"}, {source:"additional costs", de:"die Nebenkosten"}, {source:"floor area", de:"die Wohnfläche"}, 
-{source:"floor (level)", de:"das Stockwerk"}, {source:"ground floor", de:"das Erdgeschoss"}, {source:"basement", de:"der Keller"}, 
-{source:"attic", de:"der Dachboden"}, {source:"neighborhood", de:"die Nachbarschaft"}, {source:"to renovate", de:"renovieren"}, 
-{source:"to furnish", de:"einrichten"}, {source:"curtain", de:"der Vorhang"}, {source:"carpet", de:"der Teppich"}, 
-{source:"shelf", de:"das Regal"}, {source:"socket", de:"die Steckdose"}, {source:"household", de:"der Haushalt"}, 
-{source:"mountain range", de:"das Gebirge"}, {source:"peak", de:"der Gipfel"}, {source:"shore", de:"das Ufer"}, 
-{source:"meadow", de:"die Wiese"}, {source:"valley", de:"das Tal"}, {source:"waterfall", de:"der Wasserfall"}, 
-{source:"coast", de:"die Küste"}, {source:"island", de:"die Insel"}, {source:"forest edge", de:"der Waldrand"}, 
-{source:"sunrise", de:"der Sonnenaufgang"}, {source:"shade", de:"der Schatten"}, {source:"environment", de:"die Umwelt"}, 
-{source:"thunderstorm", de:"das Gewitter"}, {source:"fog", de:"der Nebel"}, {source:"frost", de:"der Frost"}, 
-{source:"heat", de:"die Hitze"}, {source:"flour", de:"das Mehl"}, {source:"sugar", de:"der Zucker"}, 
-{source:"vinegar", de:"der Essig"}, {source:"oil", de:"das Öl"}, {source:"dough", de:"der Teig"}, 
-{source:"spice", de:"das Gewürz"}, {source:"ingredient", de:"die Zutat"}, {source:"can (tin)", de:"die Dose"}, 
-{source:"box", de:"die Schachtel"}, {source:"package", de:"die Packung"}, {source:"weight", de:"das Gewicht"}, 
-{source:"low-fat", de:"fettarm"}, {source:"durable", de:"haltbar"}, {source:"fresh", de:"frisch"}, 
-{source:"to cook", de:"kochen"}, {source:"to bake", de:"backen"}, {source:"to fry", de:"braten"}, 
-{source:"to peel", de:"schälen"}, {source:"to cut", de:"schneiden"}, {source:"to wash up", de:"abwaschen"}, 
-{source:"sightseeing", de:"die Besichtigung"}, {source:"guidebook", de:"der Reiseführer"}, {source:"accommodation", de:"die Unterkunft"}, 
-{source:"full board", de:"die Vollpension"}, {source:"half board", de:"die Halbpension"}, {source:"souvenir", de:"das Mitbringsel"}, 
-{source:"journey", de:"die Fahrt"}, {source:"departure", de:"die Abreise"}, {source:"arrival", de:"die Ankunft"}, 
-{source:"destination", de:"das Reiseziel"}, {source:"to hike", de:"wandern"}, {source:"to climb", de:"klettern"}, 
-{source:"team", de:"die Mannschaft"}, {source:"competition", de:"der Wettkampf"}, {source:"referee", de:"der Schiedsrichter"}, 
-{source:"victory", de:"der Sieg"}, {source:"defeat", de:"die Niederlage"}, {source:"training", de:"das Training"}, 
-{source:"club", de:"der Verein"}, {source:"injury", de:"die Verletzung"}, {source:"bandage", de:"der Verband"}, 
-{source:"plaster (band-aid)", de:"das Pflaster"}, {source:"emergency room", de:"die Notaufnahme"}, {source:"insurance", de:"die Versicherung"}, 
-{source:"sick note", de:"die Krankschreibung"}, {source:"to recover", de:"sich erholen"}, {source:"application", de:"die Bewerbung"}, 
-{source:"resume", de:"der Lebenslauf"}, {source:"salary", de:"das Gehalt"}, {source:"overtime", de:"die Überstunden"}, 
-{source:"flexitime", de:"die Gleitzeit"}, {source:"part-time", de:"die Teilzeit"}, {source:"full-time", de:"die Vollzeit"}, 
-{source:"to hire", de:"einstellen"}, {source:"to resign", de:"kündigen"}, {source:"to earn", de:"verdienen"}, 
-{source:"workday", de:"der Werktag"}, {source:"starter", de:"die Vorspeise"}, {source:"main course", de:"die Hauptspeise"}, 
-{source:"dessert", de:"der Nachtisch"}, {source:"side dish", de:"die Beilage"}, {source:"spicy", de:"scharf"}, 
-{source:"tasty", de:"lecker"}, {source:"savory", de:"würzig"}, {source:"bill", de:"die Rechnung"}, 
-{source:"tip", de:"das Trinkgeld"}, {source:"tool", de:"das Werkzeug"}, {source:"scissors", de:"die Schere"}, 
-{source:"thread", de:"der Faden"}, {source:"tape", de:"das Klebeband"}, {source:"rechargeable battery", de:"der Akku"}, 
-{source:"charging cable", de:"das Ladekabel"}, {source:"spoon", de:"der Löffel"}, {source:"fork", de:"die Gabel"}, 
-{source:"knife", de:"das Messer"}, {source:"cup", de:"die Tasse"}, {source:"plate", de:"der Teller"}, 
-{source:"bowl", de:"die Schüssel"}, {source:"towel", de:"das Handtuch"}, {source:"comb", de:"der Kamm"}, 
-{source:"brush", de:"die Bürste"}, {source:"soap", de:"die Seife"}, {source:"toothbrush", de:"die Zahnbürste"}, 
-{source:"mirror", de:"der Spiegel"}, {source:"key", de:"der Schlüssel"}, {source:"doorbell", de:"die Klingel"}, 
-{source:"light switch", de:"der Lichtschalter"}, {source:"drawer", de:"die Schublade"}, {source:"wallet", de:"die Geldbörse"}, 
-{source:"briefcase", de:"die Aktentasche"}, {source:"pocket", de:"die Hosentasche"}, {source:"hat", de:"der Hut"}, 
-{source:"umbrella", de:"der Regenschirm"}, {source:"gloves", de:"die Handschuhe"}, {source:"scarf", de:"der Schal"}, 
-{source:"belt", de:"der Gürtel"}, {source:"button", de:"der Knopf"}, {source:"zipper", de:"der Reißverschluss"}, 
-{source:"to look for", de:"suchen"}, {source:"to find", de:"finden"}, {source:"to lose", de:"verlieren"}, 
-{source:"to keep", de:"behalten"}, {source:"to buy", de:"kaufen"}, {source:"to sell", de:"verkaufen"}, 
-{source:"to try", de:"versuchen"}, {source:"to succeed", de:"gelingen"}, {source:"to fail", de:"scheitern"}, 
-{source:"to help", de:"helfen"}, {source:"to wait", de:"warten"}, {source:"to stop", de:"aufhören"}, 
-{source:"to begin", de:"anfangen"}, {source:"to finish", de:"beenden"}, {source:"to use", de:"benutzen"}, 
-{source:"to show", de:"zeigen"}, {source:"to open", de:"öffnen"}, {source:"to close", de:"schließen"}, 
-{source:"to give", de:"geben"}, {source:"to take", de:"nehmen"}, {source:"to bring", de:"bringen"}, 
-{source:"to fetch", de:"holen"}, {source:"to tell", de:"erzählen"}, {source:"to explain", de:"erklären"}, 
-{source:"to answer", de:"antworten"}, {source:"to ask", de:"fragen"}, {source:"to request", de:"bitten"}, 
-{source:"to call (phone)", de:"anrufen"}, {source:"to write", de:"schreiben"}, {source:"to read", de:"lesen"}, 
-{source:"to speak", de:"sprechen"}, {source:"to say", de:"sagen"}, {source:"to hear", de:"hören"}, 
-{source:"to see", de:"sehen"}, {source:"to think", de:"denken"}, {source:"to know", de:"wissen"}, 
-{source:"to believe", de:"glauben"}, {source:"to hope", de:"hoffen"}, {source:"to fear", de:"fürchten"}, 
-{source:"to feel", de:"fühlen"}, {source:"to love", de:"lieben"}, {source:"to hate", de:"hassen"}, 
-{source:"to enjoy", de:"genießen"}, {source:"to want", de:"wollen"}, {source:"to must", de:"müssen"}, 
-{source:"to should", de:"sollen"}, {source:"to can", de:"können"}, {source:"to may", de:"dürfen"}, 
-{source:"to like", de:"mögen"}, {source:"to become", de:"werden"}, {source:"to work", de:"arbeiten"}, 
-{source:"to live (reside)", de:"wohnen"}, {source:"to live", de:"leben"}, {source:"to stay", de:"bleiben"}, 
-{source:"to go", de:"gehen"}, {source:"to come", de:"kommen"}, {source:"to drive", de:"fahren"}, 
-{source:"to run", de:"laufen"}, {source:"to walk", de:"gehen"}, {source:"to travel", de:"reisen"}, 
-{source:"to fly", de:"fliegen"}, {source:"to eat", de:"essen"}, {source:"to drink", de:"trinken"}, 
-{source:"to sleep", de:"schlafen"}, {source:"to wake up", de:"aufwachen"}, {source:"to wash", de:"waschen"}, 
-{source:"to clean", de:"putzen"}, {source:"to pay", de:"bezahlen"}, {source:"to count", de:"zählen"}, 
-{source:"to share", de:"teilen"}, {source:"to invite", de:"einladen"}, {source:"to celebrate", de:"feiern"}, 
-{source:"to visit", de:"besuchen"}, {source:"to meet", de:"treffen"}, {source:"to marry", de:"heiraten"}, 
-{source:"to get to know", de:"kennenlernen"}, {source:"to agree", de:"zustimmen"}, {source:"to disagree", de:"widersprechen"}, 
-{source:"to forbid", de:"verbieten"}, {source:"to permit", de:"erlauben"}, {source:"to warn", de:"warnen"}, 
-{source:"to promise", de:"versprechen"}, {source:"to lie", de:"lügen"}, {source:"to forget", de:"vergessen"}, 
-{source:"to remember", de:"erinnern"}, {source:"to understand", de:"verstehen"}, {source:"to mean", de:"bedeuten"}, 
-{source:"to happen", de:"passieren"}, {source:"to change", de:"ändern"}, {source:"to improve", de:"verbessern"}, 
-{source:"to repeat", de:"wiederholen"}, {source:"to follow", de:"folgen"}, {source:"to belong to", de:"gehören"}, 
-{source:"to serve", de:"dienen"}, {source:"to build", de:"bauen"}, {source:"to pull", de:"ziehen"}, 
-{source:"to push", de:"drücken"}, {source:"to carry", de:"tragen"}, {source:"to lift", de:"heben"}, 
-{source:"to throw", de:"werfen"}, {source:"to catch", de:"fangen"}, {source:"to hit", de:"schlagen"}, 
-{source:"to break", de:"brechen"}, {source:"to fix", de:"reparieren"}, {source:"to use", de:"benutzen"}, 
-{source:"to wear", de:"tragen"}, {source:"to look", de:"schauen"}, {source:"to listen", de:"zuhören"}, 
-{source:"to smell", de:"riechen"}, {source:"to taste", de:"schmecken"}, {source:"to touch", de:"berühren"}, 
-{source:"to breathe", de:"atmen"}, {source:"to cough", de:"husten"}, {source:"to bleed", de:"bluten"}, 
-{source:"to hurt", de:"weh tun"}, {source:"to heal", de:"heilen"}, {source:"to help", de:"beistehen"}, 
-{source:"to protect", de:"schützen"}, {source:"to save", de:"retten"}, {source:"to plan", de:"planen"}, 
-{source:"to prepare", de:"vorbereiten"}, {source:"to decide", de:"entscheiden"}, {source:"to choose", de:"auswählen"}, 
-{source:"to advise", de:"beraten"}, {source:"to recommend", de:"empfehlen"}, {source:"to suggest", de:"vorschlagen"}, 
-{source:"to guess", de:"raten"}, {source:"to wonder", de:"staunen"}, {source:"to doubt", de:"zweifeln"}, 
-{source:"to expect", de:"erwarten"}, {source:"to hope", de:"hoffen"}, {source:"to fear", de:"fürchten"}, 
-{source:"to love", de:"lieben"}, {source:"to hate", de:"hassen"}, {source:"to smile", de:"lächeln"}, 
-{source:"to laugh", de:"lachen"}, {source:"to cry", de:"weinen"}, {source:"to shout", de:"schreien"}, 
-{source:"to whisper", de:"flüstern"}, {source:"to wait", de:"warten"}, {source:"to stay", de:"bleiben"}, 
-{source:"to arrive", de:"ankommen"}, {source:"to leave", de:"verlassen"}, {source:"to return", de:"zurückkehren"}, 
-{source:"to start", de:"anfangen"}, {source:"to finish", de:"aufhören"}, {source:"to continue", de:"fortfahren"}, 
-{source:"to repeat", de:"wiederholen"}, {source:"to move", de:"bewegen"}, {source:"to sit", de:"sitzen"}, 
-{source:"to stand", de:"stehen"}, {source:"to lie", de:"liegen"}, {source:"to hang", de:"hängen"}, 
-{source:"to place", de:"stellen"}, {source:"to lay", de:"legen"}, {source:"to sit down", de:"sich setzen"}, 
-{source:"to stand up", de:"aufstehen"}, {source:"to wake up", de:"aufwachen"}, {source:"to fall asleep", de:"einschlafen"}, 
-{source:"to dream", de:"träumen"}, {source:"to wash", de:"waschen"}, {source:"to shower", de:"duschen"}, 
-{source:"to bathe", de:"baden"}, {source:"to dress", de:"anziehen"}, {source:"to undress", de:"ausziehen"}, 
-{source:"to comb", de:"kämmen"}, {source:"to shave", de:"rasieren"}, {source:"to brush", de:"bürsten"}, 
-{source:"to paint", de:"malen"}, {source:"to draw", de:"zeichnen"}, {source:"to write", de:"schreiben"}, 
-{source:"to read", de:"lesen"}, {source:"to listen", de:"lauschen"}, {source:"to sing", de:"singen"}, 
-{source:"to dance", de:"tanzen"}, {source:"to play", de:"spielen"}, {source:"to win", de:"gewinnen"}, 
-{source:"to lose", de:"verlieren"}, {source:"to fight", de:"kämpfen"}, {source:"to win", de:"siegen"}, 
-{source:"to lose", de:"verlieren"}, {source:"to work", de:"schuften"}, {source:"to earn", de:"verdienen"}, 
-{source:"to spend", de:"ausgeben"}, {source:"to save", de:"sparen"}, {source:"to pay", de:"zahlen"}, 
-{source:"to buy", de:"kaufen"}, {source:"to sell", de:"verkaufen"}, {source:"to order", de:"bestellen"}, 
-{source:"to pay", de:"begleichen"}, {source:"to cost", de:"kosten"}, {source:"to book", de:"buchen"}, 
-{source:"to cancel", de:"absagen"}, {source:"to register", de:"anmelden"}, {source:"to log out", de:"abmelden"}, 
-{source:"to send", de:"schicken"}, {source:"to receive", de:"erhalten"}, {source:"to wait", de:"harren"}, 
-{source:"to rush", de:"eilen"}, {source:"to drive", de:"steuern"}, {source:"to fly", de:"schweben"}, 
-{source:"to swim", de:"tauchen"}, {source:"to run", de:"flitzen"}, {source:"to walk", de:"schreiten"}, 
-{source:"to climb", de:"klimmen"}, {source:"to slide", de:"rutschen"}, {source:"to wander", de:"wandern"}, 
-{source:"to hide", de:"verbergen"}, {source:"to search", de:"forschen"}, {source:"to discover", de:"entdecken"}, 
-{source:"to invent", de:"erfinden"}, {source:"to create", de:"erschaffen"}, {source:"to build", de:"errichten"}, 
-{source:"to destroy", de:"vernichten"}, {source:"to change", de:"wandeln"}, {source:"to stay", de:"verweilen"}, 
-{source:"to wait", de:"harren"}, {source:"to begin", de:"beginnen"}, {source:"to finish", de:"vollenden"}, 
-{source:"to repeat", de:"wiederholen"}, {source:"to count", de:"zählen"}, {source:"to measure", de:"messen"}, 
-{source:"to weigh", de:"wiegen"}, {source:"to check", de:"prüfen"}, {source:"to test", de:"erproben"}, 
-{source:"to use", de:"nutzen"}, {source:"to wear", de:"tragen"}, {source:"to own", de:"besitzen"}, 
-{source:"to share", de:"teilen"}, {source:"to lend", de:"leihen"}, {source:"to borrow", de:"borgen"}, 
-{source:"to rent", de:"mieten"}, {source:"to lease", de:"vermieten"}, {source:"to pay", de:"entrichten"}, 
-{source:"to trade", de:"handeln"}, {source:"to offer", de:"bieten"}, {source:"to suggest", de:"anraten"}, 
-{source:"to recommend", de:"empfehlen"}, {source:"to warn", de:"warnen"}, {source:"to complain", de:"beklagen"}, 
-{source:"to observe", de:"betrachten"}, {source:"to wonder", de:"staunen"}, {source:"to doubt", de:"argwöhnen"}, 
-{source:"to suppose", de:"vermuten"}, {source:"to know", de:"kennen"}, {source:"to know (info)", de:"wissen"}, 
-{source:"to think", de:"nachdenken"}, {source:"to consider", de:"bedenken"}, {source:"to notice", de:"bemerken"}, 
-{source:"to understand", de:"begreifen"}, {source:"to explain", de:"darlegen"}, {source:"to describe", de:"schildern"}, 
-{source:"to report", de:"berichten"}, {source:"to talk", de:"plaudern"}, {source:"to discuss", de:"erörtern"}, 
-{source:"to argue", de:"streiten"}, {source:"to reconcile", de:"versöhnen"}, {source:"to promise", de:"zusagen"}, 
-{source:"to lie", de:"schwindeln"}, {source:"to cheat", de:"betrügen"}, {source:"to steal", de:"entwenden"}, 
-{source:"to help", de:"beistehen"}, {source:"to serve", de:"dienen"}, {source:"to protect", de:"bewahren"}, 
-{source:"to save", de:"retten"}, {source:"to thank", de:"verdanken"}, {source:"to apologize", de:"entschuldigen"}, 
-{source:"to forgive", de:"verzeihen"}, {source:"to regret", de:"bereuen"}, {source:"to enjoy", de:"ergötzen"}, 
-{source:"to prefer", de:"bevorzugen"}, {source:"to fear", de:"fürchten"}, {source:"to worry", de:"sorgen"}, 
-{source:"to calm", de:"beruhigen"}, {source:"to excite", de:"erregen"}, {source:"to surprise", de:"überraschen"}, 
-{source:"to confuse", de:"verwirren"}, {source:"to clarify", de:"klären"}, {source:"to solve", de:"bewältigen"}, 
-{source:"to manage", de:"schaffen"}, {source:"to fail", de:"versagen"}, {source:"to try", de:"bemühen"}, 
-{source:"to dare", de:"wagen"}, {source:"to avoid", de:"meiden"}, {source:"to seek", de:"streben"}, 
-{source:"to search", de:"forschen"}, {source:"to discover", de:"enthüllen"}, {source:"to invent", de:"erfinden"}, 
-{source:"to create", de:"erschaffen"}, {source:"to produce", de:"erzeugen"}, {source:"to shape", de:"gestalten"}, 
-{source:"to draw", de:"entwerfen"}, {source:"to paint", de:"malen"}, {source:"to sing", de:"trällern"}, 
-{source:"to dance", de:"tanzen"}, {source:"to play", de:"musizieren"}, {source:"to write", de:"verfassen"}, 
-{source:"to read", de:"vorlesen"}, {source:"to listen", de:"lauschen"}, {source:"to watch", de:"betrachten"}, 
-{source:"to smell", de:"schnuppern"}, {source:"to taste", de:"kosten"}, {source:"to feel", de:"spüren"}, 
-{source:"to touch", de:"tasten"}, {source:"to hold", de:"greifen"}, {source:"to carry", de:"schleppen"}, 
-{source:"to push", de:"stoßen"}, {source:"to pull", de:"zerren"}, {source:"to lift", de:"hieven"}, 
-{source:"to lower", de:"senken"}, {source:"to rise", de:"steigen"}, {source:"to fall", de:"stürzen"}, 
-{source:"to fly", de:"schweben"}, {source:"to sail", de:"segeln"}, {source:"to swim", de:"tauchen"}, 
-{source:"to run", de:"flitzen"}, {source:"to walk", de:"schreiten"}, {source:"to climb", de:"klimmen"}, 
-{source:"to slide", de:"rutschen"}, {source:"to sit", de:"verweilen"}, {source:"to stand", de:"verharren"}, 
-{source:"to lie", de:"ruhen"}, {source:"to sleep", de:"schlummern"}, {source:"to wake", de:"erwachen"}, 
-{source:"to wash", de:"säubern"}, {source:"to bathe", de:"baden"}, {source:"to dress", de:"kleiden"}, 
-{source:"to undress", de:"entkleiden"}, {source:"to comb", de:"kämmen"}, {source:"to shave", de:"rasieren"}, 
-{source:"to cook", de:"speisen"}, {source:"to eat", de:"verzehren"}, {source:"to drink", de:"schlürfen"}, 
-{source:"to rest", de:"ausruhen"}, {source:"to ponder", de:"grübeln"}, {source:"to imagine", de:"vorstellen"}, 
-{source:"to remember", de:"entsinnen"}, {source:"to forget", de:"entfallen"}, {source:"to believe", de:"meinen"}, 
-{source:"to know", de:"erfahren"}, {source:"to understand", de:"einsehen"}, {source:"to learn", de:"aneignen"}, 
-{source:"to teach", de:"vermitteln"}, {source:"to guide", de:"führen"}, {source:"to help", de:"stützen"}, 
-{source:"to encourage", de:"ermutigen"}, {source:"to comfort", de:"trösten"}, {source:"to love", de:"verehren"}, 
-{source:"to admire", de:"bewundern"}, {source:"to praise", de:"loben"}, {source:"to blame", de:"tadeln"}, 
-{source:"to judge", de:"richten"}, {source:"to forgive", de:"begnadigen"}, {source:"to punish", de:"bestrafen"},{source:"to answer",de:"antworten"},{source:"to happen",de:"passieren"},{source:"to believe",de:"glauben"},{source:"important",de:"wichtig"},{source:"difficult",de:"schwer"},{source:"easy",de:"einfach"},{source:"mistake",de:"der Fehler"},{source:"question",de:"die Frage"},{source:"to explain",de:"erklären"},{source:"perhaps",de:"vielleicht"},{source:"probably",de:"wahrscheinlich"},{source:"apartment",de:"die Wohnung"},{source:"rent",de:"die Miete"},{source:"to move in",de:"einziehen"},{source:"to move out",de:"ausziehen"},{source:"neighbor",de:"der Nachbar"},{source:"body",de:"der Körper"},{source:"pain",de:"der Schmerz"},{source:"sick",de:"krank"},{source:"healthy",de:"gesund"},{source:"medicine",de:"die Medizin"},{source:"appointment",de:"der Termin"},{source:"to invite",de:"einladen"},{source:"celebration",de:"die Feier"},{source:"gift",de:"das Geschenk"},{source:"to thank",de:"danken"},{source:"to visit",de:"besuchen"},{source:"fun",de:"der Spaß"},{source:"boring",de:"langweilig"},{source:"because",de:"weil"},{source:"although",de:"obwohl"},{source:"if",de:"wenn"},{source:"before",de:"bevor"},{source:"after",de:"nachdem"},{source:"since",de:"seit"},{source:"until",de:"bis"},{source:"about",de:"über"},{source:"with",de:"mit"},{source:"without",de:"ohne"},{source:"against",de:"gegen"},{source:"between",de:"zwischen"},{source:"behind",de:"hinter"},{source:"under",de:"unter"},{source:"next to",de:"neben"},{source:"to start",de:"anfangen"},{source:"to end",de:"beenden"},{source:"to try",de:"versuchen"},{source:"to succeed",de:"erfolgreich sein"},{source:"to fail",de:"scheitern"},{source:"to forget",de:"vergessen"},{source:"to remember",de:"erinnern"},{source:"to plan",de:"planen"},{source:"to organize",de:"organisieren"},{source:"to prepare",de:"vorbereiten"},{source:"to lose",de:"verlieren"},{source:"to win",de:"gewinnen"},{source:"to change",de:"ändern"},{source:"to decide",de:"entscheiden"},{source:"to hope",de:"hoffen"},{source:"to fear",de:"fürchten"},{source:"to dream",de:"träumen"},{source:"to wish",de:"wünschen"},{source:"nature",de:"die Natur"},{source:"ocean",de:"der Ozean"},{source:"insect",de:"das Insekt"},{source:"environment",de:"die Umwelt"},{source:"weather",de:"das Wetter"},{source:"storm",de:"der Sturm"},{source:"spring",de:"der Frühling"},{source:"autumn",de:"der Herbst"},{source:"economy",de:"die Wirtschaft"},{source:"business",de:"das Geschäft"},{source:"company",de:"die Firma"},{source:"cost",de:"die Kosten"},{source:"value",de:"der Wert"},{source:"profit",de:"der Gewinn"},{source:"loss",de:"der Verlust"},{source:"tax",de:"die Steuer"},{source:"account",de:"das Konto"},{source:"cash",de:"das Bargeld"},{source:"receipt",de:"die Quittung"},{source:"sale",de:"der Verkauf"},{source:"purchase",de:"der Kauf"},{source:"offer",de:"das Angebot"},{source:"demand",de:"die Nachfrage"},{source:"competitor",de:"der Konkurrent"},{source:"growth",de:"das Wachstum"},{source:"crisis",de:"die Krise"},{source:"success",de:"der Erfolg"},{source:"employee",de:"der Angestellte"},{source:"worker",de:"der Arbeiter"},{source:"skill",de:"die Fähigkeit"},{source:"knowledge",de:"das Wissen"},{source:"education",de:"die Bildung"},{source:"training",de:"die Ausbildung"},{source:"degree",de:"der Abschluss"},{source:"translation",de:"die Übersetzung"},{source:"interpreter",de:"der Dolmetscher"},{source:"report",de:"der Bericht"},{source:"contract",de:"der Vertrag"},{source:"salary",de:"das Gehalt"},{source:"duty",de:"die Pflicht"},{source:"responsibility",de:"die Verantwortung"},{source:"freedom",de:"die Freiheit"},{source:"peace",de:"der Friede"},{source:"war",de:"der Krieg"},{source:"justice",de:"die Gerechtigkeit"},{source:"crime",de:"das Verbrechen"},{source:"safety",de:"die Sicherheit"},{source:"future",de:"die Zukunft"},{source:"past",de:"die Vergangenheit"},{source:"present",de:"die Gegenwart"},{source:"generation",de:"die Generation"},{source:"custom",de:"der Brauch"},{source:"history",de:"die Geschichte"},{source:"science",de:"die Wissenschaft"},{source:"production",de:"die Produktion"},{source:"energy",de:"die Energie"},{source:"wood",de:"das Holz"},{source:"quantity",de:"die Menge"},{source:"measurement",de:"die Messung"},{source:"speed",de:"die Geschwindigkeit"},{source:"distance",de:"die Entfernung"},{source:"weight",de:"das Gewicht"},{source:"height",de:"die Höhe"},{source:"width",de:"die Breite"},{source:"depth",de:"die Tiefe"},{source:"volume",de:"das Volumen"},{source:"area",de:"die Fläche"},{source:"space",de:"der Raum"},{source:"universe",de:"das Universum"},{source:"process",de:"der Prozess"},{source:"evidence",de:"der Beweis"},{source:"knowledge",de:"das Wissen"},{source:"wisdom",de:"die Weisheit"},{source:"intellect",de:"der Verstand"},{source:"memory",de:"das Gedächtnis"}
-            ],
-            "A2.2": [
-                {source:"society",de:"die Gesellschaft"},{source:"to memorize", de:"auswendig lernen"}, {source:"to look up", de:"nachschlagen"}, {source:"to repeat", de:"wiederholen"}, 
-{source:"to highlight", de:"markieren"}, {source:"to take notes", de:"mitschreiben"}, {source:"memory bridge", de:"die Eselsbrücke"}, 
-{source:"grade", de:"die Note"}, {source:"report card", de:"das Zeugnis"}, {source:"task", de:"die Aufgabe"}, 
-{source:"apprentice", de:"der Azubi"}, {source:"vocational training", de:"die Ausbildung"}, {source:"to pass (exam)", de:"bestehen"}, 
-{source:"hard-working", de:"fleißig"}, {source:"lazy", de:"faul"}, {source:"subject", de:"das Fach"}, 
-{source:"knowledge", de:"das Wissen"}, {source:"to improve", de:"verbessern"}, {source:"error", de:"der Fehler"},
-{source:"sender", de:"der Absender"}, {source:"recipient", de:"der Empfänger"}, {source:"mailbox", de:"der Briefkasten"}, 
-{source:"stamp", de:"die Briefmarke"}, {source:"envelope", de:"der Umschlag"}, {source:"to send off", de:"abschicken"}, 
-{source:"package", de:"das Paket"}, {source:"signature", de:"die Unterschrift"}, {source:"to sign", de:"unterschreiben"}, 
-{source:"id card", de:"der Ausweis"}, {source:"form", de:"das Formular"}, {source:"to fill out", de:"ausfüllen"}, 
-{source:"certificate", de:"die Bescheinigung"}, {source:"deadline", de:"die Frist"}, {source:"fee", de:"die Gebühr"}, 
-{source:"authority", de:"die Behörde"}, {source:"application", de:"der Antrag"}, {source:"to request", de:"beantragen"},
-{source:"broadcast", de:"die Sendung"}, {source:"advertisement", de:"die Werbung"}, {source:"news", de:"die Nachricht"}, 
-{source:"to publish", de:"veröffentlichen"}, {source:"headline", de:"die Schlagzeile"}, {source:"screen", de:"der Bildschirm"}, 
-{source:"keyboard", de:"die Tastatur"}, {source:"to download", de:"herunterladen"}, {source:"to save", de:"speichern"}, 
-{source:"password", de:"das Kennwort"}, {source:"to log in", de:"sich anmelden"}, {source:"to delete", de:"löschen"}, 
-{source:"printer", de:"der Drucker"}, {source:"to print", de:"drucken"}, {source:"remote control", de:"die Fernbedienung"}, 
-{source:"user", de:"der Nutzer"}, {source:"to use", de:"benutzen"}, {source:"opinion", de:"die Ansicht"},
-{source:"departure", de:"die Abfahrt"}, {source:"arrival", de:"die Ankunft"}, {source:"delay", de:"die Verspätung"}, 
-{source:"connection", de:"der Anschluss"}, {source:"to change (trains)", de:"umsteigen"}, {source:"platform", de:"der Bahnsteig"}, 
-{source:"track", de:"das Gleis"}, {source:"ticket", de:"der Fahrschein"}, {source:"announcement", de:"die Durchsage"}, 
-{source:"traffic jam", de:"der Stau"}, {source:"detour", de:"die Umleitung"}, {source:"gas station", de:"die Tankstelle"}, 
-{source:"to overtake", de:"überholen"}, {source:"to brake", de:"bremsen"}, {source:"engine", de:"der Motor"}, 
-{source:"wanderlust", de:"das Fernweh"}, {source:"homeland", de:"die Heimat"}, {source:"to emigrate", de:"auswandern"}, 
-{source:"abroad", de:"das Ausland"}, {source:"stay", de:"der Aufenthalt"}, {source:"accommodation", de:"die Unterkunft"}, 
-{source:"to book", de:"buchen"}, {source:"vacation", de:"der Urlaub"}, {source:"overnight stay", de:"die Übernachtung"},
-{source:"cloudy", de:"bewölkt"}, {source:"foggy", de:"neblig"}, {source:"stormy", de:"stürmisch"}, 
-{source:"thunder", de:"der Donner"}, {source:"lightning", de:"der Blitz"}, {source:"precipitation", de:"der Niederschlag"}, 
-{source:"hail", de:"der Hagel"}, {source:"heat", de:"die Hitze"}, {source:"frosty", de:"frostig"}, 
-{source:"humid", de:"schwül"}, {source:"weather forecast", de:"die Vorhersage"}, {source:"drought", de:"die Dürre"}, 
-{source:"shade", de:"der Schatten"}, {source:"cool", de:"kühl"}, {source:"to freeze", de:"frieren"},
-{source:"exhibition", de:"die Ausstellung"}, {source:"admission", de:"der Eintritt"}, {source:"to take place", de:"stattfinden"}, 
-{source:"to participate", de:"teilnehmen"}, {source:"event", de:"die Veranstaltung"}, {source:"stage", de:"die Bühne"}, 
-{source:"audience", de:"das Publikum"}, {source:"performance", de:"die Aufführung"}, {source:"artist", de:"der Künstler"}, 
-{source:"famous", de:"berühmt"}, {source:"to draw", de:"zeichnen"}, {source:"painting", de:"das Gemälde"}, 
-{source:"club", de:"der Verein"}, {source:"member", de:"das Mitglied"}, {source:"leisure", de:"die Freizeit"},
-{source:"publisher", de:"der Verlag"}, {source:"magazine", de:"die Zeitschrift"}, {source:"newspaper", de:"das Blatt"}, 
-{source:"chapter", de:"das Kapitel"}, {source:"content", de:"der Inhalt"}, {source:"author", de:"der Urheber"}, 
-{source:"exciting", de:"spannend"}, {source:"boring", de:"langweilig"}, {source:"to read aloud", de:"vorlesen"},
-{source:"to belong", de:"gehören"}, {source:"to remember", de:"sich erinnern"}, {source:"to agree", de:"zustimmen"}, 
-{source:"to forbid", de:"verbieten"}, {source:"to allow", de:"erlauben"}, {source:"to expect", de:"erwarten"}, 
-{source:"to decide", de:"entscheiden"}, {source:"to change", de:"verändern"}, {source:"to promise", de:"versprechen"}, 
-{source:"to follow", de:"folgen"}, {source:"to count", de:"zählen"}, {source:"to hide", de:"verstecken"}, 
-{source:"to try", de:"versuchen"}, {source:"to believe", de:"glauben"}, {source:"to hope", de:"hoffen"}, 
-{source:"to fear", de:"fürchten"}, {source:"to clean", de:"putzen"}, {source:"to wash", de:"waschen"}, 
-{source:"to cook", de:"kochen"}, {source:"to bake", de:"backen"}, {source:"to pay", de:"bezahlen"}, 
-{source:"to earn", de:"verdienen"}, {source:"to spend", de:"ausgeben"}, {source:"to save", de:"sparen"}, 
-{source:"to meet", de:"treffen"}, {source:"to visit", de:"besuchen"}, {source:"to invite", de:"einladen"}, 
-{source:"to call (phone)", de:"anrufen"}, {source:"to answer", de:"beantworten"}, {source:"to ask", de:"fragen"}, 
-{source:"to tell", de:"erzählen"}, {source:"to explain", de:"erklären"}, {source:"to describe", de:"beschreiben"}, 
-{source:"to show", de:"zeigen"}, {source:"to bring", de:"bringen"}, {source:"to fetch", de:"holen"}, 
-{source:"to carry", de:"tragen"}, {source:"to wait", de:"warten"}, {source:"to stay", de:"bleiben"}, 
-{source:"to leave", de:"verlassen"}, {source:"to arrive", de:"ankommen"}, {source:"to return", de:"zurückkehren"}, 
-{source:"to happen", de:"geschehen"}, {source:"to mean", de:"bedeuten"}, {source:"to feel", de:"fühlen"}, 
-{source:"to work", de:"arbeiten"}, {source:"to study", de:"studieren"}, {source:"to live", de:"wohnen"}, 
-{source:"to travel", de:"verreisen"}, {source:"to fly", de:"fliegen"}, {source:"to drive", de:"fahren"}, 
-{source:"to run", de:"laufen"}, {source:"to walk", de:"gehen"}, {source:"to jump", de:"springen"}, 
-{source:"to swim", de:"schwimmen"}, {source:"to dance", de:"tanzen"}, {source:"to sing", de:"singen"}, 
-{source:"to laugh", de:"lachen"}, {source:"to cry", de:"weinen"}, {source:"to sleep", de:"schlafen"}, 
-{source:"to dream", de:"träumen"}, {source:"to wake up", de:"aufwachen"}, {source:"to shower", de:"duschen"}, 
-{source:"to dress", de:"anziehen"}, {source:"to undress", de:"ausziehen"}, {source:"to buy", de:"kaufen"}, 
-{source:"to sell", de:"verkaufen"}, {source:"to use", de:"gebrauchen"}, {source:"to help", de:"helfen"}, 
-{source:"to search", de:"suchen"}, {source:"to find", de:"finden"}, {source:"to lose", de:"verlieren"}, 
-{source:"to win", de:"gewinnen"}, {source:"to play", de:"spielen"}, {source:"to watch", de:"zuschauen"}, 
-{source:"to listen", de:"zuhören"}, {source:"to hear", de:"hören"}, {source:"to see", de:"sehen"}, 
-{source:"to smell", de:"riechen"}, {source:"to taste", de:"schmecken"}, {source:"to touch", de:"berühren"}, 
-{source:"reliable", de:"zuverlässig"}, {source:"honest", de:"ehrlich"}, {source:"polite", de:"höflich"}, 
-{source:"brave", de:"mutig"}, {source:"shy", de:"schüchtern"}, {source:"curious", de:"neugierig"}, 
-{source:"patient", de:"geduldig"}, {source:"neat", de:"ordentlich"}, {source:"independent", de:"selbstständig"}, 
-{source:"dangerous", de:"gefährlich"}, {source:"successful", de:"erfolgreich"}, {source:"expensive", de:"teuer"}, 
-{source:"cheap", de:"billig"}, {source:"useful", de:"nützlich"}, {source:"exhausting", de:"anstrengend"}, 
-{source:"healthy", de:"gesund"}, {source:"sick", de:"krank"}, {source:"fast", de:"schnell"}, 
-{source:"slow", de:"langsam"}, {source:"loud", de:"laut"}, {source:"quiet", de:"leise"}, 
-{source:"bright", de:"hell"}, {source:"dark", de:"dunkel"}, {source:"heavy", de:"schwer"}, 
-{source:"light", de:"leicht"}, {source:"hard", de:"hart"}, {source:"soft", de:"weich"}, 
-{source:"sharp", de:"scharf"}, {source:"blunt", de:"stumpf"}, {source:"clean", de:"sauber"}, 
-{source:"dirty", de:"schmutzig"}, {source:"dry", de:"trocken"}, {source:"wet", de:"nass"}, 
-{source:"thick", de:"dick"}, {source:"thin", de:"dünn"}, {source:"wide", de:"breit"}, 
-{source:"narrow", de:"eng"}, {source:"high", de:"hoch"}, {source:"low", de:"niedrig"}, 
-{source:"near", de:"nah"}, {source:"far", de:"weit"}, {source:"early", de:"früh"}, 
-{source:"late", de:"spät"}, {source:"true", de:"wahr"}, {source:"wrong", de:"falsch"}, 
-{source:"beautiful", de:"schön"}, {source:"ugly", de:"hässlich"}, {source:"important", de:"wichtig"}, 
-{source:"correct", de:"richtig"}, {source:"easy", de:"einfach"}, {source:"difficult", de:"schwer"}, 
-{source:"happy", de:"glücklich"}, {source:"sad", de:"traurig"}, {source:"angry", de:"sauer"}, 
-{source:"surprised", de:"überrascht"}, {source:"tired", de:"müde"}, {source:"hungry", de:"hungrig"}, 
-{source:"thirsty", de:"durstig"}, {source:"satisfied", de:"zufrieden"}, {source:"proudy", de:"stolz"},
-{source:"to suggest", de:"vorschlagen"}, {source:"to recommend", de:"empfehlen"}, {source:"to warn", de:"warnen"}, 
-{source:"to complain", de:"sich beschweren"}, {source:"to observe", de:"beobachten"}, {source:"to guess", de:"raten"}, 
-{source:"to wonder", de:"staunen"}, {source:"to doubt", de:"zweifeln"}, {source:"to influence", de:"beeinflussen"}, 
-{source:"to avoid", de:"vermeiden"}, {source:"to provide", de:"liefern"}, {source:"to support", de:"stützen"}, 
-{source:"to replace", de:"ersetzen"}, {source:"to refuse", de:"ablehnen"}, {source:"to accept", de:"annehmen"}, 
-{source:"to realize", de:"merken"}, {source:"to recognize", de:"erkennen"}, {source:"to develop", de:"entwickeln"}, 
-{source:"to produce", de:"erzeugen"}, {source:"to build", de:"errichten"}, {source:"to destroy", de:"zerstören"}, 
-{source:"to improve", de:"steigern"}, {source:"to decrease", de:"senken"}, {source:"to maintain", de:"pflegen"}, 
-{source:"to repair", de:"beheben"}, {source:"to solve", de:"lösen"}, {source:"to handle", de:"umgehen"}, 
-{source:"to manage", de:"bewältigen"}, {source:"to achieve", de:"erzielen"}, {source:"to reach", de:"erreichen"}, 
-{source:"to fail", de:"scheitern"}, {source:"to win", de:"siegen"}, {source:"to fight", de:"kämpfen"}, 
-{source:"to protect", de:"schützen"}, {source:"to save", de:"retten"}, {source:"to warn", de:"mahnen"}, 
-{source:"to demand", de:"fordern"}, {source:"to wish", de:"begehren"}, {source:"to love", de:"verehren"}, 
-{source:"to admire", de:"bewundern"}, {source:"to praise", de:"loben"}, {source:"to blame", de:"tadeln"}, 
-{source:"to punish", de:"bestrafen"}, {source:"to forgive", de:"verzeihen"}, {source:"to welcome", de:"begrüßen"}, 
-{source:"to say goodbye", de:"verabschieden"}, {source:"to greet", de:"grüßen"}, {source:"to bow", de:"verbeugen"}, 
-{source:"to smile", de:"lächeln"}, {source:"to wink", de:"blinzeln"}, {source:"to breathe", de:"atmen"}, 
-{source:"to cough", de:"husten"}, {source:"to sneeze", de:"niesen"}, {source:"to sweat", de:"schwitzen"}, 
-{source:"to bleed", de:"bluten"}, {source:"to hurt", de:"schmerzen"}, {source:"to heal", de:"heilen"}, 
-{source:"to rest", de:"ausruhen"}, {source:"to relax", de:"entspannen"}, {source:"to rush", de:"eilen"}, 
-{source:"to wait", de:"harren"}, {source:"to stop", de:"anhalten"}, {source:"to start", de:"beginnen"}, 
-{source:"to end", de:"beenden"}, {source:"to continue", de:"fortfahren"}, {source:"to repeat", de:"wiederholen"}, 
-{source:"to count", de:"rechnen"}, {source:"to measure", de:"messen"}, {source:"to weigh", de:"wiegen"}, 
-{source:"to check", de:"prüfen"}, {source:"to test", de:"erproben"}, {source:"to use", de:"nutzen"}, 
-{source:"to wear", de:"tragen"}, {source:"to own", de:"besitzen"}, {source:"to share", de:"teilen"}, 
-{source:"to lend", de:"leihen"}, {source:"to borrow", de:"borgen"}, {source:"to rent", de:"mieten"}, 
-{source:"to lease", de:"vermieten"}, {source:"to sell", de:"veräußern"}, {source:"to buy", de:"erwerben"}, 
-{source:"to pay", de:"begleichen"}, {source:"to cost", de:"kosten"}, {source:"to trade", de:"handeln"}, 
-{source:"to offer", de:"bieten"}, {source:"to search", de:"forschen"}, {source:"to find", de:"aufspüren"}, 
-{source:"to invent", de:"erfinden"}, {source:"to create", de:"erschaffen"}, {source:"to shape", de:"gestalten"}, 
-{source:"to draw", de:"entwerfen"}, {source:"to paint", de:"malen"}, {source:"to write", de:"verfassen"}, 
-{source:"to read", de:"schmökern"}, {source:"to talk", de:"plaudern"}, {source:"to discuss", de:"beraten"}, 
-{source:"to argue", de:"streiten"}, {source:"to reconcile", de:"versöhnen"}, {source:"to trust", de:"vertrauen"}, 
-{source:"to doubt", de:"argwöhnen"}, {source:"to guess", de:"mutmaßen"}, {source:"to suppose", de:"vermuten"}, 
-{source:"to know", de:"wissen"}, {source:"to think", de:"nachdenken"}, {source:"to consider", de:"bedenken"}, 
-{source:"to notice", de:"bemerken"}, {source:"to observe", de:"betrachten"}, {source:"to discover", de:"entdecken"}, 
-{source:"to hide", de:"verbergen"}, {source:"to reveal", de:"enthüllen"}, {source:"to open", de:"aufmachen"}, 
-{source:"to close", de:"zumachen"}, {source:"to lock", de:"abschließen"}, {source:"to unlock", de:"aufschließen"}, 
-{source:"to push", de:"stoßen"}, {source:"to pull", de:"zerren"}, {source:"to lift", de:"heben"}, 
-{source:"to lower", de:"senken"}, {source:"to rise", de:"aufgehen"}, {source:"to fall", de:"stürzen"}, 
-{source:"to stand", de:"stehen"}, {source:"to sit", de:"sitzen"}, {source:"to lie", de:"liegen"}, 
-{source:"to run", de:"rennen"}, {source:"to walk", de:"schreiten"}, {source:"to wander", de:"wandern"}, 
-{source:"to travel", de:"reisen"}, {source:"to drive", de:"steuern"}, {source:"to fly", de:"schweben"}, 
-{source:"to swim", de:"tauchen"}, {source:"to cook", de:"speisen"}, {source:"to eat", de:"verzehren"}, 
-{source:"to drink", de:"schlürfen"}, {source:"to sleep", de:"schlummern"}, {source:"to wake", de:"erwachen"}, 
-{source:"to wash", de:"säubern"}, {source:"to clean", de:"fegen"}, {source:"to brush", de:"bürsten"}, 
-{source:"to comb", de:"kämmen"}, {source:"to dress", de:"kleiden"}, {source:"to shave", de:"rasieren"}, 
-{source:"to help", de:"beistehen"}, {source:"to serve", de:"dienen"}, {source:"to work", de:"schuften"}, 
-{source:"to study", de:"lernen"}, {source:"to learn", de:"erfahren"}, {source:"to teach", de:"belehren"}, 
-{source:"to guide", de:"führen"}, {source:"to follow", de:"befolgen"}, {source:"to obey", de:"gehorchen"}, 
-{source:"to command", de:"befehlen"}, {source:"to ask", de:"ersuchen"}, {source:"to beg", de:"flehen"}, 
-{source:"to thank", de:"danken"}, {source:"to apologize", de:"entschuldigen"}, {source:"to forgive", de:"begnadigen"}, 
-{source:"to celebrate", de:"feiern"}, {source:"to play", de:"musizieren"}, {source:"to sing", de:"trällern"}, 
-{source:"to dance", de:"tanzen"}, {source:"to watch", de:"beschauen"}, {source:"to hear", de:"lauschen"}, 
-{source:"to smell", de:"schnuppern"}, {source:"to taste", de:"kosten"}, {source:"to touch", de:"tasten"}, 
-{source:"to feel", de:"spüren"}, {source:"to love", de:"verehren"}, {source:"to hate", de:"verabscheuen"}, 
-{source:"to fear", de:"fürchten"}, {source:"to hope", de:"hoffen"}, {source:"to wish", de:"ersehnen"},{source:"decision",de:"die Entscheidung"},{source:"health",de:"die Gesundheit"},{source:"to compare",de:"vergleichen"},{source:"opinion",de:"die Meinung"},{source:"advantage",de:"der Vorteil"},{source:"disadvantage",de:"der Nachteil"},{source:"to agree",de:"zustimmen"},{source:"reason",de:"der Grund"},{source:"hope",de:"die Hoffnung"},{source:"fear",de:"die Angst"},{source:"joy",de:"die Freude"},{source:"tired",de:"müde"},{source:"hungry",de:"hungrig"},{source:"thirsty",de:"durstig"},{source:"game",de:"das Spiel"},{source:"team",de:"die Mannschaft"},{source:"to offer",de:"anbieten"},{source:"to describe",de:"beschreiben"},{source:"successful",de:"erfolgreich"},{source:"dangerous",de:"gefährlich"},{source:"independent",de:"unabhängig"},{source:"therefore",de:"deshalb"},{source:"otherwise",de:"sonst"},{source:"angry",de:"wütend"},{source:"player",de:"der Spieler"},{source:"rule",de:"die Regel"},{source:"fact",de:"die Tatsache"},{source:"truth",de:"die Wahrheit"},{source:"lie",de:"die Lüge"},{source:"to lie",de:"lügen"},{source:"meaning",de:"die Bedeutung"},{source:"sense",de:"der Sinn"},{source:"to feel",de:"fühlen"},{source:"soul",de:"die Seele"},{source:"life",de:"das Leben"},{source:"art",de:"die Kunst"},{source:"literature",de:"die Literatur"},{source:"painting",de:"das Gemälde"},{source:"exhibition",de:"die Ausstellung"},{source:"custom",de:"der Brauch"},{source:"holiday",de:"der Urlaub"},{source:"traveler",de:"der Reisende"},{source:"destination",de:"das Ziel"},{source:"luggage",de:"das Gepäck"},{source:"customs",de:"der Zoll"},{source:"flight",de:"der Flug"},{source:"departure",de:"der Abflug"},{source:"arrival",de:"die Ankunft"},{source:"delay",de:"die Verspätung"},{source:"booking",de:"die Buchung"},{source:"confirmation",de:"die Bestätigung"},{source:"cancellation",de:"die Stornierung"},{source:"refund",de:"die Erstattung"},{source:"discount",de:"der Rabatt"},{source:"insurance",de:"die Versicherung"},{source:"protection",de:"der Schutz"},{source:"officer",de:"der Beamte"},{source:"court",de:"das Gericht"},{source:"judge",de:"der Richter"},{source:"lawyer",de:"der Anwalt"},{source:"punishment",de:"die Strafe"},{source:"prison",de:"das Gefängnis"},{source:"victim",de:"das Opfer"},{source:"witness",de:"der Zeuge"},{source:"guilt",de:"die Schuld"},{source:"innocence",de:"die Unschuld"},{source:"government",de:"die Regierung"},{source:"election",de:"die Wahl"},{source:"vote",de:"die Stimme"},{source:"citizen",de:"der Bürger"},{source:"community",de:"die Gemeinschaft"},{source:"humanity",de:"die Menschheit"},{source:"duty",de:"die Pflicht"},{source:"progress",de:"der Fortschritt"},{source:"discovery",de:"die Entdeckung"},{source:"invention",de:"die Erfindung"},{source:"development",de:"die Entwicklung"},{source:"method",de:"die Methode"},{source:"impact",de:"die Auswirkung"},{source:"influence",de:"der Einfluss"},{source:"aim",de:"die Absicht"},{source:"desire",de:"der Wunsch"},{source:"will",de:"der Wille"},{source:"power",de:"die Macht"},{source:"force",de:"die Gewalt"},{source:"action",de:"die Handlung"},{source:"effect",de:"die Wirkung"},{source:"consequence",de:"die Folge"},{source:"cause",de:"die Ursache"},{source:"origin",de:"der Ursprung"},{source:"foundation",de:"das Fundament"},{source:"structure",de:"die Struktur"},{source:"order",de:"die Ordnung"},{source:"beauty",de:"die Schönheit"},{source:"darkness",de:"die Dunkelheit"},{source:"silence",de:"die Stille"},{source:"noise",de:"der Lärm"},{source:"voice",de:"die Stimme"}
-            ],
-            "B1.1": [
-                {source:"environment",de:"die Umwelt"},
-{source: "reliable", de: "zuverlässig"}, {source: "ambitious", de: "ehrgeizig"}, {source: "polite", de: "höflich"}, 
-{source: "generous", de: "großzügig"}, {source: "stingy", de: "geizig"}, {source: "shy", de: "schüchtern"}, 
-{source: "determined", de: "entschlossen"}, {source: "honest", de: "ehrlich"}, {source: "brave", de: "mutig"}, 
-{source: "curious", de: "neugierig"}, {source: "modest", de: "bescheiden"}, {source: "creative", de: "kreativ"}, 
-{source: "strength", de: "die Stärke"}, {source: "weakness", de: "die Schwäche"}, {source: "character trait", de: "die Eigenschaft"},
-{source: "job advertisement", de: "die Stellenausschreibung"}, {source: "application documents", de: "die Bewerbungsunterlagen"}, 
-{source: "job interview", de: "das Vorstellungsgespräch"}, {source: "to apply for", de: "sich bewerben um"}, 
-{source: "employer", de: "der Arbeitgeber"}, {source: "employee", de: "der Arbeitnehmer"}, {source: "task", de: "die Aufgabe"}, 
-{source: "responsibility", de: "die Verantwortung"}, {source: "salary", de: "das Gehalt"}, {source: "contract", de: "der Vertrag"}, 
-{source: "career", de: "die Laufbahn"}, {source: "experience", de: "die Erfahrung"}, {source: "to hire", de: "einstellen"}, 
-{source: "to resign", de: "kündigen"}, {source: "colleague", de: "der Kollege"}, {source: "apartment", de: "die Wohnung"}, 
-{source: "rent", de: "die Miete"}, {source: "landlord", de: "der Vermieter"}, {source: "neighbor", de: "der Nachbar"}, 
-{source: "to move in", de: "einziehen"}, {source: "to move out", de: "ausziehen"}, {source: "additional costs", de: "die Nebenkosten"}, 
-{source: "location", de: "die Lage"}, {source: "environment", de: "die Umgebung"}, {source: "furniture", de: "die Einrichtung"}, 
-{source: "to furnish", de: "einrichten"}, {source: "balcony", de: "der Balkon"}, {source: "stairs", de: "die Treppe"}, 
-{source: "floor", de: "das Stockwerk"}, {source: "customer service", de: "der Kundenservice"}, {source: "complaint", de: "die Beschwerde"}, 
-{source: "to complain", de: "sich beschweren"}, {source: "satisfaction", de: "die Zufriedenheit"}, {source: "expectation", de: "die Erwartung"}, 
-{source: "to demand", de: "fordern"}, {source: "to solve", de: "lösen"}, {source: "solution", de: "die Lösung"}, 
-{source: "waiter", de: "der Ober"}, {source: "to order", de: "bestellen"}, {source: "bill", de: "die Rechnung"}, 
-{source: "media", de: "die Medien"}, {source: "to use", de: "nutzen"}, {source: "to download", de: "herunterladen"}, 
-{source: "screen", de: "der Bildschirm"}, {source: "device", de: "das Gerät"}, {source: "data", de: "die Daten"}, 
-{source: "security", de: "die Sicherheit"}, {source: "news", de: "die Nachricht"}, {source: "to share", de: "teilen"}, 
-{source: "to save", de: "speichern"}, {source: "invitation", de: "die Einladung"}, {source: "to invite", de: "einladen"}, 
-{source: "dinner", de: "das Abendessen"}, {source: "to host", de: "gastgeben"}, {source: "hospitality", de: "die Gastfreundschaft"}, 
-{source: "flavor", de: "der Geschmack"}, {source: "to taste", de: "probieren"}, {source: "dish", de: "das Gericht"}, 
-{source: "recipe", de: "das Rezept"}, {source: "ingredients", de: "die Zutaten"}, {source: "animals", de: "die Tiere"}, 
-{source: "pet", de: "das Haustier"}, {source: "advice", de: "die Beratung"}, {source: "to recommend", de: "empfehlen"}, 
-{source: "protection", de: "der Schutz"}, {source: "health", de: "die Gesundheit"}, {source: "nutrition", de: "die Ernährung"}, 
-{source: "exercise", de: "die Bewegung"}, {source: "to recover", de: "sich erholen"}, {source: "disease", de: "die Krankheit"}, 
-{source: "prevention", de: "die Vorsorge"}, {source: "weight", de: "das Gewicht"}, {source: "to lose weight", de: "abnehmen"}, 
-{source: "mishap", de: "die Panne"}, {source: "to forget", de: "vergessen"}, {source: "to miss (bus)", de: "verpassen"}, 
-{source: "delay", de: "die Verspätung"}, {source: "broken", de: "kaputt"}, {source: "to lose", de: "verlieren"}, 
-{source: "accident", de: "der Unfall"}, {source: "happiness", de: "das Glück"}, {source: "moment", de: "der Augenblick"}, 
-{source: "joy", de: "die Freude"}, {source: "to enjoy", de: "genießen"}, {source: "company event", de: "die Betriebsfeier"}, 
-{source: "to organize", de: "veranstalten"}, {source: "meeting", de: "die Besprechung"}, {source: "training", de: "die Weiterbildung"}, 
-{source: "knowledge", de: "das Wissen"}, {source: "to learn", de: "erlernen"}, {source: "future", de: "die Zukunft"}, 
-{source: "relationship", de: "die Beziehung"}, {source: "memory", de: "die Erinnerung"}, {source: "art", de: "die Kunst"}, 
-{source: "painting", de: "la pintura"}, {source: "artist", de: "der Künstler"}, {source: "society", de: "die Gesellschaft"}, 
-{source: "politics", de: "die Politik"}, {source: "government", de: "die Regierung"}, {source: "election", de: "die Wahl"}, 
-{source: "citizen", de: "der Bürger"}, {source: "law", de: "das Gesetz"}, {source: "freedom", de: "die Freiheit"}, 
-{source: "tourism", de: "der Fremdenverkehr"}, {source: "landscape", de: "die Landschaft"}, {source: "mountains", de: "das Gebirge"}, 
-{source: "hiking", de: "das Wandern"}, {source: "climate", de: "das Klima"}, {source: "environment", de: "die Umwelt"}, 
-{source: "nature", de: "die Natur"}, {source: "sustainability", de: "die Nachhaltigkeit"}, {source: "renewable", de: "erneuerbar"}, 
-{source: "vision", de: "die Vorstellung"}, {source: "progress", de: "der Fortschritt"}, {source: "history", de: "die Geschichte"}, 
-{source: "to happen", de: "geschehen"}, {source: "past", de: "die Vergangenheit"}, {source: "current", de: "aktuell"}, 
-{source: "event", de: "das Ereignis"}, {source: "meaning", de: "die Bedeutung"}, {source: "to mean", de: "bedeuten"}, 
-{source: "to explain", de: "erläutern"}, {source: "to understand", de: "begreifen"}, {source: "advice", de: "der Ratschlag"}, 
-{source: "suggestion", de: "der Vorschlag"}, {source: "to suggest", de: "vorschlagen"}, {source: "agreement", de: "die Vereinbarung"}, 
-{source: "contradiction", de: "der Widerspruch"}, {source: "opinion", de: "die Ansicht"}, {source: "to believe", de: "glauben"}, 
-{source: "hope", de: "die Hoffnung"}, {source: "to hope", de: "hoffen"}, {source: "fear", de: "die Angst"}, 
-{source: "to fear", de: "fürchten"}, {source: "to doubt", de: "zweifeln"}, {source: "doubt", de: "der Zweifel"}, 
-{source: "success", de: "das Gelingen"}, {source: "failure", de: "das Scheitern"}, {source: "to try", de: "versuchen"}, 
-{source: "attempt", de: "der Versuch"}, {source: "effort", de: "die Mühe"}, {source: "to achieve", de: "erzielen"}, 
-{source: "goal", de: "das Ziel"}, {source: "decision", de: "der Entschluss"}, {source: "to decide", de: "entscheiden"}, 
-{source: "change", de: "der Wandel"}, {source: "to change", de: "verändern"}, {source: "influence", de: "der Einfluss"}, 
-{source: "to influence", de: "beeinflussen"}, {source: "impact", de: "die Auswirkung"}, {source: "cause", de: "die Ursache"}, 
-{source: "reason", de: "der Grund"}, {source: "consequence", de: "die Folge"}, {source: "to result in", de: "ergeben"}, 
-{source: "to happen", de: "vorkommen"}, {source: "experience", de: "die Erkenntnis"}, {source: "truth", de: "die Wahrheit"}, 
-{source: "lie", de: "die Lüge"}, {source: "to lie", de: "lügen"}, {source: "fact", de: "die Tatsache"}, 
-{source: "reality", de: "die Wirklichkeit"}, {source: "possibility", de: "die Möglichkeit"}, {source: "impossible", de: "unmöglich"}, 
-{source: "available", de: "vorhanden"}, {source: "missing", de: "fehlend"}, {source: "necessary", de: "notwendig"}, 
-{source: "essential", de: "wesentlich"}, {source: "important", de: "maßgebend"}, {source: "useful", de: "nützlich"}, 
-{source: "useless", de: "sinnlos"}, {source: "correct", de: "einwandfrei"}, {source: "wrong", de: "falsch"}, 
-{source: "easy", de: "mühelos"}, {source: "hard", de: "mühsam"}, {source: "loud", de: "lautstark"}, 
-{source: "quiet", de: "geräuschlos"}, {source: "fast", de: "rasch"}, {source: "slow", de: "träge"}, 
-{source: "near", de: "nahgelegen"}, {source: "far", de: "entlegen"}, {source: "early", de: "zeitig"}, 
-{source: "late", de: "verspätet"}, {source: "always",de: "stets"}, {source: "never", de: "nie"}, 
-{source: "often", de: "häufig"}, {source: "sometimes", de: "gelegentlich"}, {source: "rarely", de: "selten"}, 
-{source: "immediately", de: "sofort"}, {source: "later", de: "nachher"}, {source: "soon", de: "demnächst"}, 
-{source: "finally", de: "schließlich"}, {source: "firstly", de: "zuerst"}, {source: "mostly", de: "meistens"}, 
-{source: "actually", de: "eigentlich"}, {source: "maybe", de: "vielleicht"}, {source: "certainly", de: "gewiss"}, 
-{source: "probably", de: "vermutlich"}, {source: "really", de: "tatsächlich"}, {source: "at least", de: "immerhin"}, 
-{source: "enough", de: "ausreichend"}, {source: "too much", de: "übermäßig"}, {source: "less", de: "weniger"}, 
-{source: "more", de: "mehr"}, {source: "everything", de: "sämtliches"}, {source: "nothing", de: "nichts"}, 
-{source: "someone", de: "jemand"}, {source: "nobody", de: "niemand"}, {source: "together", de: "gemeinsam"}, 
-{source: "alone", de: "allein"}, {source: "only", de: "bloß"}, {source: "again", de: "erneut"}, 
-{source: "against", de: "wider"}, {source: "between", de: "inmitten"}, {source: "behind", de: "hinter"}, 
-{source: "under", de: "unterhalb"}, {source: "above", de: "oberhalb"}, {source: "near", de: "unweit"}, 
-{source: "through", de: "mittels"}, {source: "without", de: "sonder"}, {source: "with", de: "mitsamt"}, 
-{source: "about", de: "bezüglich"}, {source: "during", de: "während"}, {source: "because of", de: "infolge"}, 
-{source: "instead of", de: "anstelle"}, {source: "despite", de: "trotz"}, {source: "although", de: "obgleich"}, 
-{source: "because", de: "da"}, {source: "if", de: "sofern"}, {source: "while", de: "solange"}, 
-{source: "since", de: "seitdem"}, {source: "until", de: "bis"}, {source: "before", de: "ehe"}, 
-{source: "after", de: "nachdem"}, {source: "so that", de: "damit"}, {source: "whether", de: "ob"}, 
-{source: "how", de: "wie"}, {source: "why", de: "weshalb"}, {source: "when", de: "wann"}, 
-{source: "where", de: "wohin"}, {source: "who", de: "wer"}, {source: "what", de: "was"}, 
-{source: "which", de: "welcher"}, {source: "each", de: "jeder"}, {source: "all", de: "alle"}, 
-{source: "many", de: "zahlreiche"}, {source: "some", de: "manche"}, {source: "few", de: "wenige"}, 
-{source: "both", de: "beide"}, {source: "other", de: "sonstige"}, {source: "same", de: "gleiche"}, 
-{source: "different", de: "verschieden"}, {source: "similar", de: "ähnlich"}, {source: "new", de: "neuartig"}, 
-{source: "old", de: "betagt"}, {source: "young", de: "jugendlich"}, {source: "rich", de: "wohlhabend"}, 
-{source: "poor", de: "bedürftig"}, {source: "high", de: "hoch"}, {source: "low", de: "niedrig"}, 
-{source: "wide", de: "breit"}, {source: "narrow", de: "eng"}, {source: "thick", de: "dick"}, 
-{source: "thin", de: "dünn"}, {source: "heavy", de: "schwer"}, {source: "light", de: "leicht"}, 
-{source: "hard", de: "hart"}, {source: "soft", de: "weich"}, {source: "rough", de: "rau"}, 
-{source: "smooth", de: "glatt"}, {source: "sharp", de: "scharf"}, {source: "blunt", de: "stumpf"}, 
-{source: "clean", de: "sauber"}, {source: "dirty", de: "schmutzig"}, {source: "wet", de: "nass"}, 
-{source: "dry", de: "trocken"}, {source: "hot", de: "heiß"}, {source: "cold", de: "kalt"}, 
-{source: "warm", de: "warm"}, {source: "cool", de: "kühl"}, {source: "dark", de: "dunkel"}, 
-{source: "bright", de: "hell"}, {source: "beautiful", de: "hübsch"}, {source: "ugly", de: "hässlich"}, 
-{source: "good", de: "brav"}, {source: "bad", de: "schlimm"}, {source: "happy", de: "froh"}, 
-{source: "sad", de: "bekümmert"}, {source: "angry", de: "zornig"}, {source: "calm", de: "gelassen"}, 
-{source: "busy", de: "beschäftigt"}, {source: "lazy", de: "faul"}, {source: "smart", de: "klug"}, 
-{source: "stupid", de: "dumm"}, {source: "funny", de: "witzig"}, {source: "serious", de: "ernst"}, 
-{source: "brave", de: "tapfer"}, {source: "afraid", de: "ängstlich"}, {source: "polite", de: "zuvorkommend"}, 
-{source: "rude", de: "unhöflich"}, {source: "kind", de: "gütig"}, {source: "mean", de: "gemein"}, 
-{source: "friend", de: "der Kamerad"}, {source: "enemy", de: "der Widersacher"}, {source: "helper", de: "der Gehilfe"}, 
-{source: "witness", de: "der Zeuge"}, {source: "victim", de: "das Opfer"}, {source: "criminal", de: "der Täter"}, 
-{source: "police", de: "die Gendarmerie"}, {source: "prison", de: "das Gefängnis"}, {source: "lawyer", de: "der Anwalt"}, 
-{source: "judge", de: "der Richter"}, {source: "court", de: "das Gericht"}, {source: "crime", de: "das Verbrechen"}, 
-{source: "theft", de: "der Diebstahl"}, {source: "murder", de: "der Mord"}, {source: "violence", de: "die Gewalt"}, 
-{source: "peace", de: "der Friede"}, {source: "war", de: "der Krieg"}, {source: "army", de: "das Heer"}, 
-{source: "soldier", de: "der Soldat"}, {source: "weapon", de: "die Waffe"}, {source: "attack", de: "der Angriff"}, 
-{source: "defense", de: "die Abwehr"}, {source: "victory", de: "der Sieg"}, {source: "defeat", de: "die Niederlage"}, 
-{source: "freedom", de: "die Unabhängigkeit"}, {source: "rights", de: "die Befugnisse"}, {source: "duty", de: "die Pflicht"}, 
-{source: "vote", de: "die Stimme"}, {source: "election", de: "der Urnengang"}, {source: "party", de: "el bando"}, 
-{source: "leader", de: "das Oberhaupt"}, {source: "council", de: "der Rat"}, {source: "meeting", de: "die Versammlung"}, 
-{source: "speech", de: "der Vortrag"}, {source: "promise", de: "die Zusage"}, {source: "tax", de: "die Abgabe"}, 
-{source: "bill", de: "das Gesetz"}, {source: "nation", de: "das Volk"}, {source: "border", de: "die Grenze"}, 
-{source: "customs", de: "der Zoll"}, {source: "passport", de: "der Ausweis"}, {source: "visa", de: "die Genehmigung"}, 
-{source: "travel", de: "die Reise"}, {source: "journey", de: "die Fahrt"}, {source: "trip", de: "der Ausflug"}, 
-{source: "map", de: "der Plan"}, {source: "guide", de: "der Führer"}, {source: "luggage", de: "das Gepäck"}, 
-{source: "bag", de: "der Beutel"}, {source: "hotel", de: "die Unterkunft"}, {source: "ticket", de: "der Fahrschein"}, 
-{source: "train", de: "die Bahn"}, {source: "ship", de: "der Kahn"}, {source: "airplane", de: "der Flieger"}, 
-{source:"mountain", de: "der Gipfel"}, {source: "valley", de: "die Schlucht"}, {source: "forest", de: "das Gehölz"}, 
-{source: "field", de: "der Acker"}, {source: "meadow", de: "die Aue"}, {source: "river", de: "der Bach"}, 
-{source: "lake", de: "el estanque"}, {source: "sea", de: "das Meer"}, {source: "shore", de: "das Ufer"}, 
-{source: "island", de: "das Eiland"}, {source: "sand", de: "der Sand"}, {source: "stone", de: "el guijarro"}, 
-{source: "hill", de: "die Anhöhe"}, {source: "cave", de: "die Höhle"}, {source: "path", de: "der Steig"}, 
-{source: "weather", de: "das Wetter"}, {source: "climate", de: "die Witterung"}, {source: "heat", de: "die Hitze"}, 
-{source: "cold", de: "der Frost"}, {source: "wind", de: "der Luftzug"}, {source: "storm", de: "das Unwetter"}, 
-{source: "cloud", de: "das Gewölk"}, {source: "rain", de: "der Niederschlag"}, {source: "snow", de: "das Gestöber"}, 
-{source: "ice", de: "die Glätte"}, {source: "fog", de: "der Schwaden"}, {source: "thunder", de: "das Grollen"}, 
-{source: "lightning", de: "der Blitzschlag"}, {source: "sunlight", de: "der Schein"}, {source: "shadow", de: "das Dunkel"}, 
-{source: "air", de: "der Atem"}, {source: "earth", de: "der Boden"}, {source: "fire", de: "die Glut"}, 
-{source: "water", de: "das Nass"}, {source: "nature", de: "die Schöpfung"}, {source: "animal", de: "das Vieh"}, 
-{source: "bird", de: "der Fittich"}, {source: "fish", de: "der Flosser"}, {source: "insect", de: "das Krabbeltier"}, 
-{source: "tree", de: "el arbusto"}, {source: "flower", de: "das Gewächs"}, {source: "leaf", de: "das Laub"}, 
-{source: "root", de: "die Wurzel"}, {source: "seed", de: "der Keim"}, {source: "branch", de: "der Zweig"}, 
-{source: "garden", de: "die Anlage"}, {source: "farm", de: "das Gehöft"}, {source: "city", de: "die Ortschaft"}, 
-{source: "village", de: "el caserío"}, {source: "street", de: "die Gasse"}, {source: "bridge", de: "der Übergang"}, 
-{source: "building", de: "das Gemäuer"}, {source: "house", de: "die Hütte"}, {source: "roof", de: "das Dach"}, 
-{source: "wall", de: "die Mauer"}, {source: "floor", de: "die Diele"}, {source: "window", de: "die Luke"}, 
-{source: "door", de: "die Pforte"}, {source: "key", de: "der Riegel"}, {source: "room", de: "die Kammer"}, 
-{source: "kitchen", de: "die Kochstube"}, {source: "bed", de: "das Lager"}, {source: "table", de: "die Tafel"}, 
-{source: "chair", de: "der Schemel"}, {source: "lamp", de: "leuchte"}, {source: "mirror", de: "der Spiegel"}, 
-{source: "clock", de: "der Zeitmesser"}, {source: "cup", de: "der Kelch"}, {source: "plate", de: "la vajilla"}, 
-{source: "spoon", de: "der Löffel"}, {source: "knife", de: "die Klinge"}, {source: "fork", de: "die Gabel"}, 
-{source: "bottle", de: "das Gefäß"}, {source: "food", de: "die Speise"}, {source: "drink", de: "der Trank"}, 
-{source: "bread", de: "der Laib"}, {source: "meat", de: "das Fleisch"}, {source: "vegetable", de: "das Kraut"}, 
-{source: "fruit", de: "die Frucht"}, {source: "milk", de: "das Melk"}, {source: "sugar", de: "die Süße"}, 
-{source: "salt", de: "die Würze"}, {source: "meal", de: "das Mahl"}, {source: "hunger", de: "der Hunger"}, 
-{source: "thirst", de: "der Durst"}, {source: "cook", de: "der Küchenchef"}, {source: "shopping", de: "der Einkauf"}, 
-{source: "price", de: "der Wert"}, {source: "money", de: "die Münze"}, {source: "purse", de: "der Beutel"}, 
-{source: "wallet", de: "die Börse"}, {source: "receipt", de: "der Beleg"}, {source: "store", de: "das Geschäft"}, 
-{source: "market", de: "der Basar"}, {source: "work", de: "die Tat"}, {source: "job", de: "die Anstellung"}, 
-{source: "boss", de: "der Vorgesetzte"}, {source: "salary", de: "der Lohn"}, {source: "office", de: "die Kanzlei"}, 
-{source: "business", de: "der Handel"}, {source: "trade", de: "das Gewerbe"}, {source: "factory", de: "die Werkhalle"}, 
-{source: "tool", de: "das Gerät"}, {source: "machine", de: "das Werkwerk"}, {source: "help", de: "der Beistand"}, 
-{source: "service", de: "die Dienstleistung"}, {source: "health", de: "das Wohl"}, {source: "illness", de: "das Leiden"}, 
-{source: "pain", de: "die Pein"}, {source: "medicine", de: "die Arznei"}, {source: "doctor", de: "der Heilkundige"}, 
-{source: "hospital", de: "das Siechenhaus"}, {source: "body", de: "der Leib"}, {source: "head", de: "das Haupt"}, 
-{source: "hand", de: "die Pranke"}, {source: "foot", de: "der Lauf"}, {source: "eye", de: "das Sehorgan"}, 
-{source: "ear", de: "das Gehör"}, {source: "mouth", de: "der Rachen"}, {source: "nose", de: "der Riecher"}, 
-{source: "heart", de: "das Innere"}, {source: "blood", de: "der Saft"}, {source: "bone", de: "das Gebein"}, 
-{source: "skin", de: "die Hülle"}, {source: "sleep", de: "der Schlummer"}, {source: "dream", de: "das Trugbild"}, 
-{source: "rest", de: "die Rast"}, {source: "breath", de: "der Odem"}, {source: "life", de: "das Dasein"}, 
-{source: "death", de: "das Ableben"}, {source: "birth", de: "die Entbindung"}, {source: "time", de: "die Frist"}, 
-{source: "year", de: "der Jahreslauf"}, {source: "month", de: "der Mondlauf"}, {source: "week", de: "der Zeitraum"}, 
-{source: "day", de: "die Spanne"}, {source: "hour", de: "die Weile"}, {source: "minute", de: "der Augenblick"}, 
-{source: "second", de: "der Moment"}, {source: "past", de: "das Einst"}, {source: "present", de: "das Jetzt"}, 
-{source: "future", de: "das Kommende"}, {source: "beginning", de: "der Auftakt"}, {source: "end", de: "der Schluss"}, 
-{source: "middle", de: "der Kern"}, {source: "part", de: "das Stück"}, {source: "whole", de: "das Ganze"}, 
-{source: "group", de: "der Trupp"}, {source: "crowd", de: "die Schar"}, {source: "space", de: "die Leere"}, 
-{source: "world", de: "das Erdenrund"}, {source: "heaven", de: "das Firmament"}, {source: "sun", de: "das Gestirn"}, 
-{source: "moon", de: "der Trabant"}, {source: "star", de: "das Lichtlein"}, {source: "language", de: "die Mundart"}, 
-{source: "word", de: "der Begriff"}, {source: "name", de: "der Rufname"}, {source: "book", de: "der Wälzer"}, 
-{source: "paper", de: "der Bogen"}, {source: "pen", de: "die Feder"}, {source: "school", de: "die Bildungsstätte"}, 
-{source: "teacher", de: "der Lehrende"}, {source: "student", de: "der Lernende"}, {source: "lesson", de: "die Unterweisung"}, 
-{source: "knowledge", de: "die Kunde"}, {source: "wisdom", de: "die Klugheit"}, {source: "art", de: "das Werk"}, 
-{source: "music", de: "der Klang"}, {source: "song", de: "die Weise"}, {source: "dance", de: "der Reigen"}, 
-{source: "theater", de: "die Bühne"}, {source: "film", de: "das Lichtspiel"}, {source: "picture", de: "das Abbild"}, 
-{source: "color", de: "der Farbton"}, {source: "light", de: "der Glanz"}, {source: "sound", de: "das Geräusch"}, 
-{source: "silence", de: "die Stille"}, {source: "truth", de: "die Gewissheit"}, {source: "lie", de: "das Flunkern"}, 
-{source: "meaning", de: "der Gehalt"}, {source: "reason", de: "die Ursache"}, {source: "fact", de: "der Sachverhalt"}, 
-{source: "logic", de: "la sensatez"}, {source: "thought", de: "el parecer"}, {source: "idea", de: "der Einfall"}, 
-{source: "belief", de: "la convicción"}, {source: "hope", de: "die Zuversicht"}, {source: "fear", de: "el pavor"}, 
-{source: "joy", de: "das Entzücken"}, {source: "sadness", de: "el pesar"}, {source: "anger", de: "el enfado"}, 
-{source: "love", de: "die Neigung"}, {source: "hate", de: "el aborrecimiento"}, {source: "shame", de: "la deshonra"}, 
-{source: "guilt", de: "die Reue"}, {source: "pride", de: "el pundonor"}, {source: "beauty", de: "der Reiz"}, 
-{source: "ugly", de: "das Unschöne"}, {source: "power", de: "das Vermögen"}, {source: "freedom", de: "el albedrío"}, 
-{source: "justice", de: "die Billigkeit"}, {source: "peace", de: "die Eintracht"}, {source: "war", de: "die Fehde"}, 
-{source: "luck", de: "der Segen"}, {source: "fate", de: "das Los"}, {source: "soul", de: "el ánima"}, 
-{source: "spirit", de: "der Geist"}, {source: "god", de: "das Wesen"}, {source: "prayer", de: "das Flehen"}, 
-{source: "religion", de: "das Bekenntnis"}, {source: "miracle", de: "das Wunder"},{source:"economy",de:"die Wirtschaft"},{source:"to achieve",de:"erreichen"},{source:"responsible",de:"verantwortlich"},{source:"to discuss",de:"diskutieren"},{source:"to demand",de:"fordern"},{source:"to support",de:"unterstützen"},{source:"actually",de:"eigentlich"},{source:"relationship",de:"die Beziehung"},{source:"law",de:"das Gesetz"},{source:"right",de:"das Recht"},{source:"failure",de:"der Misserfolg"},{source:"to solve",de:"lösen"},{source:"difference",de:"der Unterschied"},{source:"similarity",de:"die Ähnlichkeit"},{source:"to change",de:"verändern"},{source:"change",de:"die Veränderung"},{source:"typical",de:"typisch"},{source:"to suggest",de:"vorschlagen"},{source:"opinion",de:"die Ansicht"},{source:"advice",de:"der Rat"},{source:"to protect",de:"schützen"},{source:"to prevent",de:"verhindern"},{source:"effort",de:"die Anstrengung"},{source:"purpose",de:"der Zweck"},{source:"benefit",de:"der Nutzen"},{source:"to improve",de:"verbessern"},{source:"increase",de:"die Zunahme"},{source:"decrease",de:"die Abnahme"},{source:"balance",de:"das Gleichgewicht"},{source:"challenge",de:"die Herausforderung"},{source:"concept",de:"das Konzept"},{source:"imagination",de:"die Einbildungskraft"},{source:"ambition",de:"der Ehrgeiz"},{source:"strength",de:"die Stärke"},{source:"authority",de:"die Autorität"},{source:"cooperation",de:"die Zusammenarbeit"},{source:"agreement",de:"die Vereinbarung"},{source:"network",de:"das Netzwerk"},{source:"revenue",de:"der Umsatz"},{source:"competition",de:"der Wettbewerb"},{source:"trade",de:"der Handel"},{source:"software",de:"die Software"},{source:"poetry",de:"die Poesie"},{source:"advertising",de:"die Werbung"},{source:"press",de:"die Presse"},{source:"learning",de:"das Lernen"},{source:"teaching",de:"das Lehren"},{source:"degree",de:"der akademische Grad"},{source:"profession",de:"der Beruf"},{source:"employment",de:"die Beschäftigung"},{source:"unemployment",de:"die Arbeitslosigkeit"},{source:"wage",de:"der Lohn"},{source:"pension",de:"die Rente"},{source:"wealth",de:"der Wohlstand"},{source:"prosperity",de:"der Reichtum"},{source:"disease",de:"die Krankheit"},{source:"prevention",de:"die Prävention"},{source:"nutrition",de:"die Nahrung"},{source:"leisure",de:"die Freizeit"},{source:"harmony",de:"die Harmonie"},{source:"conflict",de:"der Konflikt"},{source:"compromise",de:"der Kompromiss"},{source:"border",de:"die Grenze"},{source:"accommodation",de:"die Unterkunft"},{source:"adventure",de:"das Abenteuer"},{source:"belief",de:"der Glaube"},{source:"conscience",de:"das Gewissen"},{source:"solidarity",de:"die Solidarität"},{source:"equality",de:"die Gleichheit"},{source:"unity",de:"die Einheit"},{source:"diversity",de:"die Vielfalt"},{source:"childhood",de:"die Kindheit"},{source:"youth",de:"die Jugend"},{source:"adulthood",de:"das Erwachsenenalter"}
-            ],
-            "B1.2": [
-                {source:"research",de:"die Forschung"},
-{source:"research", de:"die Forschung"}, {source:"to prove", de:"beweisen"}, {source:"impact", de:"die Auswirkung"}, 
-{source:"attitude", de:"die Einstellung"}, {source:"condition", de:"die Bedingung"}, {source:"discovery", de:"die Entdeckung"}, 
-{source:"to avoid", de:"vermeiden"}, {source:"necessary", de:"notwendig"}, {source:"available", de:"verfügbar"}, 
-{source:"opportunity", de:"die Gelegenheit"}, {source:"challenge", de:"die Herausforderung"}, {source:"to convince", de:"überzeugen"}, 
-{source:"to doubt", de:"zweifeln"}, {source:"obviously", de:"offensichtlich"}, {source:"responsibility", de:"die Verantwortung"}, 
-{source:"behavior", de:"das Verhalten"}, {source:"prejudice", de:"das Vorurteil"}, {source:"respect", de:"der Respekt"}, 
-{source:"to judge", de:"beurteilen"}, {source:"judgment", de:"das Urteil"}, {source:"value", de:"der Wert"}, 
-{source:"to mean", de:"bedeuten"}, {source:"method", de:"die Methode"}, {source:"process", de:"der Prozess"}, 
-{source:"result", de:"das Ergebnis"}, {source:"situation", de:"die Lage"}, {source:"event", de:"das Ereignis"}, 
-{source:"to develop", de:"entwickeln"}, {source:"device", de:"das Gerät"}, {source:"to confirm", de:"bestätigen"}, 
-{source:"to deny", de:"leugnen"}, {source:"to claim", de:"behaupten"}, {source:"fact", de:"die Tatsache"}, 
-{source:"to suppose", de:"vermuten"}, {source:"expert", de:"der Fachmann"}, {source:"source", de:"die Quelle"}, 
-{source:"to analyze", de:"analysieren"}, {source:"detail", de:"die Einzelheit"}, {source:"area", de:"das Gebiet"}, 
-{source:"environment", de:"die Umwelt"}, {source:"pollution", de:"die Verschmutzung"}, {source:"waste", de:"der Abfall"}, 
-{source:"poverty", de:"die Armut"}, {source:"refugee", de:"der Flüchtling"}, {source:"vaccination", de:"die Impfung"}, 
-{source:"surgery", de:"die Chirurgie"}, {source:"recession",de:"der Rückgang"}, {source:"entrepreneur", de:"der Unternehmer"}, 
-{source:"consumer", de:"der Verbraucher"}, {source:"censorship", de:"die Zensur"}, {source:"evaluation", de:"die Bewertung"}, 
-{source:"justification", de:"die Rechtfertigung"}, {source:"implementation", de:"die Umsetzung"}, {source:"reliability", de:"die Zuverlässigkeit"}, 
-{source:"resilience", de:"die Belastbarkeit"}, {source:"achievement", de:"die Leistung"}, {source:"contribution", de:"der Beitrag"}, 
-{source:"legacy", de:"das Vermächtnis"}, {source:"prerequisite", de:"die Voraussetzung"}, {source:"requirement", de:"die Anforderung"},
-{source:"perception", de:"die Wahrnehmung"}, {source:"context", de:"der Zusammenhang"}, {source:"contradiction", de:"der Widerspruch"},
-{source:"negotiation", de:"die Verhandlung"}, {source:"contract", de:"der Vertrag"}, {source:"approval", de:"die Zustimmung"},
-{source:"measure", de:"die Maßnahme"}, {source:"circumstance", de:"der Umstand"}, {source:"conviction", de:"die Überzeugung"},
-{source:"appreciation", de:"die Wertschätzung"}, {source:"to weight", de:"abwägen"}, {source:"to adapt", de:"anpassen"},
-{source:"to advocate", de:"befürworten"}, {source:"to justify", de:"begründen"}, {source:"to contribute", de:"beitragen"},
-{source:"to accelerate", de:"beschleunigen"}, {source:"to overcome", de:"bewältigen"}, {source:"to investigate", de:"ermitteln"},
-{source:"to promote", de:"fördern"}, {source:"to ensure", de:"gewährleisten"}, {source:"to question", de:"hinterfragen"},
-{source:"to conceal", de:"verbergen"}, {source:"to postpone", de:"verschieben"}, {source:"to defend", de:"verteidigen"},
-{source:"to refuse", de:"verweigern"}, {source:"to renounce", de:"verzichten"}, {source:"to refute", de:"widerlegen"},
-{source:"to admit", de:"zugeben"}, {source:"appropriate", de:"angemessen"}, {source:"demanding", de:"anspruchsvoll"},
-{source:"regrettable", de:"bedauerlich"}, {source:"impressive", de:"beeindruckend"}, {source:"remarkable", de:"bemerkenswert"},
-{source:"unambiguous", de:"eindeutig"}, {source:"sensitive", de:"empfindlich"}, {source:"crucial", de:"entscheidend"},
-{source:"required", de:"erforderlich"}, {source:"capable", de:"fähig"}, {source:"suitable", de:"geeignet"},
-{source:"enormous", de:"gewaltig"}, {source:"credible", de:"glaubwürdig"}, {source:"thorough", de:"gründlich"},
-{source:"outstanding", de:"hervorragend"}, {source:"superficial", de:"oberflächlich"}, {source:"apparent", de:"scheinbar"},
-{source:"noticeable", de:"spürbar"}, {source:"indispensable", de:"unerlässlich"}, {source:"inevitable", de:"unumgänglich"},
-{source:"unlikely", de:"unwahrscheinlich"}, {source:"reliable", de:"verlässlich"}, {source:"reasonable", de:"vernünftig"},
-{source:"essential", de:"wesentlich"}, {source:"desirable", de:"wünschenswert"}, {source:"random", de:"zufällig"},
-{source:"increasing", de:"zunehmend"}, {source:"doubtful", de:"zweifelhaft"}, {source:"to complain", de:"beschweren"},
-{source:"to advise", de:"beraten"}, {source:"to recommend", de:"empfehlen"}, {source:"to avoid", de:"vermeiden"},
-{source:"to influence", de:"beeinflussen"}, {source:"to support", de:"unterstützen"}, {source:"to provide", de:"liefern"},
-{source:"to solve", de:"lösen"}, {source:"to realize", de:"erkennen"}, {source:"to expect", de:"erwarten"},
-{source:"to suggest", de:"vorschlagen"}, {source:"to decide", de:"entscheiden"}, {source:"to choose", de:"auswählen"},
-{source:"to describe", de:"beschreiben"}, {source:"to explain", de:"erklären"}, {source:"to report", de:"berichten"},
-{source:"to warn", de:"warnen"}, {source:"to promise", de:"versprechen"}, {source:"to guess", de:"raten"},
-{source:"to hide", de:"verstecken"}, {source:"to belong", de:"gehören"}, {source:"to follow", de:"folgen"},
-{source:"to stop", de:"aufhören"}, {source:"to start", de:"anfangen"}, {source:"to use", de:"benutzen"},
-{source:"to win", de:"gewinnen"}, {source:"to lose", de:"verlieren"}, {source:"to search", de:"suchen"},
-{source:"to find", de:"finden"}, {source:"to change", de:"ändern"}, {source:"to improve", de:"verbessern"},
-{source:"to increase", de:"steigern"}, {source:"to decrease", de:"senken"}, {source:"to maintain", de:"pflegen"},
-{source:"to produce", de:"herstellen"}, {source:"to save", de:"sparen"}, {source:"to spend", de:"ausgeben"},
-{source:"to earn", de:"verdienen"}, {source:"to pay", de:"zahlen"}, {source:"to count", de:"zählen"},
-{source:"to share", de:"teilen"}, {source:"to meet", de:"treffen"}, {source:"to help", de:"helfen"},
-{source:"to work", de:"arbeiten"}, {source:"to learn", de:"lernen"}, {source:"to write", de:"schreiben"},
-{source:"to read", de:"lesen"}, {source:"to speak", de:"sprechen"}, {source:"to hear", de:"hören"},
-{source:"to see", de:"sehen"}, {source:"to feel", de:"fühlen"}, {source:"to think", de:"denken"},
-{source:"to know", de:"wissen"}, {source:"to believe", de:"glauben"}, {source:"to hope", de:"hoffen"},
-{source:"to fear", de:"fürchten"}, {source:"to love", de:"lieben"}, {source:"to hate", de:"hassen"},
-{source:"to forget", de:"vergessen"}, {source:"to remember", de:"erinnern"}, {source:"to live", de:"leben"},
-{source:"to die", de:"sterben"}, {source:"to grow", de:"wachsen"}, {source:"to build", de:"bauen"},
-{source:"to break", de:"brechen"}, {source:"to fix", de:"reparieren"}, {source:"to buy", de:"kaufen"},
-{source:"to sell", de:"verkaufen"}, {source:"to travel", de:"reisen"}, {source:"to drive", de:"fahren"},
-{source:"to fly", de:"fliegen"}, {source:"to walk", de:"laufen"}, {source:"to run", de:"rennen"},
-{source:"to jump", de:"springen"}, {source:"to swim", de:"schwimmen"}, {source:"to eat", de:"essen"},
-{source:"to drink", de:"trinken"}, {source:"to cook", de:"kochen"}, {source:"to sleep", de:"schlafen"},
-{source:"to wake", de:"wecken"}, {source:"to wash", de:"waschen"}, {source:"to clean", de:"putzen"},
-{source:"to wear", de:"tragen"}, {source:"to buy", de:"kaufen"}, {source:"to bring", de:"bringen"},
-{source:"to take", de:"nehmen"}, {source:"to give", de:"geben"}, {source:"to send", de:"schicken"},
-{source:"to receive", de:"erhalten"}, {source:"to open", de:"öffnen"}, {source:"to close", de:"schließen"},
-{source:"to push", de:"drücken"}, {source:"to pull", de:"ziehen"}, {source:"to throw", de:"werfen"},
-{source:"to catch", de:"fangen"}, {source:"to hold", de:"halten"}, {source:"to drop", de:"fallen"},
-{source:"to lift", de:"heben"}, {source:"to carry", de:"tragen"}, {source:"to show", de:"zeigen"},
-{source:"to hide", de:"verbergen"}, {source:"to watch", de:"zuschauen"}, {source:"to listen", de:"zuhören"},
-{source:"to smell", de:"riechen"}, {source:"to taste", de:"schmecken"}, {source:"to touch", de:"berühren"},
-{source:"to smile", de:"lächeln"}, {source:"to laugh", de:"lachen"}, {source:"to cry", de:"weinen"},
-{source:"to shout", de:"schreien"}, {source:"to whisper", de:"flüstern"}, {source:"to wait", de:"warten"},
-{source:"to stay", de:"bleiben"}, {source:"to leave", de:"verlassen"}, {source:"to arrive", de:"ankommen"},
-{source:"to return", de:"zurückkehren"}, {source:"to help", de:"helfen"}, {source:"to hinder", de:"hindern"},
-{source:"to allow", de:"erlauben"}, {source:"to forbid", de:"verbieten"}, {source:"to need", de:"brauchen"},
-{source:"to want", de:"wollen"}, {source:"to wish", de:"wünschen"}, {source:"to try", de:"versuchen"},
-{source:"to succeed", de:"gelingen"}, {source:"to fail", de:"scheitern"}, {source:"to win", de:"gewinnen"},
-{source:"to lose", de:"verlieren"}, {source:"to fight", de:"kämpfen"}, {source:"to peace", de:"versöhnen"},
-{source:"to trust", de:"vertrauen"}, {source:"to doubt", de:"zweifeln"}, {source:"to love", de:"lieben"},
-{source:"to hate", de:"hassen"}, {source:"to fear", de:"fürchten"}, {source:"to hope", de:"hoffen"},
-{source:"to wonder", de:"staunen"}, {source:"to know", de:"kennen"}, {source:"to understand", de:"begreifen"},
-{source:"to learn", de:"lernen"}, {source:"to teach", de:"lehren"}, {source:"to study", de:"studieren"},
-{source:"to read", de:"lesen"}, {source:"to write", de:"schreiben"}, {source:"to speak", de:"reden"},
-{source:"to say", de:"sagen"}, {source:"to tell", de:"erzählen"}, {source:"to call", de:"rufen"},
-{source:"to answer", de:"antworten"}, {source:"to ask", de:"fragen"}, {source:"to request", de:"bitten"},
-{source:"to demand", de:"fordern"}, {source:"to agree", de:"zustimmen"}, {source:"to object", de:"widersprechen"},
-{source:"to promise", de:"versprechen"}, {source:"to lie", de:"lügen"}, {source:"to cheat", de:"betrügen"},
-{source:"to steal",de:"stehlen"}, {source:"to rob", de:"rauben"}, {source:"to kill", de:"töten"},
-{source:"to save", de:"retten"}, {source:"to help", de:"beistehen"}, {source:"to serve", de:"dienen"},
-{source:"to build", de:"errichten"}, {source:"to destroy", de:"zerstören"}, {source:"to clean", de:"reinigen"},
-{source:"to dirty", de:"beschmutzen"}, {source:"to warm", de:"wärmen"}, {source:"to cool", de:"kühlen"},
-{source:"to light", de:"anzünden"}, {source:"to dark", de:"verdunkeln"}, {source:"to fill", de:"füllen"},
-{source:"to empty", de:"leeren"}, {source:"to open", de:"aufmachen"}, {source:"to close", de:"zumachen"},
-{source:"to lock", de:"abschließen"}, {source:"to unlock", de:"aufschließen"}, {source:"to start", de:"beginnen"},
-{source:"to finish", de:"beenden"}, {source:"to continue", de:"fortsetzen"}, {source:"to repeat", de:"wiederholen"},
-{source:"to prepare", de:"vorbereiten"}, {source:"to plan", de:"entwerfen"}, {source:"to do", de:"tun"},
-{source:"to act", de:"handeln"}, {source:"to react", de:"reagieren"}, {source:"to move", de:"bewegen"},
-{source:"to change", de:"verwandeln"}, {source:"to stay", de:"verweilen"}, {source:"to wait", de:"harren"},
-{source:"to hurry", de:"eilen"}, {source:"to slow", de:"bremsen"}, {source:"to speed", de:"beschleunigen"},
-{source:"to buy", de:"erwerben"}, {source:"to sell", de:"veräußern"}, {source:"to own", de:"besitzen"},
-{source:"to use", de:"gebrauchen"}, {source:"to waste", de:"verschwenden"}, {source:"to keep", de:"behalten"},
-{source:"to give", de:"schenken"}, {source:"to take", de:"entnehmen"}, {source:"to share", de:"verteilen"},
-{source:"to join", de:"beitreten"}, {source:"to leave", de:"austreten"}, {source:"to follow", de:"gehorchen"},
-{source:"to lead", de:"leiten"}, {source:"to follow", de:"befolgen"}, {source:"to command", de:"befehlen"},
-{source:"to request", de:"ersuchen"}, {source:"to offer", de:"darreichen"}, {source:"to accept", de:"annehmen"},
-{source:"to reject", de:"ablehnen"}, {source:"to welcome", de:"begrüßen"}, {source:"to goodbye", de:"verabschieden"},
-{source:"to thank", de:"verdanken"}, {source:"to excuse", de:"entschuldigen"}, {source:"to forgive", de:"verzeihen"},
-{source:"to regret", de:"bereuen"}, {source:"to suffer", de:"leiden"}, {source:"to enjoy", de:"genießen"},
-{source:"to like", de:"mögen"}, {source:"to dislike", de:"missfallen"}, {source:"to prefer", de:"bevorzugen"},
-{source:"to fear", de:"ängstigen"}, {source:"to worry", de:"sorgen"}, {source:"to calm", de:"beruhigen"},
-{source:"to excite", de:"erregen"}, {source:"to bore", de:"langweilen"}, {source:"to interest", de:"fesseln"},
-{source:"to surprise", de:"überraschen"}, {source:"to amaze", de:"erstaunen"}, {source:"to confuse", de:"verwirren"},
-{source:"to clarify", de:"klären"}, {source:"to solve", de:"bewältigen"}, {source:"to handle", de:"umgehen"},
-{source:"to manage", de:"schaffen"}, {source:"to fail", de:"versagen"}, {source:"to win", de:"siegen"},
-{source:"to lose", de:"unterliegen"}, {source:"to try", de:"bemühen"}, {source:"to dare", de:"wagen"},
-{source:"to avoid", de:"meiden"}, {source:"to seek", de:"streben"}, {source:"to search", de:"forschen"},
-{source:"to discover", de:"enthüllen"}, {source:"to invent", de:"erfinden"}, {source:"to create", de:"erschaffen"},
-{source:"to produce", de:"erzeugen"}, {source:"to build", de:"fügen"}, {source:"to design", de:"gestalten"},
-{source:"to draw", de:"zeichnen"}, {source:"to paint", de:"malen"}, {source:"to sing", de:"trällern"},
-{source:"to dance", de:"tanzen"}, {source:"to play", de:"musizieren"}, {source:"to act", de:"schauspielern"},
-{source:"to write", de:"verfassen"}, {source:"to read", de:"vorlesen"}, {source:"to listen", de:"lauschen"},
-{source:"to watch", de:"betrachten"}, {source:"to smell", de:"schnuppern"}, {source:"to taste", de:"kosten"},
-{source:"to feel", de:"spüren"}, {source:"to touch", de:"tasten"}, {source:"to hold", de:"greifen"},
-{source:"to carry", de:"schleppen"}, {source:"to push", de:"stoßen"}, {source:"to pull", de:"zerren"},
-{source:"to lift", de:"hieven"}, {source:"to lower", de:"senken"}, {source:"to rise", de:"steigen"},
-{source:"to fall", de:"stürzen"}, {source:"to fly", de:"schweben"}, {source:"to sail", de:"segeln"},
-{source:"to swim", de:"tauchen"}, {source:"to run", de:"flitzen"}, {source:"to walk", de:"schreiten"},
-{source:"to climb", de:"klimmen"}, {source:"to slide", de:"rutschen"}, {source:"to sit", de:"verweilen"},
-{source:"to stand", de:"verharren"}, {source:"to lie", de:"ruhen"}, {source:"to sleep", de:"schlümmern"},
-{source:"to wake", de:"erwachen"}, {source:"to wash", de:"säubern"}, {source:"to bathe", de:"baden"},
-{source:"to dress", de:"kleiden"}, {source:"to undress", de:"entkleiden"}, {source:"to comb", de:"kämmen"},
-{source:"to shave", de:"rasieren"}, {source:"to cook", de:"speisen"}, {source:"to eat", de:"verzehren"},
-{source:"to drink", de:"schlürfen"}, {source:"to rest", de:"ausruhen"}, {source:"to dream", de:"träumen"},
-{source:"to think", de:"nachsinnen"}, {source:"to ponder", de:"grübeln"}, {source:"to imagine", de:"vorstellen"},
-{source:"to remember", de:"entsinnen"}, {source:"to forget", de:"entfallen"}, {source:"to believe", de:"meinen"},
-{source:"to know", de:"erfahren"}, {source:"to understand", de:"einsehen"}, {source:"to learn", de:"aneignen"},
-{source:"to teach", de:"vermitteln"}, {source:"to guide", de:"führen"}, {source:"to help", de:"stützen"},
-{source:"to encourage", de:"ermutigen"}, {source:"to comfort", de:"trösten"}, {source:"to love",de:"verehren"},
-{source:"to admire", de:"bewundern"}, {source:"to praise", de:"loben"}, {source:"to blame", de:"tadeln"},
-{source:"to judge", de:"richten"}, {source:"to forgive", de:"begnadigen"}, {source:"to punish", de:"bestrafen"},{source:"to prove",de:"beweisen"},{source:"attitude",de:"die Einstellung"},{source:"condition",de:"die Bedingung"},{source:"to avoid",de:"vermeiden"},{source:"necessary",de:"notwendig"},{source:"available",de:"verfügbar"},{source:"opportunity",de:"die Gelegenheit"},{source:"to convince",de:"überzeugen"},{source:"to doubt",de:"zweifeln"},{source:"obviously",de:"offensichtlich"},{source:"behavior",de:"das Verhalten"},{source:"prejudice",de:"das Vorurteil"},{source:"respect",de:"der Respekt"},{source:"to judge",de:"beurteilen"},{source:"judgment",de:"das Urteil"},{source:"to mean",de:"bedeuten"},{source:"to develop",de:"entwickeln"},{source:"device",de:"das Gerät"},{source:"to confirm",de:"bestätigen"},{source:"to deny",de:"leugnen"},{source:"to claim",de:"behaupten"},{source:"to suppose",de:"vermuten"},{source:"expert",de:"der Fachmann"},{source:"source",de:"die Quelle"},{source:"to analyze",de:"analysieren"},{source:"detail",de:"das Detail"},{source:"area",de:"das Gebiet"},{source:"environment",de:"die Umwelt"},{source:"pollution",de:"die Verschmutzung"},{source:"waste",de:"der Abfall"},{source:"poverty",de:"die Armut"},{source:"refugee",de:"der Flüchtling"},{source:"vaccination",de:"die Impfung"},{source:"surgery",de:"die Chirurgie"},{source:"recession",de:"die Rezession"},{source:"entrepreneur",de:"der Unternehmer"},{source:"consumer",de:"der Konsument"},{source:"censorship",de:"die Zensur"},{source:"evaluation",de:"die Bewertung"},{source:"justification",de:"die Rechtfertigung"},{source:"implementation",de:"die Umsetzung"},{source:"reliability",de:"die Zuverlässigkeit"},{source:"resilience",de:"die Belastbarkeit"},{source:"achievement",de:"die Leistung"},{source:"contribution",de:"der Beitrag"},{source:"legacy",de:"das Vermächtnis"}
-            ],
-            "B2": [
-                {source:"requirement",de:"die Anforderung"},
-{source:"to ensure", de:"gewährleisten"}, {source:"requirement", de:"die Voraussetzung"}, {source:"controversial", de:"umstritten"}, 
-{source:"to overcome", de:"bewältigen"}, {source:"to justify", de:"begründen"}, {source:"circumstance", de:"der Sachverhalt"}, 
-{source:"perception", de:"die Wahrnehmung"}, {source:"to weigh up", de:"abwägen"}, {source:"to adapt", de:"anpassen"}, 
-{source:"measure", de:"die Maßnahme"}, {source:"consideration", de:"die Rücksicht"}, {source:"to claim", de:"beanspruchen"}, 
-{source:"to promote", de:"fördern"}, {source:"to investigate", de:"ermitteln"}, {source:"to conceal", de:"verbergen"}, 
-{source:"to postpone", de:"verschieben"}, {source:"to refuse", de:"verweigern"}, {source:"to admit", de:"zugeben"}, 
-{source:"appropriate", de:"angemessen"}, {source:"impressive", de:"beeindruckend"}, {source:"crucial", de:"entscheidend"}, 
-{source:"required", de:"erforderlich"}, {source:"suitable", de:"geeignet"}, {source:"noticeable", de:"spürbar"}, 
-{source:"inevitable", de:"unumgänglich"}, {source:"reliable", de:"verlässlich"}, {source:"essential", de:"wesentlich"}, 
-{source:"desirable", de:"wünschenswert"}, {source:"random", de:"zufällig"}, {source:"increasing", de:"zunehmend"}, 
-{source:"doubtful", de:"zweifelhaft"}, {source:"to fulfill", de:"erfüllen"}, {source:"to determine", de:"festlegen"}, 
-{source:"to replace", de:"ersetzen"}, {source:"to avoid", de:"vermeiden"}, {source:"to manage", de:"bewältigen"}, 
-{source:"to maintain", de:"aufrechterhalten"}, {source:"to reject", de:"ablehnen"}, {source:"to confirm", de:"bestätigen"}, 
-{source:"to emphasize", de:"hervorheben"}, {source:"to increase", de:"steigern"}, {source:"to decrease", de:"verringern"}, 
-{source:"to change", de:"verändern"}, {source:"to solve", de:"lösen"}, {source:"to improve", de:"verbessern"}, 
-{source:"to demand", de:"fordern"}, {source:"to support", de:"unterstützen"}, {source:"to discuss", de:"erörtern"}, 
-{source:"to achieve", de:"erreichen"}, {source:"to prepare", de:"vorbereiten"}, {source:"to plan", de:"entwerfen"}, 
-{source:"to decide", de:"entscheiden"}, {source:"to suggest", de:"vorschlagen"}, {source:"to suspect", de:"vermuten"}, 
-{source:"to recognize", de:"erkennen"}, {source:"to realize", de:"verwirklichen"}, {source:"to occur", de:"auftreten"}, 
-{source:"to result", de:"ergeben"}, {source:"to affect", de:"beeinflussen"}, {source:"to provide", de:"bereitstellen"}, 
-{source:"to develop", de:"entwickeln"}, {source:"to discover", de:"entdecken"}, {source:"to hide", de:"verstecken"}, 
-{source:"to mention", de:"erwähnen"}, {source:"to describe", de:"schildern"}, {source:"to repeat", de:"wiederholen"}, 
-{source:"to practice", de:"ausüben"}, {source:"to perform", de:"leisten"}, {source:"to behave", de:"sich verhalten"}, 
-{source:"to trust", de:"vertrauen"}, {source:"to doubt", de:"zweifeln"}, {source:"to suspect", de:"argwöhnen"}, 
-{source:"to expect", de:"erwarten"}, {source:"to hope", de:"hoffen"}, {source:"to fear", de:"fürchten"}, 
-{source:"to regret", de:"bereuen"}, {source:"to remember", de:"sich entsinnen"}, {source:"to forget", de:"versäumen"}, 
-{source:"to understand", de:"begreifen"}, {source:"to learn", de:"aneignen"}, {source:"to teach", de:"vermitteln"}, 
-{source:"to read", de:"vorlesen"}, {source:"to write", de:"verfassen"}, {source:"to speak", de:"vortragen"}, 
-{source:"to say", de:"äußern"}, {source:"to tell", de:"berichten"}, {source:"to call", de:"benennen"}, 
-{source:"to answer", de:"beantworten"}, {source:"to ask", de:"erfragen"}, {source:"to request", de:"ersuchen"}, 
-{source:"to demand", de:"verlangen"}, {source:"to agree", de:"einwilligen"}, {source:"to object", de:"einwenden"}, 
-{source:"to promise", de:"zusichern"}, {source:"to lie", de:"schwindeln"}, {source:"to cheat", de:"betrügen"}, 
-{source:"to steal", de:"entwenden"}, {source:"to save", de:"retten"}, {source:"to serve", de:"dienen"}, 
-{source:"to build", de:"errichten"}, {source:"to destroy", de:"vernichten"}, {source:"to clean", de:"reinigen"}, 
-{source:"to dirty", de:"beschmutzen"}, {source:"to open", de:"aufschließen"}, {source:"to close", de:"versperren"}, 
-{source:"to lock", de:"verriegeln"}, {source:"to start", de:"einleiten"}, {source:"to finish", de:"vollenden"}, 
-{source:"to continue", de:"fortführen"}, {source:"to prepare", de:"rüsten"}, {source:"to act", de:"handeln"}, 
-{source:"to react", de:"reagieren"}, {source:"to move", de:"bewegen"}, {source:"to change", de:"wandeln"}, 
-{source:"to stay", de:"verweilen"}, {source:"to wait", de:"harren"}, {source:"to hurry", de:"eilen"}, 
-{source:"to slow", de:"bremsen"}, {source:"to buy", de:"erwerben"}, {source:"to sell", de:"veräußern"}, 
-{source:"to own", de:"besitzen"}, {source:"to use", de:"anwenden"}, {source:"to waste", de:"verschwenden"}, 
-{source:"to keep", de:"behalten"}, {source:"to give", de:"überreichen"}, {source:"to take", de:"entnehmen"}, 
-{source:"to share", de:"aufteilen"}, {source:"to join", de:"beitreten"}, {source:"to leave", de:"austreten"}, 
-{source:"to lead", de:"anführen"}, {source:"to command", de:"befehlen"}, {source:"to request", de:"bitten"}, 
-{source:"to offer", de:"darbieten"}, {source:"to accept", de:"annehmen"}, {source:"to welcome", de:"begrüßen"}, 
-{source:"to thank", de:"verdanken"}, {source:"to excuse", de:"entschuldigen"}, {source:"to forgive", de:"verzeihen"}, 
-{source:"to suffer", de:"leiden"}, {source:"to enjoy", de:"genießen"}, {source:"to prefer", de:"bevorzugen"}, 
-{source:"to worry", de:"beunruhigen"}, {source:"to calm", de:"beruhigen"}, {source:"to bore", de:"langweilen"}, 
-{source:"to surprise", de:"erstaunen"}, {source:"to confuse", de:"verwirren"}, {source:"to clarify", de:"klären"}, 
-{source:"to solve", de:"bewältigen"}, {source:"to manage", de:"schaffen"}, {source:"to fail", de:"versagen"}, 
-{source:"to win", de:"siegen"}, {source:"to lose", de:"unterliegen"}, {source:"to try", de:"bemühen"}, 
-{source:"to dare", de:"wagen"}, {source:"to seek", de:"streben"}, {source:"to discover", de:"enthüllen"}, 
-{source:"to invent", de:"erfinden"}, {source:"to create", de:"erschaffen"}, {source:"to design", de:"gestalten"}, 
-{source:"to draw", de:"zeichnen"}, {source:"to write", de:"verfassen"}, {source:"to read", de:"vorlesen"}, 
-{source:"to listen", de:"lauschen"}, {source:"to watch", de:"betrachten"}, {source:"to smell", de:"schnuppern"}, 
-{source:"to taste", de:"kosten"}, {source:"to feel", de:"spüren"}, {source:"to hold", de:"greifen"}, 
-{source:"to carry", de:"schleppen"}, {source:"to push", de:"stoßen"}, {source:"to pull", de:"zerren"}, 
-{source:"to lift", de:"hieven"}, {source:"to lower", de:"senken"}, {source:"to rise", de:"steigen"}, 
-{source:"to fall", de:"stürzen"}, {source:"to fly", de:"schweben"}, {source:"to swim", de:"tauchen"}, 
-{source:"to run", de:"flitzen"}, {source:"to walk", de:"schreiten"}, {source:"to climb", de:"klimmen"}, 
-{source:"to slide", de:"rutschen"}, {source:"to sleep", de:"schlummern"}, {source:"to wake", de:"erwachen"}, 
-{source:"to cook", de:"speisen"}, {source:"to eat", de:"verzehren"}, {source:"to drink", de:"schlürfen"}, 
-{source:"to rest", de:"ausruhen"}, {source:"to ponder", de:"grübeln"}, {source:"to imagine", de:"vorstellen"}, 
-{source:"to praise", de:"loben"}, {source:"to blame", de:"tadeln"}, {source:"to judge", de:"richten"}, 
-{source:"to punish", de:"bestrafen"}, {source:"challenge", de:"die Herausforderung"}, {source:"achievement", de:"die Leistung"}, 
-{source:"advantage", de:"der Vorzug"}, {source:"disadvantage", de:"der Nachteil"}, {source:"consequence", de:"die Folge"}, 
-{source:"purpose", de:"der Zweck"}, {source:"goal", de:"die Zielsetzung"}, {source:"impact", de:"die Einwirkung"}, 
-{source:"responsibility", de:"die Zuständigkeit"}, {source:"decision", de:"der Entschluss"}, {source:"agreement", de:"die Einigung"}, 
-{source:"conflict", de:"die Auseinandersetzung"}, {source:"solution", de:"die Abhilfe"}, {source:"success", de:"das Gelingen"}, 
-{source:"failure", de:"das Scheitern"}, {source:"effort", de:"die Bemühung"}, {source:"experience", de:"die Erkenntnis"}, 
-{source:"knowledge", de:"das Fachwissen"}, {source:"ability", de:"das Vermögen"}, {source:"opportunity", de:"die Gelegenheit"}, 
-{source:"risk", de:"das Wagnis"}, {source:"future", de:"die Aussichten"}, {source:"past", de:"die Vergangenheit"}, 
-{source:"present", de:"die Gegenwart"}, {source:"society", de:"das Gemeinwesen"}, {source:"culture", de:"das Brauchtum"}, 
-{source:"tradition", de:"die Überlieferung"}, {source:"history", de:"die Zeitgeschichte"}, {source:"art", de:"das Kunstwerk"}, 
-{source:"science", de:"die Gelehrsamkeit"}, {source:"education", de:"die Erziehung"}, {source:"law", de:"die Rechtsvorschrift"}, 
-{source:"freedom", de:"die Unabhängigkeit"}, {source:"justice", de:"die Billigkeit"}, {source:"peace", de:"die Eintracht"}, 
-{source:"war", de:"der Fehdezug"}, {source:"government", de:"die Staatsführung"}, {source:"citizen", de:"der Einwohner"}, 
-{source:"nation", de:"das Volkstum"}, {source:"state", de:"das Hoheitsgebiet"}, {source:"politics", de:"das Zeitgeschehen"}, 
-{source:"economy", de:"das Wirtschaftsleben"}, {source:"market", de:"der Absatzmarkt"}, {source:"business", de:"das Unternehmen"}, 
-{source:"company", de:"der Betrieb"}, {source:"boss", de:"der Vorgesetzte"}, {source:"colleague", de:"der Mitarbeiter"}, 
-{source:"client", de:"der Auftraggeber"}, {source:"office", de:"die Dienststelle"}, {source:"work", de:"die Erwerbstätigkeit"}, 
-{source:"job", de:"die Anstellung"}, {source:"career", de:"der Werdegang"}, {source:"salary", de:"das Entgelt"}, 
-{source:"income", de:"die Einkünfte"}, {source:"tax", de:"die Abgabe"}, {source:"price", de:"der Kostenpunkt"}, 
-{source:"value", de:"der Stellenwert"}, {source:"profit", de:"der Ertrag"}, {source:"loss", de:"die Einbuße"}, 
-{source:"budget", de:"der Haushaltsplan"}, {source:"finance", de:"das Geldwesen"}, {source:"investment", de:"die Geldanlage"}, 
-{source:"capital",de:"das Vermögen"}, {source:"trade", de:"der Güteraustausch"}, {source:"industry", de:"das Gewerbe"}, 
-{source:"production", de:"die Fertigung"}, {source:"technology", de:"das Verfahren"}, {source:"innovation", de:"die Neuerung"}, 
-{source:"research", de:"die Nachforschung"}, {source:"discovery", de:"die Freilegung"}, {source:"invention", de:"die Erzeugnis"}, 
-{source:"development", de:"der Fortgang"}, {source:"design", de:"die Gestaltung"}, {source:"quality", de:"die Güte"}, 
-{source:"quantity", de:"die Anzahl"}, {source:"measurement", de:"das Maß"}, {source:"speed", de:"das Tempo"}, 
-{source:"distance", de:"die Entfernung"}, {source:"weight", de:"die Schwere"}, {source:"height", de:"das Ausmaß"}, 
-{source:"width", de:"die Ausdehnung"}, {source:"depth", de:"die Tiefe"}, {source:"volume", de:"der Rauminhalt"}, 
-{source:"area", de:"das Gelände"}, {source:"space", de:"das Weltall"}, {source:"world", de:"das Erdreich"}, 
-{source:"nature", de:"die Schöpfung"}, {source:"environment", de:"die Lebenswelt"}, {source:"climate", de:"die Witterung"}, 
-{source:"weather", de:"die Wetterlage"}, {source:"sun", de:"das Tageslicht"}, {source:"moon", de:"das Nachtgestirn"}, 
-{source:"star", de:"das Himmelslicht"}, {source:"earth", de:"der Erdboden"}, {source:"fire", de:"die Glut"}, 
-{source:"water", de:"das Nass"}, {source:"air", de:"der Atem"}, {source:"wind", de:"der Luftzug"}, 
-{source:"storm", de:"das Unwetter"}, {source:"rain", de:"der Niederschlag"}, {source:"snow", de:"die Flocken"}, 
-{source:"ice", de:"die Glätte"}, {source:"summer", de:"die Sommerzeit"}, {source:"winter", de:"die Winterzeit"}, 
-{source:"spring", de:"das Frühjahr"}, {source:"autumn", de:"die Spätjahr"}, {source:"morning", de:"die Frühe"}, 
-{source:"evening", de:"die Abenddämmerung"}, {source:"night", de:"die Dunkelheit"}, {source:"day", de:"der Zeitraum"}, 
-{source:"week",de:"die Siebentage"}, {source:"month", de:"der Mondumlauf"}, {source:"year", de:"der Jahreslauf"}, 
-{source:"time", de:"die Frist"}, {source:"age", de:"das Lebensalter"}, {source:"childhood", de:"das Kindsein"}, 
-{source:"youth", de:"das Jungsein"}, {source:"adulthood", de:"das Erwachsensein"}, {source:"life", de:"das Dasein"}, 
-{source:"death", de:"das Ableben"}, {source:"health", de:"das Wohlbefinden"}, {source:"disease", de:"das Leiden"}, 
-{source:"medicine", de:"die Arznei"}, {source:"physician", de:"der Heilkundige"}, {source:"hospital", de:"die Heilanstalt"}, 
-{source:"body", de:"der Leib"}, {source:"mind", de:"der Geist"}, {source:"soul", de:"das Gemüt"}, 
-{source:"heart", de:"das Innere"}, {source:"feeling", de:"die Regung"}, {source:"thought", de:"der Einfall"}, 
-{source:"idea", de:"die Vorstellung"}, {source:"belief", de:"die Überzeugung"}, {source:"religion", de:"das Bekenntnis"}, 
-{source:"philosophy", de:"die Weltanschauung"}, {source:"truth", de:"die Gewissheit"}, {source:"lie", de:"das Flunkern"}, 
-{source:"hope", de:"die Zuversicht"}, {source:"fear", de:"die Beklemmung"}, {source:"joy", de:"das Entzücken"}, 
-{source:"sadness", de:"der Kummer"}, {source:"anger", de:"der Zorn"}, {source:"surprise", de:"die Verblüffung"}, 
-{source:"pride", de:"el orgullo"}, {source:"shame", de:"die Scham"}, {source:"guilt", de:"die Zerknirschung"}, 
-{source:"envy", de:"die Missgunst"}, {source:"greed", de:"die Gier"}, {source:"lust", de:"das Begehren"}, 
-{source:"sloth", de:"die Trägheit"}, {source:"courage", de:"die Beherztheit"}, {source:"wisdom", de:"die Klugheit"}, 
-{source:"justice", de:"die Redlichkeit"}, {source:"temperance", de:"die Mäßigung"}, {source:"virtue", de:"die Tugend"}, 
-{source:"vice", de:"die Untugend"}, {source:"beauty", de:"die Pracht"}, {source:"ugly", de:"das Unansehnliche"}, 
-{source:"good", de:"das Edle"}, {source:"evil", de:"das Verwerfliche"}, {source:"right", de:"das Gebot"}, 
-{source:"wrong", de:"das Unrecht"}, {source:"duty", de:"die Verpflichtung"}, {source:"freedom", de:"die Ungebundenheit"}, 
-{source:"equality", de:"die Gleichrangigkeit"}, {source:"justice", de:"die Rechtmäßigkeit"}, {source:"solidarity", de:"der Zusammenhalt"}, 
-{source:"tolerance", de:"die Duldsamkeit"}, {source:"respect", de:"die Hochachtung"}, {source:"honor", de:"die Ehre"}, 
-{source:"fame", de:"das Ansehen"}, {source:"power", de:"die Befugnis"}, {source:"wealth", de:"das Hab und Gut"}, 
-{source:"poverty", de:"die Entbehrung"}, {source:"happiness", de:"die Glückseligkeit"}, {source:"peace", de:"die Ruhepause"}, 
-{source:"conflict", de:"der Zwist"}, {source:"solution", de:"die Behebung"}, {source:"problem", de:"die Schwierigkeit"}, 
-{source:"question", de:"das Ersuchen"}, {source:"answer", de:"der Bescheid"}, {source:"meaning", de:"der Gehalt"}, 
-{source:"reason", de:"die Ursache"}, {source:"cause", de:"der Anlass"}, {source:"effect", de:"die Auswirkung"}, 
-{source:"difference", de:"die Abweichung"}, {source:"similarity", de:"die Übereinstimmung"}, {source:"change", de:"der Wandel"}, 
-{source:"progress", de:"das Vorankommen"}, {source:"future", de:"das Kommende"}, {source:"past", de:"das Vergangene"}, 
-{source:"present", de:"das Jetzige"}, {source:"beginning", de:"der Auftakt"}, {source:"end", de:"der Abschluss"}, 
-{source:"middle", de:"der Kernpunkt"}, {source:"part", de:"das Stückwerk"}, {source:"whole", de:"das Ganze"}, 
-{source:"unit", de:"die Einheit"}, {source:"group", de:"der Zusammenschluss"}, {source:"set", de:"die Sammlung"}, 
-{source:"list", de:"das Verzeichnis"}, {source:"page", de:"das Blatt"}, {source:"line", de:"die Zeile"}, 
-{source:"word", de:"der Ausdruck"}, {source:"sentence", de:"die Aussage"}, {source:"letter", de:"die Botschaft"}, 
-{source:"message", de:"die Mitteilung"}, {source:"language", de:"die Mundart"}, {source:"translation", de:"die Übertragung"}, 
-{source:"book", de:"der Wälzer"}, {source:"newspaper", de:"das Blatt"}, {source:"media", de:"die Berichterstattung"}, 
-{source:"internet", de:"das Netz"}, {source:"computer", de:"der Rechner"}, {source:"phone", de:"der Fernsprecher"}, 
-{source:"mobile", de:"das Funkgerät"}, {source:"camera", de:"der Apparat"}, {source:"radio", de:"der Rundfunk"}, 
-{source:"television", de:"die Mattscheibe"}, {source:"film", de:"das Lichtspiel"}, {source:"music", de:"die Tonkunst"}, 
-{source:"art", de:"die bildende Kunst"}, {source:"theater", de:"die Bühne"}, {source:"literature", de:"das Schrifttum"},{source:"prerequisite",de:"die Voraussetzung"},{source:"context",de:"der Zusammenhang"},{source:"interaction",de:"die Wechselwirkung"},{source:"contradiction",de:"der Widerspruch"},{source:"trigger",de:"der Auslöser"},{source:"extent",de:"das Ausmaß"},{source:"component",de:"der Bestandteil"},{source:"insight",de:"die Erkenntnis"},{source:"achievement",de:"die Errungenschaft"},{source:"approval",de:"die Genehmigung"},{source:"passion",de:"die Leidenschaft"},{source:"measure",de:"die Maßnahme"},{source:"consideration",de:"die Rücksicht"},{source:"circumstance",de:"der Sachverhalt"},{source:"longing",de:"die Sehnsucht"},{source:"conviction",de:"die Überzeugung"},{source:"behavior",de:"die Verhaltensweise"},{source:"delay",de:"die Verzögerung"},{source:"perception",de:"die Wahrnehmung"},{source:"appreciation",de:"die Wertschätzung"},{source:"doubt",de:"der Zweifel"},{source:"to weigh",de:"abwägen"},{source:"to acknowledge",de:"anerkennen"},{source:"to adapt",de:"anpassen"},{source:"to affect",de:"auswirken"},{source:"to claim",de:"beanspruchen"},{source:"to deal with",de:"befassen"},{source:"to advocate",de:"befürworten"},{source:"to justify",de:"begründen"},{source:"to contribute",de:"beitragen"},{source:"to consider",de:"berücksichtigen"},{source:"to accelerate",de:"beschleunigen"},{source:"to eliminate",de:"beseitigen"},{source:"to overcome",de:"bewältigen"},{source:"to assert",de:"durchsetzen"},{source:"to interfere",de:"einmischen"},{source:"to feel",de:"empfinden"},{source:"to disappoint",de:"enttäuschen"},{source:"to facilitate",de:"erleichtern"},{source:"to investigate",de:"ermitteln"},{source:"to astonish",de:"erstaunen"},{source:"to establish",de:"feststellen"},{source:"to promote",de:"fördern"},{source:"to endanger",de:"gefährden"},{source:"to approve",de:"genehmigen"},{source:"to ensure",de:"gewährleisten"},{source:"to question",de:"hinterfragen"},{source:"to exaggerate",de:"übertreiben"},{source:"to conceal",de:"verbergen"},{source:"to negotiate",de:"verhandeln"},{source:"to link",de:"verknüpfen"},{source:"to postpone",de:"verschieben"},{source:"to defend",de:"verteidigen"},{source:"to refuse",de:"verweigern"},{source:"to renounce",de:"verzichten"},{source:"to refute",de:"widerlegen"},{source:"to admit",de:"zugeben"},{source:"to reject",de:"zurückweisen"},{source:"to force",de:"zwingen"},{source:"appropriate",de:"angemessen"},{source:"demanding",de:"anspruchsvoll"},{source:"elaborate",de:"aufwendig"},{source:"regrettable",de:"bedauerlich"},{source:"questionable",de:"bedenklich"},{source:"impressive",de:"beeindruckend"},{source:"remarkable",de:"bemerkenswert"},{source:"modest",de:"bescheiden"},{source:"conscious",de:"bewusst"},{source:"unambiguous",de:"eindeutig"},{source:"influential",de:"einflussreich"},{source:"sensitive",de:"empfindlich"},{source:"crucial",de:"entscheidend"},{source:"required",de:"erforderlich"},{source:"considerable",de:"erheblich"},{source:"capable",de:"fähig"},{source:"bound",de:"gebunden"},{source:"suitable",de:"geeignet"},{source:"occasional",de:"gelegentlich"},{source:"enormous",de:"gewaltig"},{source:"credible",de:"glaubwürdig"},{source:"generous",de:"großzügig"},{source:"thorough",de:"gründlich"},{source:"outstanding",de:"hervorragend"},{source:"disadvantageous",de:"nachteilig"},{source:"incidental",de:"nebensächlich"},{source:"superficial",de:"oberflächlich"},{source:"apparent",de:"scheinbar"},{source:"obvious",de:"selbstverständlich"},{source:"careful",de:"sorgfältig"},{source:"noticeable",de:"spürbar"},{source:"steady",de:"stetig"},{source:"superfluous",de:"überflüssig"},{source:"superior",de:"überlegen"},{source:"comprehensive",de:"umfassend"},{source:"controversial",de:"umstritten"},{source:"indispensable",de:"unerlässlich"},{source:"unexpected",de:"unerwartet"},{source:"inevitable",de:"unumgänglich"},{source:"unlikely",de:"unwahrscheinlich"},{source:"in vain",de:"vergebens"},{source:"devastating",de:"verheerend"},{source:"reliable",de:"verlässlich"},{source:"reasonable",de:"vernünftig"},{source:"diverse",de:"vielfältig"},{source:"advantageous",de:"vorteilhaft"},{source:"essential",de:"wesentlich"},{source:"effective",de:"wirksam"},{source:"desirable",de:"wünschenswert"},{source:"hesitant",de:"zögerlich"},{source:"random",de:"zufällig"},{source:"accessible",de:"zugänglich"},{source:"permissible",de:"zulässig"},{source:"increasing",de:"zunehmend"},{source:"doubtful",de:"zweifelhaft"}
-            ]
-        };
-
-        const app = {
-            state: { vocab: [], session: [], idx: 0, score: 0, lives: 5, checked: false, currentLevel: null },
-            toggleDarkMode() {
-                document.documentElement.classList.toggle('dark');
-                const icon = document.getElementById('theme-icon');
-                icon.className = document.documentElement.classList.contains('dark') ? 'fas fa-sun text-lg' : 'fas fa-moon text-lg';
-            },
-            showScreen(id) {
-                ['home-screen', 'game-screen', 'result-screen'].forEach(s => {
-                    const el = document.getElementById(s);
-                    if (el) el.classList.add('hidden');
-                });
-                const footer = document.getElementById('feedback-footer');
-                if (footer) footer.classList.remove('show');
-                const screen = document.getElementById(id);
-                if (screen) screen.classList.remove('hidden');
-                window.scrollTo(0,0);
-            },
-            showHome() { this.showScreen('home-screen'); },
-            startQuickLesson() {
-                const sliderValue = document.getElementById('level-slider').value;
-                const lvl = CEFR_LEVELS[sliderValue];
-                this.state.currentLevel = lvl;
-                this.startSession(vocabularyDB[lvl]);
-            },
-            repeatLesson() {
-                if (this.state.currentLevel) {
-                    this.startSession(vocabularyDB[this.state.currentLevel]);
-                } else {
-                    this.showHome();
-                }
-            },
-            startSession(src) {
-                const shuffledPool = this.shuffleArray([...src]);
-                this.state.vocab = [...src];
-                this.state.session = shuffledPool.slice(0, 10);
-                this.state.idx = 0;
-                this.state.score = 0;
-                this.state.lives = 5;
-                this.state.checked = false;
-                
-                this.updateUI();
-                this.showScreen('game-screen');
-                this.render();
-            },
-            render() {
-                this.state.checked = false;
-                const word = this.state.session[this.state.idx];
-                document.getElementById('english-word').innerText = word.source;
-                document.getElementById('progress-bar').style.width = (this.state.idx / this.state.session.length) * 100 + '%';
-                
-                const cont = document.getElementById('options-container');
-                cont.innerHTML = '';
-                const currentType = this.getWordType(word.de);
-                
-                let sameType = this.state.vocab.filter(v => v.de !== word.de && this.getWordType(v.de) === currentType);
-                if (sameType.length < 3) {
-                    sameType = [...sameType, ...this.state.vocab.filter(v => v.de !== word.de && this.getWordType(v.de) !== currentType)];
-                }
-                
-                const uniqueOptionsSet = new Set();
-                uniqueOptionsSet.add(word.de);
-                const shuffledDistractors = this.shuffleArray(sameType);
-                for(let d of shuffledDistractors) {
-                    if (uniqueOptionsSet.size >= 4) break;
-                    uniqueOptionsSet.add(d.de);
-                }
-                
-                const opts = Array.from(uniqueOptionsSet);
-                this.shuffleArray(opts).forEach(opt => {
-                    const btn = document.createElement('button');
-                    btn.className = 'btn-premium btn-option w-full py-4 px-6 rounded-lg text-sm text-center break-words shadow-sm';
-                    btn.innerText = opt;
-                    btn.onclick = () => this.check(opt, word.de, btn);
-                    cont.appendChild(btn);
-                });
-            },
-            check(sel, corr, btn) {
-                if (this.state.checked) return;
-                this.state.checked = true;
-                const isCorrect = sel === corr;
-                if (isCorrect) this.state.score++; else this.state.lives--;
-                
-                document.querySelectorAll('.btn-option').forEach(b => {
-                    b.disabled = true;
-                    if (b.innerText === corr) b.classList.add('correct');
-                });
-                if (!isCorrect) btn.classList.add('wrong');
-                
-                const icon = document.getElementById('feedback-icon');
-                const msg = document.getElementById('feedback-message');
-                icon.className = 'text-xl mr-4 shrink-0 ' + (isCorrect ? 'text-emerald-500' : 'text-red-500');
-                icon.innerHTML = `<i class="fas fa-${isCorrect ? 'check-circle' : 'times-circle'}"></i>`;
-                msg.innerText = isCorrect ? 'Correct' : corr;
-                msg.className = 'text-sm font-medium ' + (isCorrect ? 'text-emerald-500' : 'text-red-500');
-                
-                document.getElementById('feedback-footer').classList.add('show');
-                this.updateUI();
-            },
-            nextQuestion() {
-                this.state.idx++;
-                if (this.state.lives <= 0 || this.state.idx >= this.state.session.length) {
-                    document.getElementById('final-score').innerText = `${this.state.score}/${this.state.session.length}`;
-                    document.getElementById('final-accuracy').innerText = `${Math.round((this.state.score / this.state.session.length) * 100)}%`;
-                    document.getElementById('result-title').innerText = this.state.lives <= 0 ? "Session Ended." : "Sehr Gut";
-                    this.showScreen('result-screen');
-                } else {
-                    document.getElementById('feedback-footer').classList.remove('show');
-                    this.render();
-                }
-            },
-            updateUI() { document.querySelector('#heart-count span').innerText = this.state.lives; },
-            endSession() { document.getElementById('quit-modal').classList.remove('hidden'); },
-            confirmEndSession() { document.getElementById('quit-modal').classList.add('hidden'); this.showHome(); },
-            getWordType(de) {
-                const l = de.toLowerCase();
-                if (l.startsWith('der ') || l.startsWith('die ') || l.startsWith('das ')) return "noun";
-                if (l.endsWith('en') || l === 'sein' || l === 'tun' || l.startsWith('zu ')) return "verb";
-                return "other";
-            },
-            shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-                return array;
-            }
-        };
-
-        window.onload = () => {
-            const slider = document.getElementById('level-slider');
-            const display = document.getElementById('level-display');
-            if (slider && display) {
-                display.innerText = CEFR_LEVELS[slider.value];
-            }
-        };
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
