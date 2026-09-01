@@ -1,0 +1,553 @@
+[
+  {
+    "id": "cases-nom-acc",
+    "level": "A1",
+    "title": "Nominative & Accusative",
+    "summary": "The subject vs. the direct object — and how articles change.",
+    "explanation": [
+      "German nouns take different articles depending on their role in the sentence — this is called 'case'. The Nominative marks the subject (who or what is doing the action). The Accusative marks the direct object (who or what is directly affected by the action).",
+      "Only the masculine article actually changes between these two cases: der → den, ein → einen, kein → keinen. Feminine, neuter and plural articles stay exactly the same in both cases — that's one less thing to memorize."
+    ],
+    "table": {
+      "caption": "Articles: Nominative vs. Accusative",
+      "headers": ["", "Nominative", "Accusative"],
+      "rows": [
+        ["masculine (der)", "der / ein / kein", "den / einen / keinen"],
+        ["feminine (die)", "die / eine / keine", "die / eine / keine"],
+        ["neuter (das)", "das / ein / kein", "das / ein / kein"],
+        ["plural (die)", "die / – / keine", "die / – / keine"]
+      ]
+    },
+    "examples": [
+      { "de": "Der Kaffee ist heiß.", "note": "der Kaffee = subject (Nominative)" },
+      { "de": "Ich trinke den Kaffee.", "note": "den Kaffee = direct object (Accusative) — masculine changes" },
+      { "de": "Sie kauft eine Jacke und ein Kleid.", "note": "feminine and neuter stay identical in both cases" }
+    ],
+    "exercises": [
+      { "type": "choice", "prompt": "___ Hund bellt laut.", "options": ["Der", "Den", "Dem", "Des"], "answer": "Der", "explanation": "Subject → Nominative → der Hund." },
+      { "type": "fill", "prompt": "Ich brauche ___ Stift. (der Stift)", "answer": "einen", "explanation": "Direct object, masculine → einen." },
+      { "type": "choice", "prompt": "Wir sehen heute Abend ___ Film.", "options": ["ein", "einen", "eine", "einem"], "answer": "einen", "explanation": "der Film → masculine accusative → einen." },
+      { "type": "fill", "prompt": "___ Katze schläft auf dem Sofa. (die Katze)", "answer": "Die", "explanation": "Subject, feminine → die (unchanged from Nominative)." },
+      { "type": "fill", "prompt": "Sie hat ___ Sohn. (der Sohn)", "answer": "einen", "explanation": "Direct object, masculine → einen." }
+    ]
+  },
+  {
+    "id": "cases-dative",
+    "level": "A2",
+    "title": "The Dative Case",
+    "summary": "The indirect object — 'to/for whom' something happens.",
+    "explanation": [
+      "The Dative case marks the indirect object: the person something is given to, said to, or done for. It answers the question 'wem?' (to/for whom?). Typical dative verbs include geben, helfen, danken, gefallen and gehören.",
+      "This time every article changes. Note especially: dem for masculine and neuter, der for feminine, and den + an extra -n on plural nouns (den Kindern, not den Kinder)."
+    ],
+    "table": {
+      "caption": "Articles: Dative",
+      "headers": ["", "Dative"],
+      "rows": [
+        ["masculine (der)", "dem / einem / keinem"],
+        ["feminine (die)", "der / einer / keiner"],
+        ["neuter (das)", "dem / einem / keinem"],
+        ["plural (die)", "den (+n) / – / keinen"]
+      ]
+    },
+    "examples": [
+      { "de": "Ich gebe dem Kind einen Apfel.", "note": "dem Kind = indirect object (Dative), einen Apfel = direct object (Accusative)" },
+      { "de": "Das gehört meiner Schwester.", "note": "gehören always takes the Dative" },
+      { "de": "Er hilft den Kindern.", "note": "plural dative adds -n: den Kindern" }
+    ],
+    "exercises": [
+      { "type": "choice", "prompt": "Ich danke ___ Lehrerin.", "options": ["die", "der", "den", "dem"], "answer": "der", "explanation": "danken + Dative, feminine → der Lehrerin." },
+      { "type": "fill", "prompt": "Das Buch gehört ___ Mann. (der Mann)", "answer": "dem", "explanation": "gehören + Dative, masculine → dem." },
+      { "type": "choice", "prompt": "Wir helfen ___ Kindern.", "options": ["die", "der", "den", "dem"], "answer": "den", "explanation": "helfen + Dative, plural → den Kindern." },
+      { "type": "fill", "prompt": "Der Kellner bringt ___ Gästen die Rechnung. (die Gäste)", "answer": "den", "explanation": "Indirect object, plural → den, and the noun itself adds -n: den Gästen." },
+      { "type": "fill", "prompt": "Ich schreibe ___ Freundin eine E-Mail. (die Freundin)", "answer": "meiner", "explanation": "Indirect object, feminine possessive → meiner Freundin." }
+    ]
+  },
+  {
+    "id": "prepositions-cases",
+    "level": "A2",
+    "title": "Prepositions & Cases",
+    "summary": "Which preposition forces which case — and the two-way ones.",
+    "explanation": [
+      "Every German preposition always takes the same case (with one important exception). Accusative prepositions include durch, für, gegen, ohne, um. Dative prepositions include aus, bei, mit, nach, seit, von, zu.",
+      "The 'two-way' prepositions (Wechselpräpositionen) — in, an, auf, über, unter, vor, hinter, neben, zwischen — take Accusative when there's movement toward a destination (wohin?) and Dative when describing a fixed location (wo?)."
+    ],
+    "table": {
+      "caption": "Preposition groups",
+      "headers": ["Always Accusative", "Always Dative", "Two-way (Akk./Dat.)"],
+      "rows": [
+        ["durch, für, gegen, ohne, um", "aus, bei, mit, nach, seit, von, zu", "in, an, auf, über, unter, vor, hinter, neben, zwischen"]
+      ]
+    },
+    "examples": [
+      { "de": "Das Geschenk ist für dich.", "note": "für + Accusative (always)" },
+      { "de": "Ich fahre mit dem Bus.", "note": "mit + Dative (always)" },
+      { "de": "Ich stelle die Tasche in den Schrank. / Die Tasche steht in dem Schrank.", "note": "movement (wohin?) → Accusative; location (wo?) → Dative" }
+    ],
+    "exercises": [
+      { "type": "choice", "prompt": "Das ist ein Geschenk für ___ Bruder.", "options": ["mein", "meinen", "meinem", "meiner"], "answer": "meinen", "explanation": "für always takes Accusative → meinen Bruder." },
+      { "type": "fill", "prompt": "Ich komme aus ___ Schweiz. (die Schweiz)", "answer": "der", "explanation": "aus always takes Dative, feminine → der Schweiz." },
+      { "type": "choice", "prompt": "Er hängt das Bild an ___ Wand. (movement)", "options": ["die", "der", "den", "dem"], "answer": "die", "explanation": "Movement toward a destination (wohin?) → Accusative → die Wand." },
+      { "type": "choice", "prompt": "Das Bild hängt an ___ Wand. (location)", "options": ["die", "der", "den", "dem"], "answer": "der", "explanation": "Fixed location (wo?) → Dative → der Wand." },
+      { "type": "fill", "prompt": "Wir gehen ohne ___ Regenschirm los. (der Regenschirm)", "answer": "den", "explanation": "ohne always takes Accusative → den Regenschirm." }
+    ]
+  },
+  {
+    "id": "modal-verbs",
+    "level": "A2",
+    "title": "Modal Verbs",
+    "summary": "können, müssen, wollen, sollen, dürfen, mögen — and their odd conjugation.",
+    "explanation": [
+      "Modal verbs express ability, necessity, permission or desire, and combine with a second verb pushed to the very end of the clause in its infinitive form: 'Ich kann gut Deutsch sprechen.'",
+      "They conjugate irregularly in the singular (the stem vowel often changes, and ich/er/sie/es take no ending): ich kann, du kannst, er kann — not 'er kannt'. The plural forms (wir, ihr, sie) are regular."
+    ],
+    "table": {
+      "caption": "Present tense of können, müssen, wollen (ich / du / er-sie-es)",
+      "headers": ["", "können", "müssen", "wollen"],
+      "rows": [
+        ["ich", "kann", "muss", "will"],
+        ["du", "kannst", "musst", "willst"],
+        ["er/sie/es", "kann", "muss", "will"]
+      ]
+    },
+    "examples": [
+      { "de": "Ich muss heute arbeiten.", "note": "müssen + infinitive at the end" },
+      { "de": "Darf ich hier rauchen?", "note": "dürfen = to be allowed to" },
+      { "de": "Sie will nächstes Jahr nach Berlin ziehen.", "note": "wollen = to want to" }
+    ],
+    "exercises": [
+      { "type": "fill", "prompt": "Er ___ (können) sehr gut kochen.", "answer": "kann", "explanation": "können, 3rd person singular → kann (no -t ending)." },
+      { "type": "choice", "prompt": "Ich ___ morgen früh aufstehen.", "options": ["musst", "muss", "müsst", "müssen"], "answer": "muss", "explanation": "müssen, 1st person singular → muss." },
+      { "type": "fill", "prompt": "___ du mir bitte helfen? (können)", "answer": "Kannst", "explanation": "können, 2nd person singular → kannst." },
+      { "type": "choice", "prompt": "Wir ___ heute keine Hausaufgaben machen.", "options": ["will", "wollt", "wollen", "willst"], "answer": "wollen", "explanation": "wollen, 1st person plural → wollen (regular plural form)." },
+      { "type": "fill", "prompt": "Man ___ (dürfen) hier nicht parken.", "answer": "darf", "explanation": "dürfen, 3rd person singular → darf." }
+    ]
+  },
+  {
+    "id": "word-order",
+    "level": "A2",
+    "title": "Word Order",
+    "summary": "Verb-second in main clauses, verb-final in subordinate clauses.",
+    "explanation": [
+      "In a German main clause the conjugated verb is always the second element — not necessarily the second word. Whatever you put first (subject, time, object) is element one; the verb follows immediately: 'Heute gehe ich ins Kino.'",
+      "In a subordinate clause introduced by weil, dass, wenn, obwohl, ob, etc., the conjugated verb jumps to the very end: 'Ich bleibe zu Hause, weil ich krank bin.' This is one of the most common exam traps at every level."
+    ],
+    "examples": [
+      { "de": "Morgen fahre ich nach München.", "note": "time expression first, verb stays in position 2" },
+      { "de": "Ich weiß nicht, ob er kommt.", "note": "subordinate clause with ob → verb (kommt) goes to the end" },
+      { "de": "Obwohl es regnet, gehen wir spazieren.", "note": "subordinate clause first → main clause verb (gehen) comes right after the comma" }
+    ],
+    "exercises": [
+      { "type": "choice", "prompt": "Which is correct?", "options": ["Heute ich gehe einkaufen.", "Heute gehe ich einkaufen.", "Ich heute gehe einkaufen.", "Gehe heute ich einkaufen."], "answer": "Heute gehe ich einkaufen.", "explanation": "The verb must stay in position 2, right after 'Heute'." },
+      { "type": "choice", "prompt": "Ich glaube, dass er morgen ___.", "options": ["kommt", "kommt er", "er kommt", "kommen wird er"], "answer": "kommt", "explanation": "In a dass-clause the verb goes to the very end: dass er morgen kommt." },
+      { "type": "fill", "prompt": "Complete: Weil ich müde ___, gehe ich früh ins Bett. (sein)", "answer": "bin", "explanation": "Subordinate clause with weil → verb at the end: weil ich müde bin." },
+      { "type": "choice", "prompt": "Which is correct?", "options": ["Wenn es regnet, ich bleibe zu Hause.", "Wenn es regnet, bleibe ich zu Hause.", "Wenn regnet es, bleibe ich zu Hause.", "Ich bleibe wenn es regnet zu Hause."], "answer": "Wenn es regnet, bleibe ich zu Hause.", "explanation": "After a subordinate clause, the main clause verb comes right after the comma (position 2 of the whole sentence)." },
+      { "type": "fill", "prompt": "Complete: Er fragt, ob ich Zeit ___. (haben)", "answer": "habe", "explanation": "ob-clause → verb goes to the end: ob ich Zeit habe." }
+    ]
+  },
+  {
+    "id": "perfekt",
+    "level": "A2",
+    "title": "The Perfekt (Present Perfect)",
+    "summary": "haben/sein + Partizip II — the everyday past tense in speech.",
+    "explanation": [
+      "The Perfekt is the tense Germans use for spoken past events. It's built with a conjugated auxiliary (haben or sein) plus the Partizip II, which goes to the very end of the clause: 'Ich habe gestern gearbeitet.'",
+      "Most verbs use haben. Verbs of motion or change of state (gehen, fahren, kommen, aufstehen, werden...) use sein instead. Regular (weak) verbs form the participle as ge-...-t (gemacht); irregular (strong) verbs usually form ge-...-en with a vowel change (gesehen, gefahren)."
+    ],
+    "examples": [
+      { "de": "Ich habe ein Buch gelesen.", "note": "haben + gelesen (weak-ish irregular participle)" },
+      { "de": "Sie ist nach Hause gegangen.", "note": "sein because gehen = motion" },
+      { "de": "Wir haben lange gearbeitet.", "note": "regular participle: ge- + arbeit + -et" }
+    ],
+    "exercises": [
+      { "type": "choice", "prompt": "Ich ___ gestern spät aufgestanden.", "options": ["habe", "bin", "hat", "ist"], "answer": "bin", "explanation": "aufstehen = change of state/motion → sein." },
+      { "type": "fill", "prompt": "Wir haben das Auto ___. (reparieren)", "answer": "repariert", "explanation": "Regular verb → ge- + repariert' → reparieren minus -en + -t = repariert." },
+      { "type": "choice", "prompt": "Er ___ nach Italien gefahren.", "options": ["hat", "ist", "haben", "sind"], "answer": "ist", "explanation": "fahren = motion → sein." },
+      { "type": "fill", "prompt": "Sie hat einen Kuchen ___. (backen)", "answer": "gebacken", "explanation": "backen is a strong verb → participle: gebacken." },
+      { "type": "choice", "prompt": "Habt ihr das Fenster ___?", "options": ["geöffnet", "öffnet", "geöffnen", "öffnete"], "answer": "geöffnet", "explanation": "öffnen is regular → ge- + öffnet = geöffnet." }
+    ]
+  },
+  {
+    "id": "praeteritum",
+    "level": "B1",
+    "title": "The Präteritum (Simple Past)",
+    "summary": "The written past — and the forms you must know even in speech.",
+    "explanation": [
+      "The Präteritum is preferred in writing (news, stories, formal texts). In everyday speech, however, a handful of very common verbs almost always appear in the Präteritum rather than the Perfekt: sein → war, haben → hatte, and the modal verbs (konnte, musste, wollte, durfte, sollte, mochte).",
+      "Regular verbs add -te to the stem (machen → machte). Irregular verbs change their stem (gehen → ging, sehen → sah) and must be memorized."
+    ],
+    "table": {
+      "caption": "Präteritum of sein and haben",
+      "headers": ["", "sein", "haben"],
+      "rows": [
+        ["ich/er/sie/es", "war", "hatte"],
+        ["du", "warst", "hattest"],
+        ["wir/sie/Sie", "waren", "hatten"]
+      ]
+    },
+    "examples": [
+      { "de": "Ich war gestern krank.", "note": "sein → war, used even in casual speech" },
+      { "de": "Er konnte nicht kommen.", "note": "modal verb in Präteritum, very common in speech" },
+      { "de": "Es war einmal ein König.", "note": "classic written narrative style" }
+    ],
+    "exercises": [
+      { "type": "fill", "prompt": "Gestern ___ (sein) ich sehr müde.", "answer": "war", "explanation": "sein, 1st person singular Präteritum → war." },
+      { "type": "choice", "prompt": "Wir ___ keine Zeit für die Party.", "options": ["hatten", "haben", "hattet", "hatte"], "answer": "hatten", "explanation": "haben, 1st person plural Präteritum → hatten." },
+      { "type": "fill", "prompt": "Sie ___ (können) das Problem nicht lösen.", "answer": "konnte", "explanation": "können, 3rd person singular Präteritum → konnte." },
+      { "type": "choice", "prompt": "Er ___ jeden Tag ins Büro. (gehen)", "options": ["ging", "gehte", "gegangen", "geht"], "answer": "ging", "explanation": "gehen is irregular; Präteritum stem changes to ging." },
+      { "type": "fill", "prompt": "Ich ___ (machen) meine Hausaufgaben sofort.", "answer": "machte", "explanation": "Regular verb → stem + -te → machte." }
+    ]
+  },
+  {
+    "id": "separable-verbs",
+    "level": "B1",
+    "title": "Separable & Inseparable Verbs",
+    "summary": "Prefixes that split off — and prefixes that never do.",
+    "explanation": [
+      "Many German verbs have a prefix that changes their meaning: aufstehen, ankommen, mitnehmen. In a main clause, this prefix splits off and moves to the very end: 'Ich stehe um sieben Uhr auf.' The prefix is always stressed when spoken.",
+      "A fixed set of prefixes — be-, emp-, ent-, er-, ge-, ver-, zer-, and usually miss- — are inseparable: they never split off and are never stressed (besuchen, verstehen). A few prefixes (durch-, über-, um-, unter-) can go either way depending on the verb, with a meaning change."
+    ],
+    "examples": [
+      { "de": "Ich rufe dich morgen an.", "note": "anrufen splits: an... ruft... an" },
+      { "de": "Wir haben das Problem besprochen.", "note": "besprechen is inseparable — no ge- in the participle either: besprochen" },
+      { "de": "Er nimmt seinen Regenschirm mit.", "note": "mitnehmen splits, prefix goes to the end" }
+    ],
+    "exercises": [
+      { "type": "fill", "prompt": "Ich mache das Fenster ___. (aufmachen)", "answer": "auf", "explanation": "Separable prefix auf- moves to the end of the main clause." },
+      { "type": "choice", "prompt": "Which sentence is correct for 'to understand'? (verstehen)", "options": ["Ich verstehe das nicht.", "Ich stehe das nicht ver.", "Ich verstehe das ver nicht.", "Ich verstehe ver das nicht."], "answer": "Ich verstehe das nicht.", "explanation": "verstehen is inseparable — ver- never splits off." },
+      { "type": "fill", "prompt": "Der Zug kommt um 9 Uhr ___. (ankommen)", "answer": "an", "explanation": "Separable prefix an- moves to the end." },
+      { "type": "choice", "prompt": "Participle of 'besuchen' (to visit)?", "options": ["besucht", "gebesucht", "besuchen", "besuchte"], "answer": "besucht", "explanation": "Inseparable prefixes never take ge- in the participle: besucht, not gebesucht." },
+      { "type": "fill", "prompt": "Wir laden dich herzlich ___. (einladen)", "answer": "ein", "explanation": "Separable prefix ein- moves to the end of the main clause." }
+    ]
+  },
+  {
+    "id": "reflexive-verbs",
+    "level": "B1",
+    "title": "Reflexive Verbs",
+    "summary": "When the action reflects back on the subject — sich freuen, sich erinnern...",
+    "explanation": [
+      "Reflexive verbs need a reflexive pronoun that matches the subject: mich, dich, sich, uns, euch, sich. Some verbs are always reflexive (sich beeilen, sich erkälten); others become reflexive with a specific meaning (sich freuen auf = to look forward to, vs. freuen = to please).",
+      "Most reflexive pronouns are Accusative, but a few verbs — often when another object is present — take a Dative reflexive pronoun, e.g. 'Ich putze mir die Zähne' (I brush my teeth, literally 'to myself')."
+    ],
+    "table": {
+      "caption": "Reflexive pronouns",
+      "headers": ["", "Accusative", "Dative"],
+      "rows": [
+        ["ich", "mich", "mir"],
+        ["du", "dich", "dir"],
+        ["er/sie/es", "sich", "sich"],
+        ["wir", "uns", "uns"],
+        ["ihr", "euch", "euch"],
+        ["sie/Sie", "sich", "sich"]
+      ]
+    },
+    "examples": [
+      { "de": "Ich freue mich auf die Ferien.", "note": "sich freuen auf = to look forward to" },
+      { "de": "Er erinnert sich an seine Kindheit.", "note": "sich erinnern an + Accusative object" },
+      { "de": "Wir kaufen uns ein neues Auto.", "note": "Dative reflexive, because 'ein neues Auto' is the direct object" }
+    ],
+    "exercises": [
+      { "type": "fill", "prompt": "Ich beeile ___. (sich beeilen)", "answer": "mich", "explanation": "1st person singular reflexive, Accusative → mich." },
+      { "type": "choice", "prompt": "Erinnerst du ___ an mich?", "options": ["mich", "dich", "sich", "dir"], "answer": "dich", "explanation": "2nd person singular reflexive, Accusative → dich." },
+      { "type": "fill", "prompt": "Wir freuen ___ auf das Wochenende.", "answer": "uns", "explanation": "1st person plural reflexive → uns." },
+      { "type": "choice", "prompt": "Sie putzt ___ die Zähne.", "options": ["sich", "sie", "ihr", "es"], "answer": "sich", "explanation": "3rd person singular reflexive (Dative form is also 'sich')." },
+      { "type": "fill", "prompt": "Habt ihr ___ schon entschieden? (sich entscheiden)", "answer": "euch", "explanation": "2nd person plural reflexive → euch." }
+    ]
+  },
+  {
+    "id": "comparison",
+    "level": "B1",
+    "title": "Comparative & Superlative",
+    "summary": "schnell → schneller → am schnellsten.",
+    "explanation": [
+      "The comparative usually just adds -er (schnell → schneller); the superlative uses am + stem + -sten (am schnellsten). Short, common adjectives with a, o, u often add an umlaut (alt → älter → am ältesten; groß → größer → am größten).",
+      "A handful of adjectives are irregular and must be memorized: gut → besser → am besten, viel → mehr → am meisten, gern → lieber → am liebsten."
+    ],
+    "table": {
+      "caption": "Common irregular comparisons",
+      "headers": ["Base", "Comparative", "Superlative"],
+      "rows": [
+        ["gut", "besser", "am besten"],
+        ["viel", "mehr", "am meisten"],
+        ["gern", "lieber", "am liebsten"],
+        ["groß", "größer", "am größten"]
+      ]
+    },
+    "examples": [
+      { "de": "Mein Bruder ist älter als ich.", "note": "comparative + als (than)" },
+      { "de": "Das ist das beste Restaurant der Stadt.", "note": "irregular: gut → beste (attributive superlative)" },
+      { "de": "Im Winter esse ich am liebsten Suppe.", "note": "gern → am liebsten" }
+    ],
+    "exercises": [
+      { "type": "fill", "prompt": "Berlin ist ___ (groß) als München.", "answer": "größer", "explanation": "groß → comparative with umlaut → größer." },
+      { "type": "choice", "prompt": "Das war der ___ Tag meines Lebens.", "options": ["gute", "besser", "beste", "gutes"], "answer": "beste", "explanation": "gut → irregular superlative → beste (attributive form)." },
+      { "type": "fill", "prompt": "Ich trinke ___ (gern) Tee als Kaffee.", "answer": "lieber", "explanation": "gern → irregular comparative → lieber." },
+      { "type": "choice", "prompt": "Er hat ___ Geld von allen.", "options": ["viel", "mehr", "am meisten", "meiste"], "answer": "am meisten", "explanation": "viel → irregular superlative → am meisten." },
+      { "type": "fill", "prompt": "Dieses Auto ist ___ (schnell) als das andere.", "answer": "schneller", "explanation": "Regular comparative: just add -er → schneller." }
+    ]
+  },
+  {
+    "id": "relative-clauses",
+    "level": "B1",
+    "title": "Relative Clauses",
+    "summary": "der/die/das as 'who/which/that' — matching gender, number, and case.",
+    "explanation": [
+      "A relative clause adds extra information about a noun, introduced by a relative pronoun (der, die, das, plural die) that mostly looks like the definite article. Its gender and number match the noun it refers back to, but its case depends on its own job inside the relative clause.",
+      "The verb goes to the end of the relative clause, just like any subordinate clause: 'Der Mann, der dort steht, ist mein Chef.' If a preposition is involved, it comes right before the pronoun: 'Das ist die Frau, mit der ich arbeite.'"
+    ],
+    "table": {
+      "caption": "Relative pronouns (same as definite article, except genitive)",
+      "headers": ["", "Nom.", "Akk.", "Dat.", "Gen."],
+      "rows": [
+        ["masc.", "der", "den", "dem", "dessen"],
+        ["fem.", "die", "die", "der", "deren"],
+        ["neut.", "das", "das", "dem", "dessen"],
+        ["plural", "die", "die", "denen", "deren"]
+      ]
+    },
+    "examples": [
+      { "de": "Der Mann, der dort steht, ist mein Chef.", "note": "der = subject of the relative clause → Nominative" },
+      { "de": "Das Buch, das ich lese, ist spannend.", "note": "das = direct object inside the clause → Accusative" },
+      { "de": "Das ist die Frau, mit der ich arbeite.", "note": "preposition mit forces Dative → der" }
+    ],
+    "exercises": [
+      { "type": "choice", "prompt": "Ich kenne den Mann, ___ das Auto gehört.", "options": ["der", "den", "dem", "dessen"], "answer": "dem", "explanation": "gehören + Dative → dem." },
+      { "type": "fill", "prompt": "Die Frau, ___ dort sitzt, ist meine Tante. (subject)", "answer": "die", "explanation": "Subject of the relative clause, feminine → die." },
+      { "type": "choice", "prompt": "Das ist das Kind, ___ ich gestern gesehen habe.", "options": ["der", "die", "das", "dem"], "answer": "das", "explanation": "Direct object of the relative clause, neuter → das." },
+      { "type": "fill", "prompt": "Das sind die Kollegen, mit ___ ich arbeite. (plural)", "answer": "denen", "explanation": "Preposition mit + Dative plural → denen." },
+      { "type": "choice", "prompt": "Der Film, ___ wir gesehen haben, war toll.", "options": ["der", "den", "dem", "die"], "answer": "den", "explanation": "Direct object of 'gesehen haben', masculine → den." }
+    ]
+  },
+  {
+    "id": "genitive",
+    "level": "B1",
+    "title": "Genitive Case & Prepositions",
+    "summary": "Possession — and the prepositions wegen, trotz, während, statt.",
+    "explanation": [
+      "The Genitive expresses possession or a close relationship: 'das Auto meines Vaters' (my father's car). Masculine and neuter nouns typically add -s or -es in the genitive (des Mannes, des Kindes); feminine and plural nouns don't change.",
+      "A small set of prepositions govern the Genitive: wegen (because of), trotz (despite), während (during), statt/anstatt (instead of). In casual speech these are often followed by Dative instead, but the Genitive is expected in writing and on exams."
+    ],
+    "table": {
+      "caption": "Genitive articles",
+      "headers": ["", "Genitive"],
+      "rows": [
+        ["masculine", "des (+s/es)"],
+        ["feminine", "der"],
+        ["neuter", "des (+s/es)"],
+        ["plural", "der"]
+      ]
+    },
+    "examples": [
+      { "de": "Das ist das Auto meines Vaters.", "note": "des Vaters → masculine genitive, noun adds -s" },
+      { "de": "Wegen des Regens bleiben wir zu Hause.", "note": "wegen + Genitive" },
+      { "de": "Trotz der Kälte gingen wir spazieren.", "note": "trotz + Genitive, feminine noun unchanged" }
+    ],
+    "exercises": [
+      { "type": "fill", "prompt": "Das ist die Tasche ___ Schwester. (die Schwester)", "answer": "der", "explanation": "Feminine genitive article → der." },
+      { "type": "choice", "prompt": "Wegen ___ Wetters fällt das Spiel aus.", "options": ["das", "dem", "des", "der"], "answer": "des", "explanation": "wegen + Genitive, neuter → des Wetters." },
+      { "type": "fill", "prompt": "Das ist das Haus ___ Eltern. (die Eltern, plural)", "answer": "der", "explanation": "Plural genitive article → der." },
+      { "type": "choice", "prompt": "___ des schlechten Wetters gingen wir spazieren.", "options": ["Wegen", "Trotz", "Während", "Statt"], "answer": "Trotz", "explanation": "'despite the bad weather' → trotz." },
+      { "type": "fill", "prompt": "Das ist der Hund ___ Nachbarn. (der Nachbar)", "answer": "des", "explanation": "Masculine genitive → des Nachbarn (weak noun, also takes -n — see N-Declension)." }
+    ]
+  },
+  {
+    "id": "n-declension",
+    "level": "B1",
+    "title": "N-Declension (Weak Nouns)",
+    "summary": "der Junge, der Mensch, der Kunde — nouns that add -n/-en everywhere except Nominative.",
+    "explanation": [
+      "A specific group of masculine nouns — mostly referring to people or animals, often ending in -e (der Junge, der Kollege) or a handful of others (der Mensch, der Herr, der Name) — add -n or -en in every case except the Nominative singular.",
+      "This trips up even advanced learners because it looks like a genitive -n but applies to Accusative and Dative too: 'Ich sehe den Jungen' (Accusative), 'Ich helfe dem Jungen' (Dative)."
+    ],
+    "table": {
+      "caption": "der Junge across the cases",
+      "headers": ["Nom.", "Akk.", "Dat.", "Gen."],
+      "rows": [
+        ["der Junge", "den Jungen", "dem Jungen", "des Jungen"]
+      ]
+    },
+    "examples": [
+      { "de": "Der Junge spielt Fußball.", "note": "Nominative — no extra ending" },
+      { "de": "Ich sehe den Jungen.", "note": "Accusative — adds -n" },
+      { "de": "Der Herr dort drüben ist mein Kollege.", "note": "der Herr → den/dem/des Herrn" }
+    ],
+    "exercises": [
+      { "type": "fill", "prompt": "Ich kenne ___ Studenten. (der Student, Akkusativ)", "answer": "den", "explanation": "Accusative article — the noun itself also takes -en: den Studenten." },
+      { "type": "choice", "prompt": "Wir helfen dem ___.", "options": ["Kunde", "Kunden", "Kundem", "Kundes"], "answer": "Kunden", "explanation": "N-declension noun, Dative → Kunden (adds -n)." },
+      { "type": "fill", "prompt": "Das ist das Auto des ___. (der Kollege, Genitiv)", "answer": "Kollegen", "explanation": "N-declension noun, Genitive → Kollegen." },
+      { "type": "choice", "prompt": "___ Herr Müller wartet schon.", "options": ["Der", "Den", "Dem", "Des"], "answer": "Der", "explanation": "Nominative — the only case with no extra -n ending." },
+      { "type": "fill", "prompt": "Ich schreibe dem ___ eine Nachricht. (der Name, Dativ)", "answer": "Namen", "explanation": "N-declension noun, Dative → Namen." }
+    ]
+  },
+  {
+    "id": "adjective-endings",
+    "level": "B2",
+    "title": "Adjective Endings",
+    "summary": "The single hardest table in German grammar — and how to survive it.",
+    "explanation": [
+      "When an adjective comes before a noun, it needs an ending that depends on three things: the noun's gender/number, its case, and what kind of article (if any) comes before the adjective. There are three patterns: after a der-word (der/dieser...), after an ein-word (ein/mein/kein...), and with no article at all.",
+      "The good news: the article usually already signals gender and case, so the adjective ending after der-words is mostly just -e or -en (weak endings). Without any article, the adjective itself must carry that signal, so it takes strong endings that mirror der/die/das/den/dem."
+    ],
+    "table": {
+      "caption": "Adjective endings after der-words (weak declension)",
+      "headers": ["", "Nom.", "Akk.", "Dat."],
+      "rows": [
+        ["masc.", "der gute Mann", "den guten Mann", "dem guten Mann"],
+        ["fem.", "die gute Frau", "die gute Frau", "der guten Frau"],
+        ["neut.", "das gute Kind", "das gute Kind", "dem guten Kind"],
+        ["plural", "die guten Leute", "die guten Leute", "den guten Leuten"]
+      ]
+    },
+    "examples": [
+      { "de": "Der neue Kollege ist sehr nett.", "note": "after der-word, Nominative masculine → -e" },
+      { "de": "Ich habe einen guten Film gesehen.", "note": "after ein-word, Accusative masculine → -en (ein itself doesn't signal it, so the adjective does)" },
+      { "de": "Frisches Brot schmeckt am besten.", "note": "no article, Nominative neuter → strong ending -es" }
+    ],
+    "exercises": [
+      { "type": "fill", "prompt": "Ich mag den neu___ Kollegen. (Akkusativ, nach 'den')", "answer": "en", "explanation": "After a der-word in Accusative masculine → weak ending -en." },
+      { "type": "choice", "prompt": "Das ist ein sehr interessant___ Buch.", "options": ["-e", "-es", "-er", "-en"], "answer": "-es", "explanation": "ein doesn't signal neuter Nominative, so the adjective takes the strong ending -es." },
+      { "type": "fill", "prompt": "Wir wohnen in einer klein___ Wohnung. (Dativ, nach 'einer')", "answer": "en", "explanation": "After an ein-word, Dative always takes -en, regardless of gender." },
+      { "type": "choice", "prompt": "Kalt___ Wasser ist gut für die Pflanzen. (kein Artikel)", "options": ["-e", "-es", "-en", "-er"], "answer": "-es", "explanation": "No article, neuter Nominative/Accusative → strong ending -es." },
+      { "type": "fill", "prompt": "Die alt___ Häuser hier sind sehr schön. (nach 'die')", "answer": "en", "explanation": "After a der-word, plural in any case → weak ending -en." }
+    ]
+  },
+  {
+    "id": "infinitive-zu",
+    "level": "B2",
+    "title": "Infinitive Clauses with 'zu'",
+    "summary": "um...zu, ohne...zu, statt...zu — and the plain zu + infinitive.",
+    "explanation": [
+      "Many verbs and expressions are followed by 'zu' + infinitive at the end of the clause: 'Ich habe vor, nach Berlin zu ziehen.' With separable verbs, zu is inserted between the prefix and the stem: aufzustehen, anzurufen.",
+      "Three common constructions build a purpose or contrast clause: um...zu (in order to), ohne...zu (without doing), and statt...zu (instead of doing). These are used only when the subject of both clauses is the same."
+    ],
+    "examples": [
+      { "de": "Ich habe vergessen, dich anzurufen.", "note": "separable verb: an + zu + rufen = anzurufen" },
+      { "de": "Er lernt Deutsch, um in Deutschland zu arbeiten.", "note": "um...zu = in order to" },
+      { "de": "Sie ging weg, ohne sich zu verabschieden.", "note": "ohne...zu = without doing something" }
+    ],
+    "exercises": [
+      { "type": "fill", "prompt": "Ich habe keine Zeit, das Buch ___ lesen. (zu einfügen)", "answer": "zu", "explanation": "Standard construction: verb + zu + infinitive." },
+      { "type": "choice", "prompt": "Er ruft mich an, ___ mir die Nachricht zu sagen.", "options": ["um", "ohne", "statt", "damit"], "answer": "um", "explanation": "'in order to tell me' → um...zu." },
+      { "type": "fill", "prompt": "Sie verließ das Haus, ___ das Licht auszumachen. (ohne)", "answer": "ohne", "explanation": "'without turning off the light' → ohne...zu." },
+      { "type": "choice", "prompt": "Which is correctly formed with a separable verb?", "options": ["Vergiss nicht, die Tür zuzumachen.", "Vergiss nicht, die Tür zu zumachen.", "Vergiss nicht, die Tür zumachen zu.", "Vergiss nicht, zu die Tür zumachen."], "answer": "Vergiss nicht, die Tür zuzumachen.", "explanation": "zu is inserted inside the separable verb: zu + machen → zuzumachen." },
+      { "type": "fill", "prompt": "___ zu arbeiten, ging er ins Kino. (statt)", "answer": "Statt", "explanation": "'Instead of working' → statt...zu." }
+    ]
+  },
+  {
+    "id": "passive",
+    "level": "B2",
+    "title": "Passive Voice",
+    "summary": "werden + Partizip II — when the action matters more than who does it.",
+    "explanation": [
+      "The Vorgangspassiv (process passive) shifts focus from the doer to the action itself: werden + Partizip II. 'Der Brief wird geschrieben' (The letter is being written). The original subject, if mentioned at all, appears with 'von + Dative'.",
+      "The Zustandspassiv (state passive) describes the resulting state using sein + Partizip II: 'Der Brief ist geschrieben' (The letter is [already] written) — the focus is on the finished result, not the ongoing action."
+    ],
+    "table": {
+      "caption": "Vorgangspassiv, present and past",
+      "headers": ["Tense", "Form"],
+      "rows": [
+        ["Present", "Der Brief wird geschrieben."],
+        ["Präteritum", "Der Brief wurde geschrieben."],
+        ["Perfekt", "Der Brief ist geschrieben worden."]
+      ]
+    },
+    "examples": [
+      { "de": "Das Haus wird von einer Firma gebaut.", "note": "process passive, agent introduced with von" },
+      { "de": "Das Haus wurde 1990 gebaut.", "note": "Präteritum passive, common in writing" },
+      { "de": "Die Tür ist geschlossen.", "note": "Zustandspassiv — describes the resulting state" }
+    ],
+    "exercises": [
+      { "type": "fill", "prompt": "Das Fenster ___ gerade geputzt. (werden, present)", "answer": "wird", "explanation": "Present passive → wird + Partizip II." },
+      { "type": "choice", "prompt": "Der Kuchen wurde von meiner Mutter ___.", "options": ["backen", "gebacken", "backte", "gebackt"], "answer": "gebacken", "explanation": "Partizip II of backen (irregular) → gebacken." },
+      { "type": "fill", "prompt": "Die Aufgabe ist schon ___. (Zustandspassiv, machen)", "answer": "gemacht", "explanation": "sein + Partizip II describes the finished state → ist gemacht." },
+      { "type": "choice", "prompt": "In diesem Restaurant ___ sehr gutes Essen serviert.", "options": ["wird", "werden", "wurde", "ist"], "answer": "wird", "explanation": "Singular subject 'Essen' → wird (present passive)." },
+      { "type": "fill", "prompt": "Der Brief ist gestern ___ worden. (schicken)", "answer": "geschickt", "explanation": "Perfekt passive uses Partizip II + worden → geschickt worden." }
+    ]
+  },
+  {
+    "id": "konjunktiv-2",
+    "level": "B2",
+    "title": "Konjunktiv II",
+    "summary": "Would/could/should — hypotheticals, wishes, and polite requests.",
+    "explanation": [
+      "Konjunktiv II expresses something unreal, hypothetical, or polite: 'Ich würde gerne kommen' (I would like to come). For most verbs, the easiest form is würde + infinitive. A handful of very common verbs use their own short forms instead: wäre (sein), hätte (haben), könnte, müsste, würde is rarely replaced for regular verbs.",
+      "It's essential for the classic 'wenn' hypothetical: 'Wenn ich Zeit hätte, würde ich dich besuchen' (If I had time, I would visit you) — and for softening requests: 'Könnten Sie mir helfen?' sounds far more polite than 'Können Sie mir helfen?'"
+    ],
+    "table": {
+      "caption": "Common short Konjunktiv II forms",
+      "headers": ["Verb", "Konjunktiv II"],
+      "rows": [
+        ["sein", "wäre"],
+        ["haben", "hätte"],
+        ["können", "könnte"],
+        ["müssen", "müsste"],
+        ["werden", "würde"]
+      ]
+    },
+    "examples": [
+      { "de": "Wenn ich reich wäre, würde ich um die Welt reisen.", "note": "unreal condition → wäre + würde...infinitive" },
+      { "de": "Könntest du mir das Salz geben?", "note": "polite request, softer than 'Kannst du'" },
+      { "de": "An deiner Stelle würde ich das nicht machen.", "note": "hypothetical advice" }
+    ],
+    "exercises": [
+      { "type": "fill", "prompt": "Wenn ich Zeit ___, würde ich dich besuchen. (haben)", "answer": "hätte", "explanation": "Konjunktiv II of haben → hätte." },
+      { "type": "choice", "prompt": "___ Sie mir bitte helfen?", "options": ["Können", "Könnten", "Konnten", "Könnt"], "answer": "Könnten", "explanation": "Polite request uses the Konjunktiv II form könnten." },
+      { "type": "fill", "prompt": "Ich ___ gerne einen Kaffee trinken. (würde + Infinitiv)", "answer": "würde", "explanation": "Regular verbs use würde + infinitive for Konjunktiv II." },
+      { "type": "choice", "prompt": "Wenn es morgen nicht regnen ___, gingen wir wandern.", "options": ["wird", "würde", "werden", "wäre"], "answer": "würde", "explanation": "Hypothetical condition → würde + infinitive (regnen)." },
+      { "type": "fill", "prompt": "An deiner Stelle ___ ich das nicht tun. (würde + Infinitiv)", "answer": "würde", "explanation": "würde + infinitive is the safe default for Konjunktiv II with most verbs." }
+    ]
+  },
+  {
+    "id": "konjunktiv-1",
+    "level": "B2",
+    "title": "Konjunktiv I & Indirect Speech",
+    "summary": "Reporting what someone else said, the formal way (news, exams).",
+    "explanation": [
+      "Konjunktiv I is used mainly in formal writing — news reports, official summaries — to report what someone else said without claiming it as fact: 'Er sagt, er sei krank' (He says he is sick). It signals distance from the statement, not doubt about it.",
+      "Formed from the infinitive stem + endings (ich sei, du seist, er/sie/es sei, wir seien...). Whenever a Konjunktiv I form is identical to the plain present indicative (which happens often, especially in wir/sie plural), German speakers substitute Konjunktiv II instead to keep the 'reported speech' meaning clear."
+    ],
+    "table": {
+      "caption": "Konjunktiv I of sein and haben",
+      "headers": ["", "sein", "haben"],
+      "rows": [
+        ["ich", "sei", "habe"],
+        ["du", "sei(e)st", "habest"],
+        ["er/sie/es", "sei", "habe"]
+      ]
+    },
+    "examples": [
+      { "de": "Sie sagte, sie habe keine Zeit.", "note": "reported speech, Konjunktiv I of haben" },
+      { "de": "Der Minister erklärte, die Lage sei unter Kontrolle.", "note": "typical formal news style" },
+      { "de": "Er sagte, dass sie kommen würden.", "note": "Konjunktiv I 'kommen' looks like the indicative, so Konjunktiv II (würden) is used instead" }
+    ],
+    "exercises": [
+      { "type": "fill", "prompt": "Er sagt, er ___ müde. (sein, Konjunktiv I)", "answer": "sei", "explanation": "Konjunktiv I of sein, 3rd person singular → sei." },
+      { "type": "choice", "prompt": "Sie berichtete, sie ___ das Projekt beendet.", "options": ["hat", "habe", "hätte", "hatte"], "answer": "habe", "explanation": "Reported speech, formal → Konjunktiv I habe." },
+      { "type": "fill", "prompt": "Der Sprecher sagte, die Firma ___ neue Mitarbeiter. (suchen, Konjunktiv I)", "answer": "suche", "explanation": "Regular verb, Konjunktiv I stem + -e → suche." },
+      { "type": "choice", "prompt": "Sie sagten, sie ___ kommen.", "options": ["kommen", "kämen", "würden", "kommt"], "answer": "würden", "explanation": "Konjunktiv I 'kommen' would look identical to the plain indicative here, so Konjunktiv II (würden) is used instead to keep the reported-speech meaning clear." },
+      { "type": "fill", "prompt": "Er behauptete, er ___ die Wahrheit. (sagen, Konjunktiv I)", "answer": "sage", "explanation": "Regular verb, Konjunktiv I 3rd person singular → sage." }
+    ]
+  },
+  {
+    "id": "connectors",
+    "level": "B2",
+    "title": "Connectors & Two-Part Conjunctions",
+    "summary": "trotzdem vs. obwohl vs. trotz, je...desto, and other exam favorites.",
+    "explanation": [
+      "obwohl is a subordinating conjunction (verb goes to the end): 'Obwohl es regnet, gehe ich raus.' trotzdem is an adverb, so it triggers verb-second word order and can start or sit inside its own main clause: 'Es regnet. Trotzdem gehe ich raus.' trotz is a preposition + Genitive, used with a noun, not a clause: 'Trotz des Regens gehe ich raus.'",
+      "je...desto (the more... the more) always pairs a comparative in each half, with the first clause verb-final: 'Je mehr du übst, desto besser wirst du.' Other high-value B2 connectors: nicht nur...sondern auch (not only... but also), sowohl...als auch (both... and), entweder...oder (either... or), weder...noch (neither... nor)."
+    ],
+    "examples": [
+      { "de": "Obwohl er müde war, arbeitete er weiter.", "note": "obwohl = subordinating conjunction, verb-final" },
+      { "de": "Er war müde. Trotzdem arbeitete er weiter.", "note": "trotzdem = adverb, verb-second" },
+      { "de": "Je mehr ich lerne, desto sicherer fühle ich mich.", "note": "je...desto with comparatives in both halves" }
+    ],
+    "exercises": [
+      { "type": "choice", "prompt": "___ es kalt war, gingen wir schwimmen.", "options": ["Trotzdem", "Trotz", "Obwohl", "Wegen"], "answer": "Obwohl", "explanation": "Introduces a full clause with verb-final order → obwohl." },
+      { "type": "fill", "prompt": "Es war kalt. ___ gingen wir schwimmen. (adverb form)", "answer": "Trotzdem", "explanation": "Starts a new main clause, adverb → trotzdem, verb-second follows." },
+      { "type": "choice", "prompt": "___ des schlechten Wetters fand das Fest statt.", "options": ["Obwohl", "Trotzdem", "Trotz", "Dennoch"], "answer": "Trotz", "explanation": "Followed directly by a noun (Genitive), not a clause → the preposition trotz." },
+      { "type": "fill", "prompt": "Je früher du gehst, ___ früher kommst du an.", "answer": "desto", "explanation": "je...desto pairing — second half always uses desto + comparative." },
+      { "type": "choice", "prompt": "Sie spricht ___ Deutsch als auch Englisch.", "options": ["nicht nur", "sowohl", "entweder", "weder"], "answer": "sowohl", "explanation": "'both German and English' → sowohl...als auch." }
+    ]
+  }
+]

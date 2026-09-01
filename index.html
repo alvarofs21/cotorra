@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotorra - Master German</title>
+    <script>
+        // Apply saved theme before first paint to avoid a flash of the wrong theme.
+        (function () {
+            try {
+                var saved = localStorage.getItem("cotorra_theme");
+                if (saved === "light") document.documentElement.classList.remove("dark");
+                else document.documentElement.classList.add("dark");
+            } catch (e) {}
+        })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = { darkMode: 'class' }
@@ -80,6 +90,47 @@
             box-shadow: 0 0 0 1px var(--danger);
             opacity: 0.7;
         }
+
+        .input-answer {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .input-answer:focus { border-color: var(--text-main); }
+        .input-answer.correct {
+            border-color: var(--success);
+            color: var(--success);
+            box-shadow: 0 0 0 1px var(--success);
+        }
+        .input-answer.wrong {
+            border-color: var(--danger);
+            color: var(--danger);
+            box-shadow: 0 0 0 1px var(--danger);
+        }
+
+        .mode-btn, .section-btn { color: var(--text-muted); }
+        .mode-btn.active, .section-btn.active {
+            background-color: var(--surface);
+            color: var(--text-main);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+        }
+
+        .grammar-table { border-collapse: collapse; width: 100%; }
+        .grammar-table th, .grammar-table td {
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .grammar-table th {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+        .grammar-table td { color: var(--text-main); font-size: 0.85rem; }
 
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
@@ -159,9 +210,25 @@
             </svg>
             <h1 class="text-3xl font-semibold text-slate-900 dark:text-white tracking-tight transition-colors">Cotorra</h1>
             <p class="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-[0.25em] mt-2 transition-colors">ein bisschen Sport</p>
+            <p id="mastery-stat" class="text-xs text-slate-400 dark:text-slate-500 mt-4 transition-colors"></p>
         </div>
 
-        <div class="w-full">
+        <div class="w-full mb-8 px-2">
+            <div class="grid grid-cols-2 gap-1 p-1 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-colors">
+                <button id="btn-section-vocab" data-section="vocab" class="section-btn py-2.5 rounded-md text-sm font-medium transition-colors focus:outline-none">Vocabulary</button>
+                <button id="btn-section-grammar" data-section="grammar" class="section-btn py-2.5 rounded-md text-sm font-medium transition-colors focus:outline-none">Grammar</button>
+            </div>
+        </div>
+
+        <div id="vocab-panel" class="w-full">
+            <div class="mb-8 px-2">
+                <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest transition-colors block mb-3">Practice Mode</span>
+                <div class="grid grid-cols-2 gap-1 p-1 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-colors">
+                    <button id="btn-mode-choice" data-mode="choice" class="mode-btn py-2.5 rounded-md text-sm font-medium transition-colors focus:outline-none">Multiple Choice</button>
+                    <button id="btn-mode-type" data-mode="type" class="mode-btn py-2.5 rounded-md text-sm font-medium transition-colors focus:outline-none">Type It</button>
+                </div>
+            </div>
+
             <div class="mb-12 px-2">
                 <div class="flex justify-between items-center mb-6">
                     <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest transition-colors">Training Level</span>
@@ -181,6 +248,11 @@
             <button id="btn-start" class="w-full btn-premium bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 rounded-lg flex justify-center items-center group transition-colors hover:bg-slate-800 dark:hover:bg-slate-100 shadow-sm">
                 <span class="font-medium tracking-wide">Start Training</span>
             </button>
+            <p id="review-hint" class="hidden text-center text-xs text-slate-400 dark:text-slate-500 mt-4 transition-colors"></p>
+        </div>
+
+        <div id="grammar-panel" class="hidden w-full px-2">
+            <div id="grammar-topic-list" class="flex flex-col gap-2 max-h-[55vh] overflow-y-auto pr-1"></div>
         </div>
     </div>
 
@@ -204,6 +276,77 @@
                 <h2 id="english-word" class="text-4xl md:text-5xl font-light tracking-tight text-slate-900 dark:text-white transition-colors break-words">Word</h2>
             </div>
             <div id="options-container" class="grid grid-cols-1 gap-4" role="group" aria-label="Answer options"></div>
+            <form id="type-form" class="hidden flex flex-col gap-4" autocomplete="off">
+                <input id="type-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+                    class="input-answer w-full py-4 px-6 rounded-lg text-lg text-center break-words"
+                    placeholder="Type the German word…" aria-label="Type the German translation">
+                <button type="submit" id="btn-type-submit" class="w-full btn-premium bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 rounded-lg font-medium transition-colors shadow-sm">
+                    Check
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- GRAMMAR LESSON SCREEN -->
+    <div id="grammar-lesson-screen" class="hidden flex-grow flex flex-col p-6 max-w-lg mx-auto w-full fade-in overflow-y-auto">
+        <div class="flex items-center justify-between mb-8 pt-2">
+            <button id="btn-grammar-lesson-back" aria-label="Back to topics" class="text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors focus:outline-none">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <span id="grammar-lesson-level" class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest transition-colors"></span>
+            <span class="w-4"></span>
+        </div>
+
+        <h2 id="grammar-lesson-title" class="text-2xl font-semibold text-slate-900 dark:text-white tracking-tight mb-6 transition-colors"></h2>
+
+        <div id="grammar-lesson-explanation" class="space-y-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300 mb-8 transition-colors"></div>
+
+        <div id="grammar-lesson-table-wrap" class="hidden mb-8 overflow-x-auto"></div>
+
+        <div class="mb-2">
+            <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest transition-colors">Examples</span>
+        </div>
+        <div id="grammar-lesson-examples" class="space-y-3 mb-10"></div>
+
+        <button id="btn-grammar-practice" class="w-full btn-premium bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 rounded-lg font-medium transition-colors shadow-sm mb-6">
+            Practice This Topic
+        </button>
+    </div>
+
+    <!-- GRAMMAR EXERCISE SCREEN -->
+    <div id="grammar-exercise-screen" class="hidden flex-grow flex flex-col p-6 max-w-lg mx-auto w-full fade-in">
+        <div class="flex items-center justify-between mb-10 pt-2">
+            <button id="btn-grammar-exit" aria-label="Back to topic" class="text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors focus:outline-none">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="progress-container flex-grow mx-6">
+                <div id="grammar-progress-bar" class="progress-bar" style="width: 0%"></div>
+            </div>
+            <div id="grammar-question-count" class="text-slate-400 dark:text-slate-500 text-sm shrink-0 transition-colors">1/5</div>
+        </div>
+
+        <div id="grammar-quiz-body" class="flex-grow flex flex-col justify-center">
+            <div class="text-center mb-10">
+                <h2 id="grammar-prompt" class="text-2xl md:text-3xl font-light tracking-tight text-slate-900 dark:text-white transition-colors break-words"></h2>
+            </div>
+            <div id="grammar-answer-area" class="flex flex-col gap-4"></div>
+            <p id="grammar-feedback-note" class="hidden text-sm leading-relaxed text-center mt-6 transition-colors"></p>
+            <button id="btn-grammar-next" class="hidden w-full btn-premium bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 rounded-lg font-medium transition-colors shadow-sm mt-8">
+                Next
+            </button>
+        </div>
+
+        <div id="grammar-quiz-summary" class="hidden flex-grow flex flex-col items-center justify-center text-center">
+            <h2 class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1 transition-colors">Practice Complete</h2>
+            <p id="grammar-summary-score" class="text-3xl font-light text-slate-900 dark:text-white mb-10 transition-colors"></p>
+            <div class="flex flex-col gap-3 w-full max-w-xs">
+                <button id="btn-grammar-retry" class="w-full btn-premium bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 rounded-lg font-medium transition-colors shadow-sm">
+                    Practice Again
+                </button>
+                <button id="btn-grammar-back-to-lesson" class="w-full btn-premium border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white py-4 rounded-lg font-medium transition-colors">
+                    Back to Topic
+                </button>
+            </div>
         </div>
     </div>
 
